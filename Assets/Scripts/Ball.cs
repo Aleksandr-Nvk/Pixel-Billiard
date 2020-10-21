@@ -1,13 +1,10 @@
-using UnityEngine;
+using UnityEngine.UI;
+using System;
 
-public class Ball : MonoBehaviour
+[Serializable]
+public class Ball
 {
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Hole"))
-        {
-            Debug.Log($"{name} rolled!");
-            Destroy(gameObject);
-        }
-    }
+    public BallType BallType;
+
+    public Image Icon;
 }
