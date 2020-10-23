@@ -4,41 +4,59 @@ public class CueBehaviour : MonoBehaviour
 {
 #pragma warning disable 0649
 
+    [SerializeField] private Controls _controls;
+    
     [SerializeField] private Rigidbody2D _whiteBall;
+
+    [SerializeField] private SpriteRenderer _cue;
     
 #pragma warning restore
-    
-    private bool _isPressed = false;
 
-    private Vector2 _touchPosition;
-    
-    private void Update()
+    private bool _isTouchUp;
+
+    private Vector2 _touchDownPosition;
+    private Vector2 _touchDragPosition;
+    private Vector2 _touchUpPosition;
+
+    private void Start()
     {
-#if  UNITY_EDITOR
-        
-        if (Input.GetMouseButtonDown(0))
-        {
-            _isPressed = true;
-            _touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
-
-#endif
-        
-        if (Input.touchCount > 0)
-        {
-            _isPressed = true;
-            _touchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-        }
+        _controls.OnTouchDown += SetTouchDownData;
+        _controls.OnTouchDrag += SetTouchDragData;
+        _controls.OnTouchUp += SetTouchUpData;
     }
 
     private void FixedUpdate()
     {
-        if (_isPressed)
+        if (_isTouchUp)
         {
-            var targetPosition = (_touchPosition - new Vector2(_whiteBall.position.x, _whiteBall.position.y)).normalized;
-            _whiteBall.AddForce(targetPosition * 10f, ForceMode2D.Impulse);
-            
-            _isPressed = false;
+            Pull();
+            _isTouchUp = false;
         }
-    } 
+    }
+    
+    private void SetTouchDownData(Vector3 touchPosition)
+    {
+        _touchDownPosition = touchPosition;
+    }
+    private void SetTouchDragData(Vector3 touchPosition)
+    {
+        _touchDragPosition = touchPosition;
+    }
+    private void SetTouchUpData(Vector3 touchPosition)
+    {
+        _touchUpPosition = touchPosition;
+
+        _isTouchUp = true;
+    }
+
+    /// <summary>
+    /// Pulls the white ball with specific force to the specific direction
+    /// </summary>
+    private void Pull()
+    {
+        var force = Vector3.Distance(_touchUpPosition, _touchDownPosition) * 200f * Time.fixedDeltaTime;
+        var direction = -(_touchUpPosition - _touchDownPosition).normalized;
+        
+        _whiteBall.AddForce(direction * force, ForceMode2D.Impulse);
+    }
 }

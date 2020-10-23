@@ -8,6 +8,7 @@
           <e p="Ball.cs" t="Include" />
           <e p="BlackBallBehaviour.cs" t="Include" />
           <e p="ColorBallBehaviour.cs" t="Include" />
+          <e p="Controls.cs" t="Include" />
           <e p="CueBehaviour.cs" t="Include" />
           <e p="Entry.cs" t="Include" />
           <e p="Enums.cs" t="Include" />

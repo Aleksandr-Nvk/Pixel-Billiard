@@ -1,4 +1,4 @@
-using UnityEngine.UI;
+using UnityEngine;
 using System;
 
 [Serializable]
@@ -6,5 +6,5 @@ public class Ball
 {
     public BallType BallType;
 
-    public Image Icon;
+    public Sprite Icon;
 }
