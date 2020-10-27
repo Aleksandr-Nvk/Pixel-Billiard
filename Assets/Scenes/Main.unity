@@ -254,9 +254,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 1
-    Icon: {fileID: 21300000, guid: 5359799dd8399476caa305778906e3c8, type: 3}
+  _icon: {fileID: 0}
+--- !u!1 &418784957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 418784958}
+  m_Layer: 0
+  m_Name: CuePeak
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &418784958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418784957}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -4.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1927968053}
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &440230458
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,9 +622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 1
-    Icon: {fileID: 21300000, guid: 9bc919e42a1ef407f921a0bffd1e0c97, type: 3}
+  _icon: {fileID: 0}
 --- !u!1 &662136311
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,9 +756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9473e03a0fba450bb846cc399c2b5926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 2
-    Icon: {fileID: 0}
+  _icon: {fileID: 0}
 --- !u!1 &672864890
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,9 +890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 1
-    Icon: {fileID: 21300000, guid: dce2a23358a4445d290e68bbd160a2c2, type: 3}
+  _icon: {fileID: 0}
 --- !u!1 &858220954
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,9 +1024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 1
-    Icon: {fileID: 21300000, guid: 5b999d766cfce4e898b6c52474391cc9, type: 3}
+  _icon: {fileID: 0}
 --- !u!1 &923910001
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,9 +1203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 1
-    Icon: {fileID: 21300000, guid: 57eb1ee61f74d4e6b938707a7143eadf, type: 3}
+  _icon: {fileID: 0}
 --- !u!1 &1214096599
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,9 +1337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 1
-    Icon: {fileID: 21300000, guid: 1fa8b358753d14da4b6fbe7e55465518, type: 3}
+  _icon: {fileID: 0}
 --- !u!1 &1227306785
 GameObject:
   m_ObjectHideFlags: 0
@@ -1423,7 +1440,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1355175819
 GameObject:
@@ -1558,9 +1575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 1
-    Icon: {fileID: 21300000, guid: 9cedd020d3a72423d99ac559c0589a48, type: 3}
+  _icon: {fileID: 0}
 --- !u!1 &1378214600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1694,9 +1709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 1
-    Icon: {fileID: 21300000, guid: fe7e486e760da457295df0e87167ca65, type: 3}
+  _icon: {fileID: 0}
 --- !u!1 &1591967811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1830,9 +1843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 1
-    Icon: {fileID: 21300000, guid: 1e4edfd25aa05476b871fd7a6a0b7deb, type: 3}
+  _icon: {fileID: 0}
 --- !u!1 &1715766588
 GameObject:
   m_ObjectHideFlags: 0
@@ -2026,9 +2037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 1
-    Icon: {fileID: 21300000, guid: 3342447d47180469d875ab638ea36d54, type: 3}
+  _icon: {fileID: 0}
 --- !u!1 &1787637716
 GameObject:
   m_ObjectHideFlags: 0
@@ -2224,12 +2233,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1927968051}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 418784958}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1927968054
 MonoBehaviour:
@@ -2243,8 +2252,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf50f4e3c7c4ef69f12dec9523731ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _force: 200
+  _minForce: 0
+  _maxForce: 15
+  _startCueOffset: {x: 0, y: -0.5, z: 0}
+  _minCueOffset: -1.5
+  _maxCueOffset: 1.5
   _controls: {fileID: 1263209613}
   _whiteBall: {fileID: 1977705032}
+  _cuePeak: {fileID: 418784957}
   _cue: {fileID: 1927968052}
 --- !u!1 &1935766824
 GameObject:
@@ -2379,9 +2395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 1
-    Icon: {fileID: 21300000, guid: 39bc39ad903464631b227a4c1831a1b1, type: 3}
+  _icon: {fileID: 0}
 --- !u!1 &1948384174
 GameObject:
   m_ObjectHideFlags: 0
@@ -2515,9 +2529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 1
-    Icon: {fileID: 21300000, guid: 83b77df440d8b442da1fcfdfe4aa14b2, type: 3}
+  _icon: {fileID: 0}
 --- !u!1 &1977705028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2596,7 +2608,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977705028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.69, z: 0}
+  m_LocalPosition: {x: 0, y: -4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2651,9 +2663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bab818f97934b6591be26206c43845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 0
-    Icon: {fileID: 0}
+  _icon: {fileID: 0}
 --- !u!1 &2015878991
 GameObject:
   m_ObjectHideFlags: 0
@@ -2787,9 +2797,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 1
-    Icon: {fileID: 21300000, guid: 5b310078c2d374aa197e83d6691dbd71, type: 3}
+  _icon: {fileID: 0}
 --- !u!1 &2081682983
 GameObject:
   m_ObjectHideFlags: 0
@@ -3172,6 +3180,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballModel:
-    BallType: 1
-    Icon: {fileID: 21300000, guid: 8d2d41b8664b4425098b110fd8cb74e7, type: 3}
+  _icon: {fileID: 0}

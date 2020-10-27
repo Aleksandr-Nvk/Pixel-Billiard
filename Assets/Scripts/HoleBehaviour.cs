@@ -6,7 +6,7 @@ public class HoleBehaviour : MonoBehaviour
     {
         var ball = other.gameObject.GetComponent<IBall>();
         
-        if (ball.BallModel.BallType == BallType.Color)
+        if (ball is ColorBallBehaviour)
         {
             Debug.Log($"{other.gameObject.name} rolled!");
             ball.Roll();

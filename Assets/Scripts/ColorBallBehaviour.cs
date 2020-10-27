@@ -4,11 +4,11 @@ public class ColorBallBehaviour : MonoBehaviour, IBall
 {
 #pragma warning disable 0649
     
-    [SerializeField] private Ball _ballModel;
+    [SerializeField] private Sprite _icon;
 
 #pragma warning restore
     
-    public Ball BallModel => _ballModel;
+    public Sprite Icon => _icon;
     
     public void Roll()
     {
