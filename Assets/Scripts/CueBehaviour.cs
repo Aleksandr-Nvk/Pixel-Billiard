@@ -75,6 +75,8 @@ public class CueBehaviour : MonoBehaviour
     {
         _controls.OnTouchDown -= SetTouchDownData;
         _controls.OnTouchDrag -= SetTouchDragData;
+        _controls.OnTouchDrag -= Move;
+        _controls.OnTouchDrag -= Rotate;
         _controls.OnTouchUp -= SetTouchUpData;
     }
 
@@ -124,6 +126,8 @@ public class CueBehaviour : MonoBehaviour
         var direction = -(_touchUpPosition - _whiteBall.gameObject.transform.position).normalized;
         
         _whiteBall.AddForce(direction * Mathf.Clamp(force, _minForce, _maxForce), ForceMode2D.Impulse);
+
+        Animations.Move(transform, Vector3.zero, 0.025f, true);
     }
 
     private void SetTouchDownData(Vector3 touchPosition)
