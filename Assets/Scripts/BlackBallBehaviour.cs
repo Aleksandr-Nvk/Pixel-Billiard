@@ -6,10 +6,14 @@ public class BlackBallBehaviour : MonoBehaviour, IBall
     
     [SerializeField] private Sprite _icon;
 
+    [SerializeField] private BallType _ballType;
+
 #pragma warning restore
     
-    public Sprite Icon => _icon;
+    public BallType BallType => _ballType;
 
+    public Sprite Icon => _icon;
+    
     public void Roll()
     {
         // rolling animation

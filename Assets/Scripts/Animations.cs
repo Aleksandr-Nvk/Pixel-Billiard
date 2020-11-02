@@ -5,8 +5,6 @@ public class Animations : MonoBehaviour
 {
     private static Animations _instance;
 
-    private static Vector3 _velocity = Vector3.zero;
-    
     private void Awake()
     {
         _instance = this;
@@ -23,6 +21,7 @@ public class Animations : MonoBehaviour
     public static Coroutine Move(Transform transform, Vector3 targetPosition, float duration, bool isLocal = false)
     {
         var progress = 0f;
+        var _velocity = Vector3.zero;
         
         IEnumerator Move()
         {
@@ -37,12 +36,9 @@ public class Animations : MonoBehaviour
                 
                 yield return null;
             }
-
-            progress = 0f;
         }
 
-        var animation = _instance.StartCoroutine(Move());
-        return animation;
+        return _instance.StartCoroutine(Move());
     }
 
     /// <summary>

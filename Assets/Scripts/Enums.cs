@@ -1,6 +1,7 @@
 public enum BallType
 {
-    White,
-    Color,
-    Black
+    ColorFilled,
+    ColorStripped,
+    Black,
+    White
 }

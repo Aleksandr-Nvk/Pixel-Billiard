@@ -1,15 +1,17 @@
 using UnityEngine;
+using System;
 
 public class HoleBehaviour : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    public Action<BallType> OnBallRolled;
+    
+    private void OnTriggerEnter2D(Collider2D ballCollider)
     {
-        var ball = other.gameObject.GetComponent<IBall>();
+        var ball = ballCollider.gameObject.GetComponent<IBall>();
         
-        if (ball is ColorBallBehaviour)
-        {
-            Debug.Log($"{other.gameObject.name} rolled!");
-            ball.Roll();
-        }
+        OnBallRolled?.Invoke(ball.BallType);
+        ball.Roll();
+        
+        Debug.Log($"{ballCollider.gameObject.name} rolled!");
     }
 }

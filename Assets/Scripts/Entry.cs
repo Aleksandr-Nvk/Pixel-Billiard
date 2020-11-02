@@ -2,7 +2,17 @@ using UnityEngine;
 
 public class Entry : MonoBehaviour
 {
-    private void Start()
+#pragma warning disable 0649
+
+    [SerializeField] private MoveManager _moveManager;
+    
+#pragma warning restore
+    
+    private void Awake()
     {
+        var firstPlayer = new Player("Nic");
+        var secondPlayer = new Player("Alicia");
+
+        _moveManager.Init(firstPlayer, secondPlayer);
     }
 }
