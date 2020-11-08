@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class CueBehaviour : MonoBehaviour
+public class Cue : MonoBehaviour
 {
 #pragma warning disable 0649
 
@@ -10,8 +11,6 @@ public class CueBehaviour : MonoBehaviour
     
     [SerializeField] private float _minForce;
     [SerializeField] private float _maxForce;
-
-    [SerializeField] private Vector3 _startCueOffset;
     
     [SerializeField] private float _minCueOffset;
     [SerializeField] private float _maxCueOffset;
@@ -19,6 +18,8 @@ public class CueBehaviour : MonoBehaviour
     [Header("Data")]
     
     [SerializeField] private Controls _controls;
+
+    [SerializeField] private Field _field;
     
     [SerializeField] private Rigidbody2D _whiteBall;
     
@@ -41,13 +42,14 @@ public class CueBehaviour : MonoBehaviour
     {
         _newCuePosition = transform.localPosition;
         _newCueRotation = _cuePeak.transform.eulerAngles;
-        transform.localPosition += _startCueOffset;
         
         _controls.OnTouchDown += SetTouchDownData;
         _controls.OnTouchDrag += SetTouchDragData;
         _controls.OnTouchDrag += Move;
         _controls.OnTouchDrag += Rotate;
         _controls.OnTouchUp += SetTouchUpData;
+
+        _field.OnBallsStopped += _ => { AlignWithWhiteBall(); };
     }
 
     private void FixedUpdate()
@@ -57,18 +59,6 @@ public class CueBehaviour : MonoBehaviour
             Pull();
             _isTouchUp = false;
         }
-    }
-
-    private void Update()
-    {
-#if UNITY_EDITOR
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            AlignWithWhiteBall();
-        }
-
-#endif
     }
 
     private void OnDestroy()
@@ -107,14 +97,12 @@ public class CueBehaviour : MonoBehaviour
     }
     
     /// <summary>
-    /// Sets cue peak gameObject position to the white ball position
+    /// Sets cue position to the white ball position
     /// </summary>
     private void AlignWithWhiteBall()
     {
         _cuePeak.transform.position = _whiteBall.gameObject.transform.position;
         _cuePeak.transform.rotation = _whiteBall.gameObject.transform.rotation;
-        
-        transform.localPosition = Vector3.zero + _startCueOffset; // temp
     }
     
     /// <summary>
@@ -124,12 +112,15 @@ public class CueBehaviour : MonoBehaviour
     {
         var force = Vector3.Distance(_touchUpPosition, _touchDownPosition) * _force * Time.fixedDeltaTime;
         var direction = -(_touchUpPosition - _whiteBall.gameObject.transform.position).normalized;
-        
-        _whiteBall.AddForce(direction * Mathf.Clamp(force, _minForce, _maxForce), ForceMode2D.Impulse);
 
         Animations.Move(transform, Vector3.zero, 0.025f, true);
+        _whiteBall.AddForce(direction * Mathf.Clamp(force, _minForce, _maxForce), ForceMode2D.Impulse);
+        
+        _field.CheckBallsMovement();
     }
 
+    #region SetTouchData
+    
     private void SetTouchDownData(Vector3 touchPosition)
     {
         _touchDownPosition = touchPosition;
@@ -144,4 +135,6 @@ public class CueBehaviour : MonoBehaviour
 
         _isTouchUp = true;
     }
+    
+    #endregion
 }

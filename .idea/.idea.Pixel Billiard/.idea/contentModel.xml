@@ -6,17 +6,18 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="Animations.cs" t="Include" />
-          <e p="BlackBallBehaviour.cs" t="Include" />
-          <e p="ColorBallBehaviour.cs" t="Include" />
+          <e p="BlackBall.cs" t="Include" />
+          <e p="ColorBall.cs" t="Include" />
           <e p="Controls.cs" t="Include" />
-          <e p="CueBehaviour.cs" t="Include" />
+          <e p="Cue.cs" t="Include" />
           <e p="Entry.cs" t="Include" />
           <e p="Enums.cs" t="Include" />
-          <e p="HoleBehaviour.cs" t="Include" />
+          <e p="Field.cs" t="Include" />
+          <e p="Hole.cs" t="Include" />
           <e p="IBall.cs" t="Include" />
           <e p="MoveManager.cs" t="Include" />
           <e p="Player.cs" t="Include" />
-          <e p="WhiteBallBehaviour.cs" t="Include" />
+          <e p="WhiteBall.cs" t="Include" />
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">

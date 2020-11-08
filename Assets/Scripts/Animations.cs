@@ -11,34 +11,58 @@ public class Animations : MonoBehaviour
     }
 
     /// <summary>
-    /// Smoothly moves the transform to the target position 
+    /// Smoothly moves the transform to the target position over time
     /// </summary>
     /// <param name="transform"> Transform to move </param>
-    /// <param name="targetPosition"> Position to move to </param>
+    /// <param name="targetPosition"> Target position </param>
     /// <param name="duration"> Animation duration in seconds </param>
-    /// <param name="isLocal"> True if movements are applied in local coordinates </param>
+    /// <param name="isLocal"> Set TRUE if local transform movement required. False by default </param>
     /// <returns> Animation </returns>
     public static Coroutine Move(Transform transform, Vector3 targetPosition, float duration, bool isLocal = false)
     {
-        var progress = 0f;
-        var _velocity = Vector3.zero;
-        
         IEnumerator Move()
         {
-            while (progress < duration)
-            {
-                if (!isLocal)
-                    transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _velocity, duration);
-                else
-                    transform.localPosition = Vector3.SmoothDamp(transform.localPosition, targetPosition, ref _velocity, duration);
+            var startTime = Time.time;
+            var condition = true;
+            
+            var tempStartPosition = isLocal ? transform.localPosition : transform.position;
 
-                progress += Time.deltaTime;
+            while (condition)
+            {
+                var newDuration = (Time.time - startTime) / duration;
+                var newPosition = SmoothVectors(tempStartPosition, targetPosition, newDuration);
+
+                if (isLocal)
+                {
+                    transform.localPosition = newPosition;
+                    condition = transform.localPosition != targetPosition;
+                }
+                else
+                {
+                    transform.position = newPosition;
+                    condition = transform.position != targetPosition;
+                }
                 
                 yield return null;
             }
         }
-
+        
         return _instance.StartCoroutine(Move());
+    }
+
+    /// <summary>
+    /// Smoothly interpolates start and end vector during duration time 
+    /// </summary>
+    /// <param name="start"> Start vector </param>
+    /// <param name="end"> End vector </param>
+    /// <param name="duration"> Time </param>
+    /// <returns> Interpolated vector </returns>
+    private static Vector3 SmoothVectors(Vector3 start, Vector3 end, float duration)
+    {
+        return new Vector3(
+            Mathf.SmoothStep(start.x, end.x, duration),
+            Mathf.SmoothStep(start.y, end.y, duration),
+            Mathf.SmoothStep(start.z, end.z, duration));
     }
 
     /// <summary>

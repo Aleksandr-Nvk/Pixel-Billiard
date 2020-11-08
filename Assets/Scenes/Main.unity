@@ -233,9 +233,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 5359799dd8399476caa305778906e3c8, type: 3}
   _ballType: 0
 --- !u!1 &418784957
 GameObject:
@@ -347,6 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2dcde2a418641f58845886752383acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _field: {fileID: 2081682993}
 --- !u!1 &508550107
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2dcde2a418641f58845886752383acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _field: {fileID: 2081682993}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,9 +604,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -623,7 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 9bc919e42a1ef407f921a0bffd1e0c97, type: 3}
   _ballType: 0
 --- !u!1 &662136311
 GameObject:
@@ -737,9 +739,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -758,7 +760,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9473e03a0fba450bb846cc399c2b5926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
   _ballType: 0
 --- !u!1 &672864890
 GameObject:
@@ -872,9 +873,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -893,8 +894,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
-  _ballType: 0
+  _icon: {fileID: 21300000, guid: dce2a23358a4445d290e68bbd160a2c2, type: 3}
+  _ballType: 1
 --- !u!1 &858220954
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,9 +1008,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -1028,8 +1029,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
-  _ballType: 0
+  _icon: {fileID: 21300000, guid: 5b999d766cfce4e898b6c52474391cc9, type: 3}
+  _ballType: 1
 --- !u!1 &923910001
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,9 +1188,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -1208,7 +1209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 57eb1ee61f74d4e6b938707a7143eadf, type: 3}
   _ballType: 0
 --- !u!1 &1214096599
 GameObject:
@@ -1322,9 +1323,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -1343,7 +1344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 1fa8b358753d14da4b6fbe7e55465518, type: 3}
   _ballType: 0
 --- !u!1 &1227306785
 GameObject:
@@ -1405,6 +1406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2dcde2a418641f58845886752383acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _field: {fileID: 2081682993}
 --- !u!1 &1263209612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,9 +1563,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -1582,8 +1584,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
-  _ballType: 0
+  _icon: {fileID: 21300000, guid: 9cedd020d3a72423d99ac559c0589a48, type: 3}
+  _ballType: 1
 --- !u!1 &1378214600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1696,9 +1698,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -1717,8 +1719,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
-  _ballType: 0
+  _icon: {fileID: 21300000, guid: fe7e486e760da457295df0e87167ca65, type: 3}
+  _ballType: 1
 --- !u!1 &1591967811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1831,9 +1833,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -1852,8 +1854,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
-  _ballType: 0
+  _icon: {fileID: 21300000, guid: 1e4edfd25aa05476b871fd7a6a0b7deb, type: 3}
+  _ballType: 1
 --- !u!1 &1600854498
 GameObject:
   m_ObjectHideFlags: 0
@@ -1908,7 +1910,7 @@ GameObject:
   - component: {fileID: 1665807531}
   - component: {fileID: 1665807530}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Entry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2001,6 +2003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2dcde2a418641f58845886752383acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _field: {fileID: 2081682993}
 --- !u!1 &1766022160
 GameObject:
   m_ObjectHideFlags: 0
@@ -2113,9 +2116,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -2134,8 +2137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
-  _ballType: 0
+  _icon: {fileID: 21300000, guid: 3342447d47180469d875ab638ea36d54, type: 3}
+  _ballType: 1
 --- !u!1 &1787637716
 GameObject:
   m_ObjectHideFlags: 0
@@ -2196,6 +2199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2dcde2a418641f58845886752383acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _field: {fileID: 2081682993}
 --- !u!1 &1920279824
 GameObject:
   m_ObjectHideFlags: 0
@@ -2256,6 +2260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2dcde2a418641f58845886752383acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _field: {fileID: 2081682993}
 --- !u!1 &1927968051
 GameObject:
   m_ObjectHideFlags: 0
@@ -2353,10 +2358,10 @@ MonoBehaviour:
   _force: 200
   _minForce: 0
   _maxForce: 15
-  _startCueOffset: {x: 0, y: -0.5, z: 0}
   _minCueOffset: -1.5
-  _maxCueOffset: 1.5
+  _maxCueOffset: 0
   _controls: {fileID: 1263209613}
+  _field: {fileID: 2081682993}
   _whiteBall: {fileID: 1977705032}
   _cuePeak: {fileID: 418784957}
   _cue: {fileID: 1927968052}
@@ -2472,9 +2477,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -2493,7 +2498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 39bc39ad903464631b227a4c1831a1b1, type: 3}
   _ballType: 0
 --- !u!1 &1948384174
 GameObject:
@@ -2607,9 +2612,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -2628,7 +2633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 83b77df440d8b442da1fcfdfe4aa14b2, type: 3}
   _ballType: 0
 --- !u!1 &1977705028
 GameObject:
@@ -2742,9 +2747,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -2763,8 +2768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bab818f97934b6591be26206c43845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
-  _ballType: 0
+  _ballType: 3
 --- !u!1 &2015878991
 GameObject:
   m_ObjectHideFlags: 0
@@ -2877,9 +2881,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -2898,8 +2902,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
-  _ballType: 0
+  _icon: {fileID: 21300000, guid: 5b310078c2d374aa197e83d6691dbd71, type: 3}
+  _ballType: 1
 --- !u!1 &2081682983
 GameObject:
   m_ObjectHideFlags: 0
@@ -2917,6 +2921,7 @@ GameObject:
   - component: {fileID: 2081682990}
   - component: {fileID: 2081682991}
   - component: {fileID: 2081682992}
+  - component: {fileID: 2081682993}
   m_Layer: 0
   m_Name: Field
   m_TagString: Untagged
@@ -3162,13 +3167,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9638bff8a69c42e7975c3c79582308aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _field: {fileID: 2081682993}
+--- !u!114 &2081682993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081682983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6212f8ec57f14d35b6c7974be1ef4851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _balls:
   - {fileID: 1977705032}
+  - {fileID: 662136315}
   - {fileID: 378274333}
   - {fileID: 2116641607}
   - {fileID: 2015878995}
   - {fileID: 1948384178}
-  - {fileID: 662136315}
   - {fileID: 672864894}
   - {fileID: 1138392423}
   - {fileID: 1378214604}
@@ -3179,13 +3197,6 @@ MonoBehaviour:
   - {fileID: 1591967815}
   - {fileID: 858220958}
   - {fileID: 1935766828}
-  _holes:
-  - {fileID: 1715766591}
-  - {fileID: 1920279827}
-  - {fileID: 1227306788}
-  - {fileID: 508550110}
-  - {fileID: 1787637719}
-  - {fileID: 440230461}
 --- !u!1 &2116641603
 GameObject:
   m_ObjectHideFlags: 0
@@ -3298,9 +3309,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.15
+  m_LinearDrag: 1.5
+  m_AngularDrag: 1.5
   m_GravityScale: 0.1
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
@@ -3319,5 +3330,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56552d353e4f4731b3ef4947cb53787c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 8d2d41b8664b4425098b110fd8cb74e7, type: 3}
   _ballType: 0

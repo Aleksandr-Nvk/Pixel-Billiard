@@ -36,61 +36,7 @@ public class Controls : MonoBehaviour
             _endTouchPosition = GetClickPosition();
             OnTouchUp?.Invoke(_endTouchPosition);
         }
-
-        ////
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            GameObject.Find("RedStripedBall").GetComponent<Rigidbody2D>().velocity = Vector2.one * 2;
-            
-            GameObject.Find("TopRightHole").GetComponent<HoleBehaviour>().OnBallRolled?.Invoke(BallType.Black);
-        }
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
-            GameObject.Find("RedStripedBall").GetComponent<Rigidbody2D>().velocity = Vector2.one * 2;
-
-            GameObject.Find("TopRightHole").GetComponent<HoleBehaviour>().OnBallRolled?.Invoke(BallType.White);
-        }
-        else if (Input.GetKeyDown(KeyCode.F))
-        {
-            GameObject.Find("RedStripedBall").GetComponent<Rigidbody2D>().velocity = Vector2.one * 2;
-
-            GameObject.Find("TopRightHole").GetComponent<HoleBehaviour>().OnBallRolled?.Invoke(BallType.ColorFilled);
-        }
-        else if (Input.GetKeyDown(KeyCode.F))
-        {
-            GameObject.Find("RedStripedBall").GetComponent<Rigidbody2D>().velocity = Vector2.one * 2;
-
-            GameObject.Find("TopRightHole").GetComponent<HoleBehaviour>().OnBallRolled?.Invoke(BallType.ColorStripped);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            GameObject.Find("RedStripedBall").GetComponent<Rigidbody2D>().velocity = Vector2.one * 2;
-
-            GameObject.Find("TopRightHole").GetComponent<HoleBehaviour>().OnBallRolled?.Invoke(BallType.ColorFilled);
-            GameObject.Find("TopRightHole").GetComponent<HoleBehaviour>().OnBallRolled?.Invoke(BallType.ColorStripped);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            GameObject.Find("RedStripedBall").GetComponent<Rigidbody2D>().velocity = Vector2.one * 2;
-
-            GameObject.Find("TopRightHole").GetComponent<HoleBehaviour>().OnBallRolled?.Invoke(BallType.ColorStripped);
-            GameObject.Find("TopRightHole").GetComponent<HoleBehaviour>().OnBallRolled?.Invoke(BallType.ColorFilled);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            GameObject.Find("RedStripedBall").GetComponent<Rigidbody2D>().velocity = Vector2.one * 2;
-
-            GameObject.Find("TopRightHole").GetComponent<HoleBehaviour>().OnBallRolled?.Invoke(BallType.ColorFilled);
-            GameObject.Find("TopRightHole").GetComponent<HoleBehaviour>().OnBallRolled?.Invoke(BallType.ColorFilled);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            GameObject.Find("RedStripedBall").GetComponent<Rigidbody2D>().velocity = Vector2.one * 2;
-
-            GameObject.Find("TopRightHole").GetComponent<HoleBehaviour>().OnBallRolled?.Invoke(BallType.ColorStripped);
-            GameObject.Find("TopRightHole").GetComponent<HoleBehaviour>().OnBallRolled?.Invoke(BallType.ColorStripped);
-        }
-        ////
+        
 #endif
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)

@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-public class WhiteBallBehaviour : MonoBehaviour, IBall
+public class ColorBall : MonoBehaviour, IBall
 {
 #pragma warning disable 0649
     
@@ -17,6 +17,6 @@ public class WhiteBallBehaviour : MonoBehaviour, IBall
     public void Roll()
     {
         // rolling animation
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
