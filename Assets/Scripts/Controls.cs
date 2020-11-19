@@ -29,7 +29,8 @@ public class Controls : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             _currentTouchPosition = GetClickPosition();
-            OnTouchDrag?.Invoke(_currentTouchPosition);
+            if (_currentTouchPosition != _startTouchPosition)
+                OnTouchDrag?.Invoke(_currentTouchPosition);
         }
         if (Input.GetMouseButtonUp(0))
         {

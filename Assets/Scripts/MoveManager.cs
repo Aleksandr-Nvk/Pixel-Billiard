@@ -34,7 +34,7 @@ public class MoveManager : MonoBehaviour
    /// Process the rolled balls types
    /// </summary>
    /// <param name="rolledBallsTypes"> All rolled balls types </param>
-    private void Handle(List<BallType> rolledBallsTypes)
+    private void Handle(HashSet<BallType> rolledBallsTypes)
     {
         if (rolledBallsTypes.Count == 0) // none of the balls rolled
             _hasToSwitch = true;
@@ -52,7 +52,7 @@ public class MoveManager : MonoBehaviour
                 _hasToSwitch = true;
             
         }
-        rolledBallsTypes.Clear();
+        //rolledBallsTypes.Clear();
         
         if (_hasToSwitch)
             SwitchPlayer();
@@ -65,9 +65,9 @@ public class MoveManager : MonoBehaviour
     {
         if (_hasToSwitch)
         {
-            _currentPlayer = _currentPlayer == _firstPlayer ?
-                _secondPlayer : 
-                _firstPlayer;
+            _currentPlayer = _currentPlayer == _firstPlayer
+                ? _secondPlayer
+                : _firstPlayer;
 
             _hasToSwitch = false;
             Debug.Log($"Switched to {_currentPlayer.Name}");

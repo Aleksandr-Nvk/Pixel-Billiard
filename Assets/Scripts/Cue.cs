@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Cue : MonoBehaviour
@@ -7,26 +6,29 @@ public class Cue : MonoBehaviour
 
     [Header("Settings")]
     
+    [Range(0f, 30f)]
     [SerializeField] private float _force;
-    
-    [SerializeField] private float _minForce;
-    [SerializeField] private float _maxForce;
-    
-    [SerializeField] private float _minCueOffset;
-    [SerializeField] private float _maxCueOffset;
 
+    [Range(0f, 30f)]
+    [SerializeField] private float _sensitivity;
+
+    [Range(-5f, 5f)]
+    [SerializeField] private float _minCueOffset;
+    [Range(-5f, 5f)]
+    [SerializeField] private float _maxCueOffset;
+    
     [Header("Data")]
     
     [SerializeField] private Controls _controls;
 
     [SerializeField] private Field _field;
     
-    [SerializeField] private Rigidbody2D _whiteBall;
+    [SerializeField] private WhiteBall _whiteBall;
     
     [SerializeField] private GameObject _cuePeak;
 
     [SerializeField] private SpriteRenderer _cue;
-
+    
 #pragma warning restore
 
     private bool _isTouchUp;
@@ -38,10 +40,17 @@ public class Cue : MonoBehaviour
     private Vector3 _newCuePosition;
     private Vector3 _newCueRotation;
     
+    private float _minForce;
+    private float _maxForce;
+    
     private void Start()
     {
         _newCuePosition = transform.localPosition;
         _newCueRotation = _cuePeak.transform.eulerAngles;
+        transform.position = _whiteBall.gameObject.transform.position;
+
+        _minForce = _minCueOffset * _force;
+        _maxForce = _maxCueOffset * _force;
         
         _controls.OnTouchDown += SetTouchDownData;
         _controls.OnTouchDrag += SetTouchDragData;
@@ -90,9 +99,9 @@ public class Cue : MonoBehaviour
         var touchDownRadius = Vector3.Distance(_whiteBall.gameObject.transform.position, _touchDownPosition);
         var touchDragRadius = Vector3.Distance(_whiteBall.gameObject.transform.position, touchDragPosition);
         
-        var offset = touchDownRadius - touchDragRadius;
+        var offset = (touchDownRadius - touchDragRadius) * _sensitivity;
         
-        _newCuePosition.y = Mathf.Clamp(offset, _minCueOffset, _maxCueOffset);
+        _newCuePosition.y = Mathf.Clamp(offset, -_maxCueOffset, 0);
         transform.localPosition = _newCuePosition;
     }
     
@@ -103,6 +112,8 @@ public class Cue : MonoBehaviour
     {
         _cuePeak.transform.position = _whiteBall.gameObject.transform.position;
         _cuePeak.transform.rotation = _whiteBall.gameObject.transform.rotation;
+        
+        Animations.Fade(_cue, 1f, 0.5f);
     }
     
     /// <summary>
@@ -110,13 +121,12 @@ public class Cue : MonoBehaviour
     /// </summary>
     private void Pull()
     {
-        var force = Vector3.Distance(_touchUpPosition, _touchDownPosition) * _force * Time.fixedDeltaTime;
+        var force = Vector3.Distance(_touchUpPosition, _touchDownPosition) * _force;
         var direction = -(_touchUpPosition - _whiteBall.gameObject.transform.position).normalized;
 
         Animations.Move(transform, Vector3.zero, 0.025f, true);
-        _whiteBall.AddForce(direction * Mathf.Clamp(force, _minForce, _maxForce), ForceMode2D.Impulse);
-        
-        _field.CheckBallsMovement();
+        Animations.Fade(_cue, 0f, 0.5f);
+        _whiteBall.Hit(direction * Mathf.Clamp(force, _minForce, _maxForce), ForceMode2D.Impulse);
     }
 
     #region SetTouchData

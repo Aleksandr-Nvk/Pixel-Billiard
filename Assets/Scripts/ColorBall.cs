@@ -7,7 +7,7 @@ public class ColorBall : MonoBehaviour, IBall
     [SerializeField] private Sprite _icon;
     
     [SerializeField] private BallType _ballType;
-
+    
 #pragma warning restore
     
     public BallType BallType => _ballType;
@@ -16,7 +16,6 @@ public class ColorBall : MonoBehaviour, IBall
     
     public void Roll()
     {
-        // rolling animation
         gameObject.SetActive(false);
     }
 }

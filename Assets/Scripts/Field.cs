@@ -8,15 +8,17 @@ public class Field : MonoBehaviour
 #pragma warning disable 0649
 
     [SerializeField] private Rigidbody2D[] _balls;
-    
+
+    [SerializeField] private WhiteBall _whiteBall;
+
 #pragma warning restore
     
-    public Action<List<BallType>> OnBallsStopped;
+    public Action<HashSet<BallType>> OnBallsStopped;
     
     private bool _isCheckingBallsMovement;
     private bool _areAllBallsStopped;
     
-    private readonly List<BallType> _rolledBallsTypes = new List<BallType>();
+    private readonly HashSet<BallType> _rolledBallsTypes = new HashSet<BallType>();
 
     /// <summary>
     /// Checks if the balls move
@@ -49,6 +51,7 @@ public class Field : MonoBehaviour
             } while (!_areAllBallsStopped);
 
             OnBallsStopped?.Invoke(_rolledBallsTypes);
+            _rolledBallsTypes.Clear();
             _isCheckingBallsMovement = false;
         }
     }

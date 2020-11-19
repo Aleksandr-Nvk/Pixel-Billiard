@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -29,8 +30,8 @@ public class Animations : MonoBehaviour
 
             while (condition)
             {
-                var newDuration = (Time.time - startTime) / duration;
-                var newPosition = SmoothVectors(tempStartPosition, targetPosition, newDuration);
+                var normalizedTime = (Time.time - startTime) / duration;
+                var newPosition = SmoothVectors(tempStartPosition, targetPosition, normalizedTime);
 
                 if (isLocal)
                 {
@@ -46,8 +47,35 @@ public class Animations : MonoBehaviour
                 yield return null;
             }
         }
-        
+
         return _instance.StartCoroutine(Move());
+    }
+
+    /// <summary>
+    /// Smoothly fades in or out the sprite color to the target alpha value over time
+    /// </summary>
+    /// <param name="spriteRendererToFade"> Sprite to fade </param>
+    /// <param name="targetAlpha"> Target alpha </param>
+    /// <param name="duration"> Animation duration in seconds </param>
+    /// <returns> Animation </returns>
+    public static Coroutine Fade(SpriteRenderer spriteRendererToFade, float targetAlpha, float duration)
+    {
+        IEnumerator Fade()
+        {
+            var startTime = Time.time;
+
+            while (Math.Abs(spriteRendererToFade.color.a - targetAlpha) > 0.0001f)
+            {
+                var normalizedTime = (Time.time - startTime) / duration;
+                var newColor = SmoothColorAlpha(spriteRendererToFade.color, targetAlpha, normalizedTime);
+
+                spriteRendererToFade.color = newColor;
+
+                yield return null;
+            }
+        }
+
+        return _instance.StartCoroutine(Fade());
     }
 
     /// <summary>
@@ -63,6 +91,34 @@ public class Animations : MonoBehaviour
             Mathf.SmoothStep(start.x, end.x, duration),
             Mathf.SmoothStep(start.y, end.y, duration),
             Mathf.SmoothStep(start.z, end.z, duration));
+    }
+
+    /// <summary>
+    /// Smoothly interpolates start and end color during duration time
+    /// </summary>
+    /// <param name="start"> Start color </param>
+    /// <param name="end"> End color </param>
+    /// <param name="duration"> Time </param>
+    /// <returns> Interpolated color </returns>
+    private static Color SmoothColors(Color start, Color end, float duration)
+    {
+        return new Color(
+            Mathf.SmoothStep(start.r, end.r, duration),
+            Mathf.SmoothStep(start.g, end.g, duration),
+            Mathf.SmoothStep(start.b, end.b, duration),
+            Mathf.SmoothStep(start.a, end.a, duration));
+    }
+    
+    /// <summary>
+    /// Smoothly interpolates start and end color alpha during duration time
+    /// </summary>
+    /// <param name="start"> Start color </param>
+    /// <param name="end"> End alpha </param>
+    /// <param name="duration"> Time </param>
+    /// <returns> Interpolated color </returns>
+    private static Color SmoothColorAlpha(Color start, float end, float duration)
+    {
+        return new Color(start.r, start.g, start.b, Mathf.SmoothStep(start.a, end, duration));
     }
 
     /// <summary>

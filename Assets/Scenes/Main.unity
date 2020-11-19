@@ -131,9 +131,9 @@ GameObject:
   m_Component:
   - component: {fileID: 378274331}
   - component: {fileID: 378274330}
+  - component: {fileID: 378274334}
   - component: {fileID: 378274333}
   - component: {fileID: 378274332}
-  - component: {fileID: 378274334}
   m_Layer: 0
   m_Name: YellowFilledBall
   m_TagString: Untagged
@@ -280,12 +280,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 418784957}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.5, z: 0}
+  m_LocalPosition: {x: 0, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1927968053}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &440230458
 GameObject:
@@ -462,7 +462,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10.63
+  orthographic size: 11
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -486,7 +486,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -502,9 +502,9 @@ GameObject:
   m_Component:
   - component: {fileID: 569677923}
   - component: {fileID: 569677922}
+  - component: {fileID: 569677926}
   - component: {fileID: 569677925}
   - component: {fileID: 569677924}
-  - component: {fileID: 569677926}
   m_Layer: 0
   m_Name: CrimsonFilledBall
   m_TagString: Untagged
@@ -637,9 +637,9 @@ GameObject:
   m_Component:
   - component: {fileID: 662136313}
   - component: {fileID: 662136312}
+  - component: {fileID: 662136316}
   - component: {fileID: 662136315}
   - component: {fileID: 662136314}
-  - component: {fileID: 662136316}
   m_Layer: 0
   m_Name: BlackBall
   m_TagString: Untagged
@@ -771,9 +771,9 @@ GameObject:
   m_Component:
   - component: {fileID: 672864892}
   - component: {fileID: 672864891}
+  - component: {fileID: 672864895}
   - component: {fileID: 672864894}
   - component: {fileID: 672864893}
-  - component: {fileID: 672864895}
   m_Layer: 0
   m_Name: BlueStripedBall
   m_TagString: Untagged
@@ -906,9 +906,9 @@ GameObject:
   m_Component:
   - component: {fileID: 858220956}
   - component: {fileID: 858220955}
+  - component: {fileID: 858220959}
   - component: {fileID: 858220958}
   - component: {fileID: 858220957}
-  - component: {fileID: 858220959}
   m_Layer: 0
   m_Name: OrangeStripedBall
   m_TagString: Untagged
@@ -1086,9 +1086,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1138392421}
   - component: {fileID: 1138392420}
+  - component: {fileID: 1138392424}
   - component: {fileID: 1138392423}
   - component: {fileID: 1138392422}
-  - component: {fileID: 1138392424}
   m_Layer: 0
   m_Name: PurpleFilledBall
   m_TagString: Untagged
@@ -1221,9 +1221,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1214096601}
   - component: {fileID: 1214096600}
+  - component: {fileID: 1214096604}
   - component: {fileID: 1214096603}
   - component: {fileID: 1214096602}
-  - component: {fileID: 1214096604}
   m_Layer: 0
   m_Name: GreenFilledBall
   m_TagString: Untagged
@@ -1444,12 +1444,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1263209612}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1662820413}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1355175819
 GameObject:
@@ -1461,9 +1461,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1355175821}
   - component: {fileID: 1355175820}
+  - component: {fileID: 1355175824}
   - component: {fileID: 1355175823}
   - component: {fileID: 1355175822}
-  - component: {fileID: 1355175824}
   m_Layer: 0
   m_Name: PurpleStripedBall
   m_TagString: Untagged
@@ -1596,9 +1596,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1378214602}
   - component: {fileID: 1378214601}
+  - component: {fileID: 1378214605}
   - component: {fileID: 1378214604}
   - component: {fileID: 1378214603}
-  - component: {fileID: 1378214605}
   m_Layer: 0
   m_Name: GreenStripedBall
   m_TagString: Untagged
@@ -1731,9 +1731,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1591967813}
   - component: {fileID: 1591967812}
+  - component: {fileID: 1591967816}
   - component: {fileID: 1591967815}
   - component: {fileID: 1591967814}
-  - component: {fileID: 1591967816}
   m_Layer: 0
   m_Name: CrimsonStripedBall
   m_TagString: Untagged
@@ -1892,10 +1892,42 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600854498}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
+  m_Father: {fileID: 1662820413}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1662820412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1662820413}
+  m_Layer: 0
+  m_Name: Tools
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1662820413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662820412}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1263209614}
+  - {fileID: 1600854500}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1941,7 +1973,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1715766588
 GameObject:
@@ -2014,9 +2046,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1766022162}
   - component: {fileID: 1766022161}
+  - component: {fileID: 1766022165}
   - component: {fileID: 1766022164}
   - component: {fileID: 1766022163}
-  - component: {fileID: 1766022165}
   m_Layer: 0
   m_Name: RedStripedBall
   m_TagString: Untagged
@@ -2355,14 +2387,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf50f4e3c7c4ef69f12dec9523731ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _force: 200
-  _minForce: 0
-  _maxForce: 15
-  _minCueOffset: -1.5
-  _maxCueOffset: 0
+  _force: 10
+  _sensitivity: 10
+  _minCueOffset: 0
+  _maxCueOffset: 1.5
   _controls: {fileID: 1263209613}
   _field: {fileID: 2081682993}
-  _whiteBall: {fileID: 1977705032}
+  _whiteBall: {fileID: 1977705033}
   _cuePeak: {fileID: 418784957}
   _cue: {fileID: 1927968052}
 --- !u!1 &1935766824
@@ -2375,9 +2406,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1935766826}
   - component: {fileID: 1935766825}
+  - component: {fileID: 1935766829}
   - component: {fileID: 1935766828}
   - component: {fileID: 1935766827}
-  - component: {fileID: 1935766829}
   m_Layer: 0
   m_Name: OrangeFilledBall
   m_TagString: Untagged
@@ -2510,9 +2541,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1948384176}
   - component: {fileID: 1948384175}
+  - component: {fileID: 1948384179}
   - component: {fileID: 1948384178}
   - component: {fileID: 1948384177}
-  - component: {fileID: 1948384179}
   m_Layer: 0
   m_Name: RedFilledBall
   m_TagString: Untagged
@@ -2713,7 +2744,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977705028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.5, z: 0}
+  m_LocalPosition: {x: 0, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2769,6 +2800,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ballType: 3
+  _field: {fileID: 2081682993}
+  _respawnPosition: {x: 0, y: -5, z: 0}
 --- !u!1 &2015878991
 GameObject:
   m_ObjectHideFlags: 0
@@ -2779,9 +2812,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2015878993}
   - component: {fileID: 2015878992}
+  - component: {fileID: 2015878996}
   - component: {fileID: 2015878995}
   - component: {fileID: 2015878994}
-  - component: {fileID: 2015878996}
   m_Layer: 0
   m_Name: YellowStripedBall
   m_TagString: Untagged
@@ -3197,6 +3230,7 @@ MonoBehaviour:
   - {fileID: 1591967815}
   - {fileID: 858220958}
   - {fileID: 1935766828}
+  _whiteBall: {fileID: 1977705033}
 --- !u!1 &2116641603
 GameObject:
   m_ObjectHideFlags: 0
@@ -3207,9 +3241,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2116641605}
   - component: {fileID: 2116641604}
+  - component: {fileID: 2116641608}
   - component: {fileID: 2116641607}
   - component: {fileID: 2116641606}
-  - component: {fileID: 2116641608}
   m_Layer: 0
   m_Name: BlueFilledBall
   m_TagString: Untagged
