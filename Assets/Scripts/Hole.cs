@@ -2,20 +2,16 @@ using UnityEngine;
 
 public class Hole : MonoBehaviour
 {
-#pragma warning disable 0649
-
-    [SerializeField] private Field _field;
-    
-#pragma warning restore
+    [SerializeField] private Field _field = default;
     
     private void OnTriggerEnter2D(Collider2D ballCollider)
     {
         var ball = ballCollider.gameObject.GetComponent<IBall>();
         
-        if (ball.BallType == BallType.Black)
+        if (ball is BlackBall)
             Debug.Log("GAME OVER");
         else
-            _field.AddRolledBallType(ball.BallType);
+            _field.AddRolledBallType(ball);
         
         ball.Roll();
         

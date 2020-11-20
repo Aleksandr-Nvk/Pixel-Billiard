@@ -16,6 +16,7 @@
           <e p="Hole.cs" t="Include" />
           <e p="IBall.cs" t="Include" />
           <e p="MoveManager.cs" t="Include" />
+          <e p="MoveView.cs" t="Include" />
           <e p="Player.cs" t="Include" />
           <e p="WhiteBall.cs" t="Include" />
         </e>

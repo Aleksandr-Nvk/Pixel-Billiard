@@ -2,18 +2,14 @@
 
 public class WhiteBall : MonoBehaviour, IBall
 {
-#pragma warning disable 0649
-    
-    [SerializeField] private BallType _ballType;
+    [SerializeField] private Field _field = default;
 
-    [SerializeField] private Field _field;
+    [SerializeField] private Vector3 _respawnPosition = default;
+    
+    [SerializeField] private Sprite _icon = default;
 
-    [SerializeField] private Vector3 _respawnPosition;
-    
-#pragma warning restore
-    
-    public BallType BallType => _ballType;
-    
+    public Sprite Icon => _icon;
+
     private Rigidbody2D _ball;
 
     private bool _isRolled;

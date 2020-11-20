@@ -24,7 +24,7 @@ public class Animations : MonoBehaviour
         IEnumerator Move()
         {
             var startTime = Time.time;
-            var condition = true;
+            var condition = (isLocal? transform.localPosition : transform.position) != targetPosition;
             
             var tempStartPosition = isLocal ? transform.localPosition : transform.position;
 

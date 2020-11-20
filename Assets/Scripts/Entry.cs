@@ -2,11 +2,9 @@ using UnityEngine;
 
 public class Entry : MonoBehaviour
 {
-#pragma warning disable 0649
+    [SerializeField] private MoveManager _moveManager = default;
 
-    [SerializeField] private MoveManager _moveManager;
-    
-#pragma warning restore
+    [SerializeField] private MoveView _moveView = default;
     
     private void Awake()
     {
@@ -14,5 +12,6 @@ public class Entry : MonoBehaviour
         var secondPlayer = new Player("Alicia");
 
         _moveManager.Init(firstPlayer, secondPlayer);
+        _moveView.Init(firstPlayer, secondPlayer);
     }
 }

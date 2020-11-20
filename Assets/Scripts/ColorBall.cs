@@ -2,15 +2,11 @@ using UnityEngine;
 
 public class ColorBall : MonoBehaviour, IBall
 {
-#pragma warning disable 0649
+    [SerializeField] private bool _isStriped = default;
     
-    [SerializeField] private Sprite _icon;
-    
-    [SerializeField] private BallType _ballType;
-    
-#pragma warning restore
-    
-    public BallType BallType => _ballType;
+    [SerializeField] private Sprite _icon = default;
+
+    public bool IsStriped => _isStriped;
     
     public Sprite Icon => _icon;
     

@@ -5,20 +5,14 @@ using System;
 
 public class Field : MonoBehaviour
 {
-#pragma warning disable 0649
-
-    [SerializeField] private Rigidbody2D[] _balls;
-
-    [SerializeField] private WhiteBall _whiteBall;
-
-#pragma warning restore
+    [SerializeField] private Rigidbody2D[] _balls = default;
     
-    public Action<HashSet<BallType>> OnBallsStopped;
+    public Action<List<IBall>> OnBallsStopped;
     
     private bool _isCheckingBallsMovement;
     private bool _areAllBallsStopped;
     
-    private readonly HashSet<BallType> _rolledBallsTypes = new HashSet<BallType>();
+    private readonly List<IBall> _rolledBallsTypes = new List<IBall>();
 
     /// <summary>
     /// Checks if the balls move
@@ -60,7 +54,7 @@ public class Field : MonoBehaviour
     /// Adds a new ball type to rolled ball types list
     /// </summary>
     /// <param name="rolledBallType"> Rolled ball type </param>
-    public void AddRolledBallType(BallType rolledBallType)
+    public void AddRolledBallType(IBall rolledBallType)
     {
         _rolledBallsTypes.Add(rolledBallType);
     }

@@ -3,11 +3,7 @@ using System;
 
 public class Controls : MonoBehaviour
 {
-#pragma warning disable 0649
-
-    [SerializeField] private Camera _mainCamera;
-    
-#pragma warning restore
+    [SerializeField] private Camera _mainCamera = default;
     
     public Action<Vector3> OnTouchDown;
     public Action<Vector3> OnTouchDrag;

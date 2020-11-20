@@ -1,6 +1,8 @@
+using UnityEngine;
+
 public interface IBall
 {
-    BallType BallType { get; }
+    Sprite Icon { get; }
     
     void Roll();
 }

@@ -2,35 +2,31 @@ using UnityEngine;
 
 public class Cue : MonoBehaviour
 {
-#pragma warning disable 0649
-
     [Header("Settings")]
     
     [Range(0f, 30f)]
-    [SerializeField] private float _force;
+    [SerializeField] private float _force = default;
 
     [Range(0f, 30f)]
-    [SerializeField] private float _sensitivity;
+    [SerializeField] private float _sensitivity = default;
 
     [Range(-5f, 5f)]
-    [SerializeField] private float _minCueOffset;
+    [SerializeField] private float _minCueOffset = default;
     [Range(-5f, 5f)]
-    [SerializeField] private float _maxCueOffset;
+    [SerializeField] private float _maxCueOffset = default;
     
     [Header("Data")]
     
-    [SerializeField] private Controls _controls;
+    [SerializeField] private Controls _controls = default;
 
-    [SerializeField] private Field _field;
+    [SerializeField] private Field _field = default;
     
-    [SerializeField] private WhiteBall _whiteBall;
+    [SerializeField] private WhiteBall _whiteBall = default;
     
-    [SerializeField] private GameObject _cuePeak;
+    [SerializeField] private GameObject _cuePeak = default;
 
-    [SerializeField] private SpriteRenderer _cue;
+    [SerializeField] private SpriteRenderer _cue = default;
     
-#pragma warning restore
-
     private bool _isTouchUp;
 
     private Vector3 _touchDownPosition;

@@ -3,12 +3,10 @@ using UnityEngine;
 
 public class MoveManager : MonoBehaviour
 {
-#pragma warning disable 0649
+    [SerializeField] private Field _field = default;
 
-    [SerializeField] private Field _field;
+    [SerializeField] private MoveView _moveView = default;
     
-#pragma warning restore
-
     private Player _firstPlayer;
     private Player _secondPlayer;
     
@@ -31,28 +29,33 @@ public class MoveManager : MonoBehaviour
     }
 
    /// <summary>
-   /// Process the rolled balls types
+   /// Process the rolled balls
    /// </summary>
-   /// <param name="rolledBallsTypes"> All rolled balls types </param>
-    private void Handle(HashSet<BallType> rolledBallsTypes)
+   /// <param name="rolledBalls"> All rolled balls </param>
+    private void Handle(List<IBall> rolledBalls)
     {
-        if (rolledBallsTypes.Count == 0) // none of the balls rolled
+        if (rolledBalls.Count == 0) // none of the balls rolled
             _hasToSwitch = true;
         
-        foreach (var rolledBallType in rolledBallsTypes)
+        foreach (var rolledBall in rolledBalls)
         {
-            // first color ball rolled
-            if (!_isFirstColorBallRolled && (rolledBallType == BallType.ColorFilled || rolledBallType == BallType.ColorStriped))
+            if (rolledBall is ColorBall ball)
             {
-                SetPlayersBallType(rolledBallType);
-                _isFirstColorBallRolled = true;
+                if (!_isFirstColorBallRolled) // first color ball rolled
+                {
+                    SetPlayersBallType(rolledBall);
+                    _isFirstColorBallRolled = true;
+                }
+
+                RollColorBall(ball);
             }
             
-            if (rolledBallType != _currentPlayer.BallType || rolledBallType == BallType.White) // none of color balls rolled
+            if (rolledBall is ColorBall colorBall && colorBall.IsStriped != _currentPlayer.HasStripedBalls 
+                || rolledBall is WhiteBall) // none of color balls rolled
+            {
                 _hasToSwitch = true;
-            
+            }
         }
-        //rolledBallsTypes.Clear();
         
         if (_hasToSwitch)
             SwitchPlayer();
@@ -70,26 +73,37 @@ public class MoveManager : MonoBehaviour
                 : _firstPlayer;
 
             _hasToSwitch = false;
+            _moveView.SwitchPointer();
             Debug.Log($"Switched to {_currentPlayer.Name}");
         }
     }
 
     /// <summary>
-    /// Sets the players ball type
+    /// Sets the players color ball type
     /// </summary>
-    /// <param name="ballType"> First color ball to be rolled </param>
-    private void SetPlayersBallType(BallType ballType)
+    /// <param name="ball"> First rolled color ball </param>
+    private void SetPlayersBallType(IBall ball)
     {
-        _currentPlayer.BallType = ballType;
+        _currentPlayer.HasStripedBalls = ((ColorBall)ball).IsStriped;
 
         var opponent = _currentPlayer == _firstPlayer
             ? _secondPlayer
             : _firstPlayer;
+        opponent.HasStripedBalls = !((ColorBall)ball).IsStriped;
 
-        opponent.BallType = ballType == BallType.ColorFilled
-            ? BallType.ColorStriped
-            : BallType.ColorFilled;
+        Debug.Log($"{_firstPlayer.Name}: is striped: {_firstPlayer.HasStripedBalls}, " +
+                  $"{_secondPlayer.Name}: is striped: {_secondPlayer.HasStripedBalls}");
+    }
 
-        Debug.Log($"{_firstPlayer.Name}: {_firstPlayer.BallType}, {_secondPlayer.Name}: {_secondPlayer.BallType}");
+    /// <summary>
+    /// Tells the player that his ball type was rolled
+    /// </summary>
+    /// <param name="rolledBall"> Rolled ball </param>
+    private void RollColorBall(ColorBall rolledBall)
+    {
+        if (_firstPlayer.HasStripedBalls == rolledBall.IsStriped)
+            _moveView.AddBallToFirstPlayer(rolledBall.Icon);
+        else
+            _moveView.AddBallToSecondPlayer(rolledBall.Icon);
     }
 }
