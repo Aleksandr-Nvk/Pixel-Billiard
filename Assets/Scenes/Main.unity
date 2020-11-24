@@ -1713,7 +1713,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9473e03a0fba450bb846cc399c2b5926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
 --- !u!1 &672864890
 GameObject:
   m_ObjectHideFlags: 0
@@ -4003,14 +4002,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf50f4e3c7c4ef69f12dec9523731ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _force: 10
+  _forceCoefficient: 10
   _sensitivity: 10
-  _minCueOffset: 0
   _maxCueOffset: 1.5
+  _cuePeak: {fileID: 418784957}
   _controls: {fileID: 1263209613}
   _field: {fileID: 2081682993}
   _whiteBall: {fileID: 1977705033}
-  _cuePeak: {fileID: 418784957}
   _cue: {fileID: 1927968052}
 --- !u!1 &1935766824
 GameObject:
@@ -4475,7 +4473,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: a033f3c7f9b5b4293aa43f2199b9b3d2, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &1977705033
 MonoBehaviour:
@@ -4490,8 +4488,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _field: {fileID: 2081682993}
+  _ball: {fileID: 1977705032}
   _respawnPosition: {x: 0, y: -5, z: 0}
-  _icon: {fileID: 0}
 --- !u!1 &2015878991
 GameObject:
   m_ObjectHideFlags: 0
@@ -4965,7 +4963,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _field: {fileID: 2081682993}
-  _moveView: {fileID: 323715681}
 --- !u!114 &2081682993
 MonoBehaviour:
   m_ObjectHideFlags: 0

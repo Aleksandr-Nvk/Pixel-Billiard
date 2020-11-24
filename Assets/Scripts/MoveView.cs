@@ -20,42 +20,66 @@ public class MoveView : MonoBehaviour
     private int _firstPlayerBallIndex;
     private int _secondPlayerBallIndex;
 
+    private Player _firstPlayer;
+    private Player _secondPlayer;
+
     public void Init(Player firstPlayer, Player secondPlayer)
     {
+        _firstPlayer = firstPlayer;
+        _secondPlayer = secondPlayer;
+        
         _firstPlayerName.text = firstPlayer.Name;
         _secondPlayerName.text = secondPlayer.Name;
+
+        _firstPlayer.OnBallRolled += AddBallForPlayer;
+        _secondPlayer.OnBallRolled += AddBallForPlayer;
+
+        _firstPlayer.OnPlayerSwitched += SwitchPointer;
+        _secondPlayer.OnPlayerSwitched += SwitchPointer;
+    }
+
+    private void OnDestroy()
+    {
+        _firstPlayer.OnBallRolled -= AddBallForPlayer;
+        _secondPlayer.OnBallRolled -= AddBallForPlayer;
+
+        _firstPlayer.OnPlayerSwitched -= SwitchPointer;
+        _secondPlayer.OnPlayerSwitched -= SwitchPointer;
     }
 
     /// <summary>
     /// Switches the pointer
     /// </summary>
-    public void SwitchPointer()
+    private void SwitchPointer()
     {
         _firstPlayerPointer.SetActive(!_firstPlayerPointer.activeSelf);
         _secondPlayerPointer.SetActive(!_secondPlayerPointer.activeSelf);
     }
 
     /// <summary>
-    /// Adds a rolled ball icon to the first player's view
+    /// Adds an icon to rolled balls view
     /// </summary>
-    /// <param name="ballSprite"> Ball icon </param>
-    public void AddBallToFirstPlayer(Sprite ballSprite)
+    /// <param name="icon"> Icon to add </param>
+    /// <param name="player"> Player to add for </param>
+    private void AddBallForPlayer(Sprite icon, Player player)
     {
-        var image = _firstPlayerBallIcons[_firstPlayerBallIndex];
-        image.sprite = ballSprite;
-        image.color = Color.white;
-        _firstPlayerBallIndex++;
+        if (player == _firstPlayer)
+            AddBallToView(_firstPlayerBallIcons, ref _firstPlayerBallIndex, icon);
+        else
+            AddBallToView(_secondPlayerBallIcons, ref _secondPlayerBallIndex, icon);
     }
-    
+
     /// <summary>
-    /// Adds a rolled ball icon to the second player's view
+    /// Adds an icon to the icons list
     /// </summary>
-    /// <param name="ballSprite"> Ball icon </param>
-    public void AddBallToSecondPlayer(Sprite ballSprite)
+    /// <param name="icons"> Icons list </param>
+    /// <param name="index"> Current index </param>
+    /// <param name="icon"> Icon to add </param>
+    private void AddBallToView(Image[] icons, ref int index, Sprite icon)
     {
-        var image = _secondPlayerBallIcons[_secondPlayerBallIndex];
-        image.sprite = ballSprite;
+        var image = icons[index];
+        image.sprite = icon;
         image.color = Color.white;
-        _secondPlayerBallIndex++;
+        index++;
     }
 }

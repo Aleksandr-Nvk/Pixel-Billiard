@@ -30,7 +30,7 @@ public class Field : MonoBehaviour
             {
                 foreach (var ball in _balls)
                 {
-                    if (Math.Abs(ball.velocity.sqrMagnitude) < 0.001f)
+                    if (Math.Abs(ball.velocity.sqrMagnitude) < 0.0001f)
                     {
                         _areAllBallsStopped = true;
                     }
@@ -40,12 +40,14 @@ public class Field : MonoBehaviour
                         break;
                     }
                 }
-            
+                
                 yield return new WaitForFixedUpdate();
+                
             } while (!_areAllBallsStopped);
 
             OnBallsStopped?.Invoke(_rolledBallsTypes);
             _rolledBallsTypes.Clear();
+            
             _isCheckingBallsMovement = false;
         }
     }

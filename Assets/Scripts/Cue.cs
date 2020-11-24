@@ -1,43 +1,45 @@
+using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Cue : MonoBehaviour
 {
     [Header("Settings")]
     
     [Range(0f, 30f)]
-    [SerializeField] private float _force = default;
+    [SerializeField] private float _forceCoefficient = default;
 
     [Range(0f, 30f)]
     [SerializeField] private float _sensitivity = default;
 
     [Range(-5f, 5f)]
-    [SerializeField] private float _minCueOffset = default;
-    [Range(-5f, 5f)]
     [SerializeField] private float _maxCueOffset = default;
     
     [Header("Data")]
     
+    [SerializeField] private GameObject _cuePeak = default;
+
     [SerializeField] private Controls _controls = default;
 
     [SerializeField] private Field _field = default;
     
     [SerializeField] private WhiteBall _whiteBall = default;
     
-    [SerializeField] private GameObject _cuePeak = default;
-
     [SerializeField] private SpriteRenderer _cue = default;
     
+    private bool _canMove = true;
     private bool _isTouchUp;
-
+    
     private Vector3 _touchDownPosition;
     private Vector3 _touchDragPosition;
     private Vector3 _touchUpPosition;
     
     private Vector3 _newCuePosition;
     private Vector3 _newCueRotation;
-    
-    private float _minForce;
-    private float _maxForce;
+
+    private Coroutine _cueFadeAnimation;
+
+    private Action<List<IBall>> _onBallsStopped;
     
     private void Start()
     {
@@ -45,24 +47,29 @@ public class Cue : MonoBehaviour
         _newCueRotation = _cuePeak.transform.eulerAngles;
         transform.position = _whiteBall.gameObject.transform.position;
 
-        _minForce = _minCueOffset * _force;
-        _maxForce = _maxCueOffset * _force;
-        
         _controls.OnTouchDown += SetTouchDownData;
         _controls.OnTouchDrag += SetTouchDragData;
         _controls.OnTouchDrag += Move;
         _controls.OnTouchDrag += Rotate;
         _controls.OnTouchUp += SetTouchUpData;
 
-        _field.OnBallsStopped += _ => { AlignWithWhiteBall(); };
+        _onBallsStopped = _field.OnBallsStopped += _ =>
+        {
+            AlignWithWhiteBall();
+            _canMove = true;
+        };
+
+        _whiteBall.OnRespawned += AlignWithWhiteBall;
     }
 
     private void FixedUpdate()
     {
-        if (_isTouchUp)
+        if (_isTouchUp && _canMove)
         {
             Pull();
+            
             _isTouchUp = false;
+            _canMove = false;
         }
     }
 
@@ -73,6 +80,10 @@ public class Cue : MonoBehaviour
         _controls.OnTouchDrag -= Move;
         _controls.OnTouchDrag -= Rotate;
         _controls.OnTouchUp -= SetTouchUpData;
+
+        _field.OnBallsStopped -= _onBallsStopped;
+        
+        _whiteBall.OnRespawned -= AlignWithWhiteBall;
     }
 
     /// <summary>
@@ -80,11 +91,14 @@ public class Cue : MonoBehaviour
     /// </summary>
     private void Rotate(Vector3 touchDragPosition)
     {
-        var tempTransform = _cuePeak.transform;
-        tempTransform.LookAt(touchDragPosition, Vector3.back);
+        if (_canMove)
+        {
+            var tempTransform = _cuePeak.transform;
+            tempTransform.LookAt(touchDragPosition, Vector3.back);
         
-        _newCueRotation.z = tempTransform.eulerAngles.z;
-        _cuePeak.transform.eulerAngles = -_newCueRotation;
+            _newCueRotation.z = tempTransform.eulerAngles.z;
+            _cuePeak.transform.eulerAngles = -_newCueRotation;
+        }
     }
 
     /// <summary>
@@ -92,13 +106,16 @@ public class Cue : MonoBehaviour
     /// </summary>
     private void Move(Vector3 touchDragPosition)
     {
-        var touchDownRadius = Vector3.Distance(_whiteBall.gameObject.transform.position, _touchDownPosition);
-        var touchDragRadius = Vector3.Distance(_whiteBall.gameObject.transform.position, touchDragPosition);
+        if (_canMove)
+        {
+            var touchDownRadius = Vector2.Distance(_whiteBall.gameObject.transform.position, _touchDownPosition);
+            var touchDragRadius = Vector2.Distance(_whiteBall.gameObject.transform.position, touchDragPosition);
         
-        var offset = (touchDownRadius - touchDragRadius) * _sensitivity;
+            var offset = (touchDownRadius - touchDragRadius) * _sensitivity;
         
-        _newCuePosition.y = Mathf.Clamp(offset, -_maxCueOffset, 0);
-        transform.localPosition = _newCuePosition;
+            _newCuePosition.y = Mathf.Clamp(offset, -_maxCueOffset, 0);
+            transform.localPosition = _newCuePosition;
+        }
     }
     
     /// <summary>
@@ -109,6 +126,7 @@ public class Cue : MonoBehaviour
         _cuePeak.transform.position = _whiteBall.gameObject.transform.position;
         _cuePeak.transform.rotation = _whiteBall.gameObject.transform.rotation;
         
+        Animations.Stop(_cueFadeAnimation);
         Animations.Fade(_cue, 1f, 0.5f);
     }
     
@@ -117,15 +135,18 @@ public class Cue : MonoBehaviour
     /// </summary>
     private void Pull()
     {
-        var force = Vector3.Distance(_touchUpPosition, _touchDownPosition) * _force;
-        var direction = -(_touchUpPosition - _whiteBall.gameObject.transform.position).normalized;
+        Vector2 direction = (-(_touchUpPosition - _whiteBall.gameObject.transform.position)).normalized;
 
+        var force = Vector2.Distance(_cuePeak.transform.position,
+            _cue.transform.TransformPoint(_cue.transform.localPosition));
+        
         Animations.Move(transform, Vector3.zero, 0.025f, true);
-        Animations.Fade(_cue, 0f, 0.5f);
-        _whiteBall.Hit(direction * Mathf.Clamp(force, _minForce, _maxForce), ForceMode2D.Impulse);
+        _cueFadeAnimation = Animations.Fade(_cue, 0f, 0.5f);
+        
+        _whiteBall.Hit(_forceCoefficient * force * direction, ForceMode2D.Impulse);
     }
 
-    #region SetTouchData
+    #region Input
     
     private void SetTouchDownData(Vector3 touchPosition)
     {
@@ -139,7 +160,7 @@ public class Cue : MonoBehaviour
     {
         _touchUpPosition = touchPosition;
 
-        _isTouchUp = true;
+        if (_canMove) _isTouchUp = true;
     }
     
     #endregion

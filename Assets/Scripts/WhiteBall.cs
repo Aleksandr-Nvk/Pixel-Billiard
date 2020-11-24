@@ -1,27 +1,29 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using System;
 
 public class WhiteBall : MonoBehaviour, IBall
 {
     [SerializeField] private Field _field = default;
+    
+    [SerializeField] private Rigidbody2D _ball = default;
 
     [SerializeField] private Vector3 _respawnPosition = default;
-    
-    [SerializeField] private Sprite _icon = default;
-
-    public Sprite Icon => _icon;
-
-    private Rigidbody2D _ball;
 
     private bool _isRolled;
 
+    public Action OnRespawned;
+    
+    private Action<List<IBall>> _onBallsStopped;
+
     private void Start()
     {
-        _field.OnBallsStopped += _ => { if (_isRolled) Respawn(); };
+        _onBallsStopped = _field.OnBallsStopped += _ => { if (_isRolled) Respawn(); };
     }
-    
-    private void OnValidate()
+
+    private void OnDestroy()
     {
-        _ball = GetComponent<Rigidbody2D>();
+        _field.OnBallsStopped -= _onBallsStopped;
     }
 
     public void Roll()
@@ -49,5 +51,8 @@ public class WhiteBall : MonoBehaviour, IBall
     {
         gameObject.SetActive(true);
         transform.position = _respawnPosition;
+        _isRolled = false;
+        
+        OnRespawned?.Invoke();
     }
 }

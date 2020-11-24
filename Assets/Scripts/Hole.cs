@@ -8,10 +8,7 @@ public class Hole : MonoBehaviour
     {
         var ball = ballCollider.gameObject.GetComponent<IBall>();
         
-        if (ball is BlackBall)
-            Debug.Log("GAME OVER");
-        else
-            _field.AddRolledBallType(ball);
+        _field.AddRolledBallType(ball);
         
         ball.Roll();
         

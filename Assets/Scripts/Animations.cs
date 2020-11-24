@@ -1,15 +1,12 @@
-using System;
 using System.Collections;
 using UnityEngine;
+using System;
 
 public class Animations : MonoBehaviour
 {
     private static Animations _instance;
 
-    private void Awake()
-    {
-        _instance = this;
-    }
+    private void Awake() { _instance = this; }
 
     /// <summary>
     /// Smoothly moves the transform to the target position over time
