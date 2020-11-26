@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MoveManager : MonoBehaviour
 {
     [SerializeField] private Field _field = default;
+
+    public Action OnPlayerSwitched;
     
     private Player _firstPlayer;
     private Player _secondPlayer;
@@ -47,7 +50,7 @@ public class MoveManager : MonoBehaviour
                 switch (rolledBall)
                 {
                     case BlackBall _ when _currentPlayer.RolledColorBallsCount == 7: // black ball rolled (win)
-                        _currentPlayer.OnPlayerWon?.Invoke(_currentPlayer);
+                        Debug.Log($"{_currentPlayer.Name} WINS!");
                         break;
                     
                     case BlackBall _: // black ball rolled (lose)
@@ -98,7 +101,7 @@ public class MoveManager : MonoBehaviour
                 : _firstPlayer;
 
             _hasToSwitch = false;
-            _currentPlayer.OnPlayerSwitched?.Invoke();
+            OnPlayerSwitched?.Invoke();
             
             Debug.Log($"Switched to {_currentPlayer.Name}");
         }

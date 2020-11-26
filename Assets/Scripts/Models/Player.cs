@@ -9,11 +9,7 @@ public class Player
 
     public int RolledColorBallsCount;
     
-    public Action<Sprite, Player> OnBallRolled;
-    
-    public Action<Player> OnPlayerWon;
-
-    public Action OnPlayerSwitched;
+    public Action<Sprite> OnBallRolled;
     
     /// <summary>
     /// Adds the rolled ball to a list
@@ -22,7 +18,7 @@ public class Player
     public void AddRolledBall(ColorBall rolledBall)
     {
         RolledColorBallsCount++;
-        OnBallRolled?.Invoke(rolledBall.Icon, this);
+        OnBallRolled?.Invoke(rolledBall.Icon);
     }
 
     public Player(string name)
