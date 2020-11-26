@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using System;
+using TMPro;
+using UnityEngine.UI;
 
 public class Animations : MonoBehaviour
 {
@@ -49,16 +51,19 @@ public class Animations : MonoBehaviour
     }
 
     /// <summary>
-    /// Smoothly fades in or out the sprite color to the target alpha value over time
+    /// Smoothly fades the sprite color in or out to the target alpha value over time
     /// </summary>
     /// <param name="spriteRendererToFade"> Sprite to fade </param>
     /// <param name="targetAlpha"> Target alpha </param>
     /// <param name="duration"> Animation duration in seconds </param>
+    /// <param name="inactivate"> Inactivate an object after the fading? False by default</param>
     /// <returns> Animation </returns>
-    public static Coroutine Fade(SpriteRenderer spriteRendererToFade, float targetAlpha, float duration)
+    public static Coroutine Fade(SpriteRenderer spriteRendererToFade, float targetAlpha, float duration, bool inactivate = false)
     {
         IEnumerator Fade()
         {
+            spriteRendererToFade.gameObject.SetActive(true);
+
             var startTime = Time.time;
 
             while (Math.Abs(spriteRendererToFade.color.a - targetAlpha) > 0.0001f)
@@ -70,6 +75,72 @@ public class Animations : MonoBehaviour
 
                 yield return null;
             }
+            
+            spriteRendererToFade.gameObject.SetActive(!inactivate);
+        }
+
+        return _instance.StartCoroutine(Fade());
+    }
+    
+    /// <summary>
+    /// Smoothly fades the text color in or out to the target alpha value over time
+    /// </summary>
+    /// <param name="textToFade"> Text to fade </param>
+    /// <param name="targetAlpha"> Target alpha </param>
+    /// <param name="duration"> Animation duration in seconds </param>
+    /// <param name="inactivate"> Inactivate an object after the fading? False by default</param>
+    /// <returns> Animation </returns>
+    public static Coroutine Fade(TextMeshProUGUI textToFade, float targetAlpha, float duration, bool inactivate = false)
+    {
+        IEnumerator Fade()
+        {
+            textToFade.gameObject.SetActive(true);
+            
+            var startTime = Time.time;
+
+            while (Math.Abs(textToFade.color.a - targetAlpha) > 0.0001f)
+            {
+                var normalizedTime = (Time.time - startTime) / duration;
+                var newColor = SmoothColorAlpha(textToFade.color, targetAlpha, normalizedTime);
+
+                textToFade.color = newColor;
+
+                yield return null;
+            }
+            
+            textToFade.gameObject.SetActive(!inactivate);
+        }
+
+        return _instance.StartCoroutine(Fade());
+    }
+    
+    /// <summary>
+    /// Smoothly fades the image color in or out to the target alpha value over time
+    /// </summary>
+    /// <param name="imageToFade"> Image to fade </param>
+    /// <param name="targetAlpha"> Target alpha </param>
+    /// <param name="duration"> Animation duration in seconds </param>
+    /// <param name="inactivate"> Inactivate an object after the fading? False by default</param>
+    /// <returns> Animation </returns>
+    public static Coroutine Fade(Image imageToFade, float targetAlpha, float duration, bool inactivate = false)
+    {
+        IEnumerator Fade()
+        {
+            imageToFade.gameObject.SetActive(true);
+            
+            var startTime = Time.time;
+
+            while (Math.Abs(imageToFade.color.a - targetAlpha) > 0.0001f)
+            {
+                var normalizedTime = (Time.time - startTime) / duration;
+                var newColor = SmoothColorAlpha(imageToFade.color, targetAlpha, normalizedTime);
+
+                imageToFade.color = newColor;
+
+                yield return null;
+            }
+            
+            imageToFade.gameObject.SetActive(!inactivate);
         }
 
         return _instance.StartCoroutine(Fade());

@@ -4,13 +4,14 @@ using UnityEngine;
 using Interfaces;
 using System;
 
-namespace Models
+namespace Behaviours
 {
     public class Field : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D[] _ballsRigidbodies = default;
         
         public Action<List<IBall>> OnBallsStopped;
+        
         private readonly List<IBall> _rolledBallsTypes = new List<IBall>();
         
         private readonly IBall[] _ballsEntities = new IBall[16]; // all existing balls on the scene
@@ -79,6 +80,11 @@ namespace Models
         /// </summary>
         public void ResetBalls()
         {
+            foreach (var ballRigidBody in _ballsRigidbodies)
+            {
+                ballRigidBody.velocity = Vector2.zero;
+            }
+            
             foreach (var ballEntity in _ballsEntities)
             {
                 ballEntity.Reset();

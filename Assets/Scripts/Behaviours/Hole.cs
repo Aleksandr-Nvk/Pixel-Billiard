@@ -1,17 +1,21 @@
 using UnityEngine;
+using Interfaces;
+using Models;
 
-public class Hole : MonoBehaviour
+namespace Behaviours
 {
-    [SerializeField] private Field _field = default;
-    
-    private void OnTriggerEnter2D(Collider2D ballCollider)
+    public class Hole : MonoBehaviour
     {
-        var ball = ballCollider.gameObject.GetComponent<IBall>();
+        [SerializeField] private Field _field = default;
+    
+        private void OnTriggerEnter2D(Collider2D ballCollider)
+        {
+            var ball = ballCollider.gameObject.GetComponent<IBall>();
         
-        _field.AddRolledBallType(ball);
+            _field.AddRolledBallType(ball);
+            ball.Roll();
         
-        ball.Roll();
-        
-        Debug.Log($"{ballCollider.gameObject.name} rolled!");
+            Debug.Log($"{ballCollider.gameObject.name} rolled!");
+        }
     }
 }

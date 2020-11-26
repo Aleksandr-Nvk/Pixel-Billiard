@@ -5,9 +5,9 @@ public class Controls : MonoBehaviour
 {
     [SerializeField] private Camera _mainCamera = default;
     
-    public Action<Vector3> OnTouchDown;
-    public Action<Vector3> OnTouchDrag;
-    public Action<Vector3> OnTouchUp;
+    public static Action<Vector3> OnTouchDown;
+    public static Action<Vector3> OnTouchDrag;
+    public static Action<Vector3> OnTouchUp;
 
     private Vector3 _startTouchPosition;
     private Vector3 _currentTouchPosition;
