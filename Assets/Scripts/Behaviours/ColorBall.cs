@@ -1,9 +1,9 @@
+using Bases;
 using UnityEngine;
-using Interfaces;
 
 namespace Behaviours
 {
-    public class ColorBall : MonoBehaviour, IBall
+    public class ColorBall : Ball
     {
         [SerializeField] private bool _isStriped = default;
     
@@ -12,26 +12,5 @@ namespace Behaviours
         public bool IsStriped => _isStriped;
     
         public Sprite Icon => _icon;
-
-        private Vector3 _startPosition;
-        private Quaternion _startRotation;
-
-        private void Start()
-        {
-            _startPosition = transform.position;
-            _startRotation = transform.rotation;
-        }
-
-        public void Roll()
-        {
-            gameObject.SetActive(false);
-        }
-
-        public void Reset()
-        {
-            transform.position = _startPosition;
-            transform.rotation = _startRotation;
-            gameObject.SetActive(true);
-        }
     }
 }

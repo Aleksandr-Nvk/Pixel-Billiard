@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Interfaces;
 using Models;
 using System;
+using Bases;
 
 namespace Behaviours
 {
@@ -43,7 +43,7 @@ namespace Behaviours
 
         #region Lambdas
 
-        private Action<List<IBall>> _onBallsStopped;
+        private Action<List<Ball>> _onBallsStopped;
 
         #endregion
     

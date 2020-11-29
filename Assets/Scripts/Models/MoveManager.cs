@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Behaviours;
-using Interfaces;
 using System;
+using Bases;
 
 namespace Models
 {
@@ -34,7 +34,7 @@ namespace Models
         /// Process the rolled balls
         /// </summary>
         /// <param name="rolledBalls"> All rolled balls </param>
-        private void Handle(List<IBall> rolledBalls)
+        private void Handle(List<Ball> rolledBalls)
         {
             if (rolledBalls.Count == 0) // none of the balls rolled
             {
@@ -111,7 +111,7 @@ namespace Models
         /// Sets the players color ball type
         /// </summary>
         /// <param name="ball"> First rolled color ball </param>
-        private void SetPlayersBallType(IBall ball)
+        private void SetPlayersBallType(Ball ball)
         {
             _currentPlayer.HasStripedBalls = ((ColorBall)ball).IsStriped;
 

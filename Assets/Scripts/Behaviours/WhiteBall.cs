@@ -1,32 +1,25 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Interfaces;
-using Models;
 using System;
+using Bases;
 
 namespace Behaviours
 {
-    public class WhiteBall : MonoBehaviour, IBall
+    public class WhiteBall : Ball
     {
         [SerializeField] private Field _field = default;
-    
-        [SerializeField] private Rigidbody2D _ball = default;
-
-        public Action OnReset;
-
-        private Vector3 _startPosition;
-        private Quaternion _startRotation;
         
-        private Action<List<IBall>> _onBallsStoppedLambda;
+        public Action OnReset;
+        
+        private Action<List<Ball>> _onBallsStoppedLambda;
 
         private bool _isRolled;
         
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+            
             _onBallsStoppedLambda = _field.OnBallsStopped += _ => { if (_isRolled) Reset(); };
-
-            _startPosition = transform.position;
-            _startRotation = transform.rotation;
         }
 
         private void OnDestroy()
@@ -34,19 +27,18 @@ namespace Behaviours
             _field.OnBallsStopped -= _onBallsStoppedLambda;
         }
 
-        public void Roll()
+        public override void Roll()
         {
-            _isRolled = true;
+            base.Roll();
 
-            gameObject.SetActive(false);
+            _isRolled = true;
         }
-        
-        public void Reset()
+
+        public override void Reset()
         {
-            transform.position = _startPosition;
-            transform.rotation = _startRotation;
+            base.Reset();
+            
             _isRolled = false;
-            gameObject.SetActive(true);
             
             OnReset?.Invoke();
         }
@@ -58,7 +50,7 @@ namespace Behaviours
         /// <param name="forceMode"> Force mode </param>
         public void Hit(Vector3 force, ForceMode2D forceMode)
         {
-            _ball.AddForce(force, forceMode);
+            _rigidbody.AddForce(force, forceMode);
             _field.CheckBallsMovement();
         }
     }

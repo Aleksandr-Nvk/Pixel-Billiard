@@ -1,32 +1,21 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
-using Interfaces;
 using System;
+using Bases;
 
 namespace Behaviours
 {
     public class Field : MonoBehaviour
     {
-        [SerializeField] private Rigidbody2D[] _ballsRigidbodies = default;
+        [SerializeField] private Ball[] _ballsEntities = default;
         
-        public Action<List<IBall>> OnBallsStopped;
+        public Action<List<Ball>> OnBallsStopped;
         
-        private readonly List<IBall> _rolledBallsTypes = new List<IBall>();
+        private readonly List<Ball> _rolledBalls = new List<Ball>();
         
-        private readonly IBall[] _ballsEntities = new IBall[16]; // all existing balls on the scene
-    
         private bool _isCheckingBallsMovement;
         private bool _areAllBallsStopped;
-
-        private void Start()
-        {
-            // getting all IBall entities
-            for (var i = 0; i < _ballsEntities.Length; i++)
-            {
-                _ballsEntities[i] = _ballsRigidbodies[i].gameObject.GetComponent<IBall>();
-            }
-        }
 
         /// <summary>
         /// Checks if the balls move
@@ -42,9 +31,9 @@ namespace Behaviours
 
                 do
                 {
-                    foreach (var ball in _ballsRigidbodies)
+                    foreach (var ball in _ballsEntities)
                     {
-                        if (Math.Abs(ball.velocity.sqrMagnitude) < 0.0001f)
+                        if (ball.IsStopped)
                         {
                             _areAllBallsStopped = true;
                         }
@@ -59,8 +48,8 @@ namespace Behaviours
                 
                 } while (!_areAllBallsStopped);
 
-                OnBallsStopped?.Invoke(_rolledBallsTypes);
-                _rolledBallsTypes.Clear();
+                OnBallsStopped?.Invoke(_rolledBalls);
+                _rolledBalls.Clear();
             
                 _isCheckingBallsMovement = false;
             }
@@ -70,9 +59,9 @@ namespace Behaviours
         /// Adds a new ball type to rolled ball types list
         /// </summary>
         /// <param name="rolledBallType"> Rolled ball type </param>
-        public void AddRolledBallType(IBall rolledBallType)
+        public void AddRolledBallType(Ball rolledBallType)
         {
-            _rolledBallsTypes.Add(rolledBallType);
+            _rolledBalls.Add(rolledBallType);
         }
 
         /// <summary>
@@ -80,14 +69,9 @@ namespace Behaviours
         /// </summary>
         public void ResetBalls()
         {
-            foreach (var ballRigidBody in _ballsRigidbodies)
+            foreach (var ballRigidBody in _ballsEntities)
             {
-                ballRigidBody.velocity = Vector2.zero;
-            }
-            
-            foreach (var ballEntity in _ballsEntities)
-            {
-                ballEntity.Reset();
+                ballRigidBody.Reset();
             }
         }
     }
