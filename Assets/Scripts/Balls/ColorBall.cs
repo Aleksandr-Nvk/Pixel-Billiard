@@ -1,7 +1,6 @@
-using Bases;
 using UnityEngine;
 
-namespace Behaviours
+namespace Balls
 {
     public class ColorBall : Ball
     {

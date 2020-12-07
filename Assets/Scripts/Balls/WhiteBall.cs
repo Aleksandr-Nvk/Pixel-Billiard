@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using FieldGameplay;
 using UnityEngine;
 using System;
-using Bases;
 
-namespace Behaviours
+namespace Balls
 {
     public class WhiteBall : Ball
     {
@@ -19,7 +19,7 @@ namespace Behaviours
         {
             base.Start();
             
-            _onBallsStoppedLambda = _field.OnBallsStopped += _ => { if (_isRolled) Reset(); };
+            _onBallsStoppedLambda = _field.OnBallsStopped += _ => { if (_isRolled) ResetBall(); };
         }
 
         private void OnDestroy()
@@ -34,12 +34,11 @@ namespace Behaviours
             _isRolled = true;
         }
 
-        public override void Reset()
+        public override void ResetBall()
         {
-            base.Reset();
+            base.ResetBall();
             
             _isRolled = false;
-            
             OnReset?.Invoke();
         }
 

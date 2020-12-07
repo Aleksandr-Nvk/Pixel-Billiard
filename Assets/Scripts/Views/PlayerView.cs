@@ -1,6 +1,6 @@
 using UnityEngine.UI;
+using FieldGameplay;
 using UnityEngine;
-using Models;
 using TMPro;
 
 namespace Views
@@ -18,7 +18,19 @@ namespace Views
             playerModel.OnBallRolled += AddBallToView;
             PlayerName.text = playerModel.Name;
         }
-    
+
+        public void ResetView()
+        {
+            PlayerName = null;
+            
+            foreach (var playerBallIcon in PlayerBallIcons)
+            {
+                playerBallIcon.enabled = false;
+            }
+            
+            PlayerName = null;
+        }
+
         /// <summary>
         /// Adds an icon to rolled balls view
         /// </summary>

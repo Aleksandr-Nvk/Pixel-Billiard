@@ -1,8 +1,8 @@
 using System.Collections;
+using UnityEngine.UI;
 using UnityEngine;
 using System;
 using TMPro;
-using UnityEngine.UI;
 
 public class Animations : MonoBehaviour
 {
@@ -22,14 +22,14 @@ public class Animations : MonoBehaviour
     {
         IEnumerator Move()
         {
-            var startTime = Time.time;
+            var startTime = Time.realtimeSinceStartup;
             var condition = (isLocal? transform.localPosition : transform.position) != targetPosition;
             
             var tempStartPosition = isLocal ? transform.localPosition : transform.position;
 
             while (condition)
             {
-                var normalizedTime = (Time.time - startTime) / duration;
+                var normalizedTime = (Time.realtimeSinceStartup - startTime) / duration;
                 var newPosition = SmoothVectors(tempStartPosition, targetPosition, normalizedTime);
 
                 if (isLocal)
@@ -56,7 +56,6 @@ public class Animations : MonoBehaviour
     /// <param name="spriteRendererToFade"> Sprite to fade </param>
     /// <param name="targetAlpha"> Target alpha </param>
     /// <param name="duration"> Animation duration in seconds </param>
-    /// <param name="inactivate"> Inactivate an object after the fading? False by default</param>
     /// <returns> Animation </returns>
     public static Coroutine Fade(SpriteRenderer spriteRendererToFade, float targetAlpha, float duration)
     {
@@ -64,11 +63,11 @@ public class Animations : MonoBehaviour
         {
             spriteRendererToFade.gameObject.SetActive(true);
 
-            var startTime = Time.time;
+            var startTime = Time.realtimeSinceStartup;
 
             while (Math.Abs(spriteRendererToFade.color.a - targetAlpha) > 0.0001f)
             {
-                var normalizedTime = (Time.time - startTime) / duration;
+                var normalizedTime = (Time.realtimeSinceStartup - startTime) / duration;
                 var newColor = SmoothColorAlpha(spriteRendererToFade.color, targetAlpha, normalizedTime);
 
                 spriteRendererToFade.color = newColor;
@@ -76,7 +75,7 @@ public class Animations : MonoBehaviour
                 yield return null;
             }
             
-            spriteRendererToFade.gameObject.SetActive(Math.Abs(targetAlpha) > 0.01f); // deactivate if invisible
+            spriteRendererToFade.gameObject.SetActive(targetAlpha > 0.001f); // deactivate if invisible
         }
 
         return _instance.StartCoroutine(Fade());
@@ -95,11 +94,11 @@ public class Animations : MonoBehaviour
         {
             textToFade.gameObject.SetActive(true);
             
-            var startTime = Time.time;
+            var startTime = Time.realtimeSinceStartup;
 
             while (Math.Abs(textToFade.color.a - targetAlpha) > 0.0001f)
             {
-                var normalizedTime = (Time.time - startTime) / duration;
+                var normalizedTime = (Time.realtimeSinceStartup - startTime) / duration;
                 var newColor = SmoothColorAlpha(textToFade.color, targetAlpha, normalizedTime);
 
                 textToFade.color = newColor;
@@ -107,7 +106,7 @@ public class Animations : MonoBehaviour
                 yield return null;
             }
             
-            textToFade.gameObject.SetActive(Math.Abs(targetAlpha) > 0.01f); // deactivate if invisible
+            textToFade.gameObject.SetActive(targetAlpha > 0.001f); // deactivate if invisible
         }
 
         return _instance.StartCoroutine(Fade());
@@ -126,11 +125,11 @@ public class Animations : MonoBehaviour
         {
             imageToFade.gameObject.SetActive(true);
             
-            var startTime = Time.time;
+            var startTime = Time.realtimeSinceStartup;
 
             while (Math.Abs(imageToFade.color.a - targetAlpha) > 0.0001f)
             {
-                var normalizedTime = (Time.time - startTime) / duration;
+                var normalizedTime = (Time.realtimeSinceStartup - startTime) / duration;
                 var newColor = SmoothColorAlpha(imageToFade.color, targetAlpha, normalizedTime);
 
                 imageToFade.color = newColor;
@@ -138,7 +137,7 @@ public class Animations : MonoBehaviour
                 yield return null;
             }
             
-            imageToFade.gameObject.SetActive(Math.Abs(targetAlpha) > 0.01f); // deactivate if invisible
+            imageToFade.gameObject.SetActive(targetAlpha > 0.001f); // deactivate if invisible
         }
 
         return _instance.StartCoroutine(Fade());
@@ -160,22 +159,6 @@ public class Animations : MonoBehaviour
     }
 
     /// <summary>
-    /// Smoothly interpolates start and end color during duration time
-    /// </summary>
-    /// <param name="start"> Start color </param>
-    /// <param name="end"> End color </param>
-    /// <param name="duration"> Time </param>
-    /// <returns> Interpolated color </returns>
-    private static Color SmoothColors(Color start, Color end, float duration)
-    {
-        return new Color(
-            Mathf.SmoothStep(start.r, end.r, duration),
-            Mathf.SmoothStep(start.g, end.g, duration),
-            Mathf.SmoothStep(start.b, end.b, duration),
-            Mathf.SmoothStep(start.a, end.a, duration));
-    }
-    
-    /// <summary>
     /// Smoothly interpolates start and end color alpha during duration time
     /// </summary>
     /// <param name="start"> Start color </param>
@@ -193,6 +176,7 @@ public class Animations : MonoBehaviour
     /// <param name="animation"> Animation to stop </param>
     public static void Stop(Coroutine animation)
     {
-        _instance.StopCoroutine(animation);
+        if (animation != null)
+            _instance.StopCoroutine(animation);
     }
 }

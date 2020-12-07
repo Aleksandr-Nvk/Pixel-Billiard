@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Behaviours;
 using System;
-using Bases;
+using Balls;
 
-namespace Models
+namespace FieldGameplay
 {
     public class MoveManager
     {
@@ -87,6 +86,8 @@ namespace Models
         
             if (_hasToSwitch)
                 SwitchPlayer();
+
+            InputManager.StartTracking();
         }
     
         /// <summary>

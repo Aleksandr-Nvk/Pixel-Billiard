@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Models;
 using System;
-using Bases;
+using Balls;
 
-namespace Behaviours
+namespace FieldGameplay
 {
     public class Cue : MonoBehaviour
     {
@@ -53,11 +52,11 @@ namespace Behaviours
             _newCueRotation = _cuePeak.transform.eulerAngles;
             transform.position = _whiteBall.gameObject.transform.position;
 
-            Controls.OnTouchDown += SetTouchDownData;
-            Controls.OnTouchDrag += SetTouchDragData;
-            Controls.OnTouchDrag += Move;
-            Controls.OnTouchDrag += Rotate;
-            Controls.OnTouchUp += SetTouchUpData;
+            InputManager.OnTouchDown += SetTouchDownData;
+            InputManager.OnTouchDrag += SetTouchDragData;
+            InputManager.OnTouchDrag += Move;
+            InputManager.OnTouchDrag += Rotate;
+            InputManager.OnTouchUp += SetTouchUpData;
 
             _onBallsStopped = _field.OnBallsStopped += _ =>
             {
@@ -81,11 +80,11 @@ namespace Behaviours
 
         private void OnDestroy()
         {
-            Controls.OnTouchDown -= SetTouchDownData;
-            Controls.OnTouchDrag -= SetTouchDragData;
-            Controls.OnTouchDrag -= Move;
-            Controls.OnTouchDrag -= Rotate;
-            Controls.OnTouchUp -= SetTouchUpData;
+            InputManager.OnTouchDown -= SetTouchDownData;
+            InputManager.OnTouchDrag -= SetTouchDragData;
+            InputManager.OnTouchDrag -= Move;
+            InputManager.OnTouchDrag -= Rotate;
+            InputManager.OnTouchUp -= SetTouchUpData;
 
             _field.OnBallsStopped -= _onBallsStopped;
         
@@ -142,14 +141,14 @@ namespace Behaviours
         private void Pull()
         {
             Vector2 direction = (-(_touchUpPosition - _whiteBall.gameObject.transform.position)).normalized;
-
             var force = Vector2.Distance(_cuePeak.transform.position,
                 _cue.transform.TransformPoint(_cue.transform.localPosition));
-        
+            _whiteBall.Hit(_forceCoefficient * force * direction, ForceMode2D.Impulse);
+            
             Animations.Move(transform, Vector3.zero, 0.025f, true);
             _cueFadeAnimation = Animations.Fade(_cue, 0f, 0.5f);
-        
-            _whiteBall.Hit(_forceCoefficient * force * direction, ForceMode2D.Impulse);
+            
+            InputManager.StopTracking();
         }
 
         #region Input

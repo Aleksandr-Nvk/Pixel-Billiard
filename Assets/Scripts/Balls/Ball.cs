@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Bases
+namespace Balls
 {
     public abstract class Ball : MonoBehaviour
     {
@@ -28,7 +28,7 @@ namespace Bases
         /// <summary>
         /// Resets ball's data
         /// </summary>
-        public virtual void Reset()
+        public virtual void ResetBall()
         {
             _rigidbody.velocity = Vector2.zero;
             

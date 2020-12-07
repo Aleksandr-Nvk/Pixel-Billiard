@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
-using Bases;
+using Balls;
 
-namespace Behaviours
+namespace FieldGameplay
 {
     public class Field : MonoBehaviour
     {
-        [SerializeField] private Ball[] _ballsEntities = default;
+        [SerializeField] private Ball[] _allBalls = default;
         
         public Action<List<Ball>> OnBallsStopped;
         
@@ -31,7 +31,7 @@ namespace Behaviours
 
                 do
                 {
-                    foreach (var ball in _ballsEntities)
+                    foreach (var ball in _allBalls)
                     {
                         if (ball.IsStopped)
                         {
@@ -56,12 +56,12 @@ namespace Behaviours
         }
 
         /// <summary>
-        /// Adds a new ball type to rolled ball types list
+        /// Adds a new ball type to rolled ball list
         /// </summary>
-        /// <param name="rolledBallType"> Rolled ball type </param>
-        public void AddRolledBallType(Ball rolledBallType)
+        /// <param name="rolledBall"> Rolled ball </param>
+        public void AddRolledBallType(Ball rolledBall)
         {
-            _rolledBalls.Add(rolledBallType);
+            _rolledBalls.Add(rolledBall);
         }
 
         /// <summary>
@@ -69,9 +69,9 @@ namespace Behaviours
         /// </summary>
         public void ResetBalls()
         {
-            foreach (var ballRigidBody in _ballsEntities)
+            foreach (var ball in _allBalls)
             {
-                ballRigidBody.Reset();
+                ball.ResetBall();
             }
         }
     }

@@ -1,7 +1,7 @@
-using Bases;
 using UnityEngine;
+using Balls;
 
-namespace Behaviours
+namespace FieldGameplay
 {
     public class Hole : MonoBehaviour
     {

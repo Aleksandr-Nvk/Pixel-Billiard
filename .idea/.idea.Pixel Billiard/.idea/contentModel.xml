@@ -6,27 +6,28 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="Animations.cs" t="Include" />
-          <e p="Bases" t="Include">
+          <e p="Balls" t="Include">
             <e p="Ball.cs" t="Include" />
-          </e>
-          <e p="Behaviours" t="Include">
             <e p="BlackBall.cs" t="Include" />
             <e p="ColorBall.cs" t="Include" />
+            <e p="WhiteBall.cs" t="Include" />
+          </e>
+          <e p="Entry.cs" t="Include" />
+          <e p="FieldGameplay" t="Include">
             <e p="Cue.cs" t="Include" />
             <e p="Field.cs" t="Include" />
             <e p="Hole.cs" t="Include" />
-            <e p="WhiteBall.cs" t="Include" />
-          </e>
-          <e p="Controls.cs" t="Include" />
-          <e p="Entry.cs" t="Include" />
-          <e p="Models" t="Include">
-            <e p="GameSession.cs" t="Include" />
             <e p="MoveManager.cs" t="Include" />
             <e p="Player.cs" t="Include" />
           </e>
+          <e p="GameSession.cs" t="Include" />
+          <e p="InputManager.cs" t="Include" />
           <e p="Views" t="Include">
+            <e p="AnimatedButton.cs" t="Include" />
+            <e p="HomeView.cs" t="Include" />
             <e p="MoveView.cs" t="Include" />
             <e p="PlayerView.cs" t="Include" />
+            <e p="SettingsView.cs" t="Include" />
             <e p="UIController.cs" t="Include" />
           </e>
         </e>

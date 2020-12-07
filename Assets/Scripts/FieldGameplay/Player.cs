@@ -1,8 +1,8 @@
 using UnityEngine;
-using Behaviours;
 using System;
+using Balls;
 
-namespace Models
+namespace FieldGameplay
 {
     public class Player
     {
