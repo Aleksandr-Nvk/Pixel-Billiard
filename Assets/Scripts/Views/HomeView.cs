@@ -19,15 +19,18 @@ namespace Views
 
         public void Init()
         {
-            _settingsButton.onClick.AddListener(Hide);
-            _settingsButton.onClick.AddListener(_settingsView.Show);
+            _settingsButton.onClick.AddListener(() =>
+            {
+                Hide();
+                _settingsView.Show(Show);
+            });
         }
         
         public void Show()
         {
             Animations.Fade(_title1, 1f, 0.5f);
             Animations.Fade(_title2, 1f, 0.5f);
-            
+
             _settingsButton.SetActivity(true);
             _playButton.SetActivity(true);
         }

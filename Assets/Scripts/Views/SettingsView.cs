@@ -1,5 +1,7 @@
-using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine;
+using System;
+using Models;
 
 namespace Views
 {
@@ -10,22 +12,41 @@ namespace Views
         [SerializeField] private Image _settingsView = default;
         
         [SerializeField] private AnimatedButton _closeButton = default;
-        [SerializeField] private AnimatedButton _soundButton = default;
+
         [SerializeField] private AnimatedButton _musicButton = default;
+        [SerializeField] private Sprite _musicOnIcon = default;
+        [SerializeField] private Sprite _musicOffIcon = default;
+        
+        [SerializeField] private AnimatedButton _soundButton = default;
+        [SerializeField] private Sprite _soundOnIcon = default;
+        [SerializeField] private Sprite _soundOffIcon = default;
+        
         [SerializeField] private AnimatedButton _infoButton = default;
 
-        [Header("Other views")]
+        private Action _onShown;
+        private Action _onHidden;
         
-        [SerializeField] private HomeView _homeView = default;
-
-        public void Init()
+        public void Init(Settings settings)
         {
             _closeButton.onClick.AddListener(Hide);
-            _closeButton.onClick.AddListener(_homeView.Show);
+            
+            _musicButton.onClick.AddListener(settings.SwitchMusic);
+            _musicButton.onClick.AddListener(SwitchMusicButtonIcon);
+            
+            _soundButton.onClick.AddListener(settings.SwitchSound);
+            _soundButton.onClick.AddListener(SwitchSoundButtonIcon);
+
+            _infoButton.onClick.AddListener(settings.GetInfo);
         }
         
-        public void Show()
+        /// <summary>
+        /// Shows the view and sets the onHidden action
+        /// </summary>
+        /// <param name="onHidden"> Action to be invoked when hiding the settings view </param>
+        public void Show(Action onHidden)
         {
+            _onHidden = onHidden;
+            
             Animations.Fade(_settingsView, 1f, 0.5f);
             
             _closeButton.SetActivity(true);
@@ -42,6 +63,23 @@ namespace Views
             _soundButton.SetActivity(false);
             _musicButton.SetActivity(false);
             _infoButton.SetActivity(false);
+            
+            _onHidden?.Invoke();
+            _onHidden = null;
+        }
+
+        private void SwitchMusicButtonIcon()
+        {
+            _musicButton.ButtonImage.sprite = _musicButton.ButtonImage.sprite == _musicOnIcon
+                ? _musicOffIcon
+                : _musicOnIcon;
+        }
+        
+        private void SwitchSoundButtonIcon()
+        {
+            _soundButton.ButtonImage.sprite = _soundButton.ButtonImage.sprite == _soundOnIcon
+                ? _soundOffIcon
+                : _soundOnIcon;
         }
     }
 }
