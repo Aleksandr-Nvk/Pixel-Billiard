@@ -19,14 +19,14 @@ namespace FieldGameplay
         [SerializeField] private float _maxCueOffset = default;
     
         [Header("Data")]
-    
-        [SerializeField] private GameObject _cuePeak = default;
-    
-        [SerializeField] private Field _field = default;
         
-        [SerializeField] private WhiteBall _whiteBall = default;
-    
         [SerializeField] private SpriteRenderer _cue = default;
+
+        private GameObject _cuePeak = default;
+
+        private WhiteBall _whiteBall = default;
+        
+        private Field _field = default;
 
         private bool CanMove = true;
         private bool _isTouchUp;
@@ -46,8 +46,12 @@ namespace FieldGameplay
 
         #endregion
     
-        private void Start()
+        public void Init(WhiteBall whiteBall, Field field, GameObject cuePeak)
         {
+            _whiteBall = whiteBall;
+            _field = field;
+            _cuePeak = cuePeak;
+            
             _newCuePosition = transform.localPosition;
             _newCueRotation = _cuePeak.transform.eulerAngles;
             transform.position = _whiteBall.gameObject.transform.position;

@@ -6,6 +6,7 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="Animations.cs" t="Include" />
+          <e p="AudioManager.cs" t="Include" />
           <e p="Balls" t="Include">
             <e p="Ball.cs" t="Include" />
             <e p="BlackBall.cs" t="Include" />
@@ -16,6 +17,7 @@
           <e p="FieldGameplay" t="Include">
             <e p="Cue.cs" t="Include" />
             <e p="Field.cs" t="Include" />
+            <e p="GameplayRootSpawner.cs" t="Include" />
             <e p="Hole.cs" t="Include" />
             <e p="MoveManager.cs" t="Include" />
             <e p="Player.cs" t="Include" />

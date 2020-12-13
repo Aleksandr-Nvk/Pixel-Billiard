@@ -7,18 +7,19 @@ namespace Balls
 {
     public class WhiteBall : Ball
     {
-        [SerializeField] private Field _field = default;
-        
         public Action OnReset;
         
+        private Field _field = default;
+
         private Action<List<Ball>> _onBallsStoppedLambda;
 
         private bool _isRolled;
         
-        protected override void Start()
+        public override void Init(Field field)
         {
-            base.Start();
-            
+            _field = field;
+
+            base.Init(field);
             _onBallsStoppedLambda = _field.OnBallsStopped += _ => { if (_isRolled) ResetBall(); };
         }
 
@@ -49,6 +50,7 @@ namespace Balls
         /// <param name="forceMode"> Force mode </param>
         public void Hit(Vector3 force, ForceMode2D forceMode)
         {
+            //AudioManager.PlayBallSound();
             _rigidbody.AddForce(force, forceMode);
             _field.CheckBallsMovement();
         }

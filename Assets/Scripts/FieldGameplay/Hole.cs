@@ -11,7 +11,7 @@ namespace FieldGameplay
         {
             var ball = ballCollider.gameObject.GetComponent<Ball>();
         
-            _field.AddRolledBallType(ball);
+            _field.AddRolledBall(ball);
             ball.Roll();
         
             Debug.Log($"{ballCollider.gameObject.name} rolled!");

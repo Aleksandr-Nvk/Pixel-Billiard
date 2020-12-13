@@ -1,3 +1,4 @@
+using FieldGameplay;
 using UnityEngine;
 
 namespace Balls
@@ -11,10 +12,22 @@ namespace Balls
         private Vector2 _startPosition;
         private Quaternion _startRotation;
         
-        protected virtual void Start()
+        public virtual void Init(Field field)
         {
             _startPosition = transform.position;
             _startRotation = transform.rotation;
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Field"))
+            {
+                //AudioManager.PlayBallWoodSound();
+            }
+            else if (collision.gameObject.CompareTag("Ball"))
+            {
+                //AudioManager.PlayBallSound();
+            }
         }
 
         /// <summary>
