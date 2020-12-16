@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7664965244775629785}
   - component: {fileID: 7664965244775629784}
-  - component: {fileID: 7664965244775629786}
   m_Layer: 0
   m_Name: Cue
   m_TagString: Untagged
@@ -82,25 +81,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7664965244775629786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7664965244775629791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbf50f4e3c7c4ef69f12dec9523731ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _forceCoefficient: 7
-  _sensitivity: 10
-  _maxCueOffset: 1.5
-  _cuePeak: {fileID: 7664965246486663249}
-  _field: {fileID: 0}
-  _whiteBall: {fileID: 0}
-  _cue: {fileID: 7664965244775629784}
 --- !u!1 &7664965246486663249
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,6 +90,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7664965246486663250}
+  - component: {fileID: 1000287852742435373}
   m_Layer: 0
   m_Name: CuePeak
   m_TagString: Untagged
@@ -132,3 +113,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1000287852742435373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7664965246486663249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbf50f4e3c7c4ef69f12dec9523731ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _forceCoefficient: 7
+  _sensitivity: 10
+  _maxCueOffset: 1.5
+  _cuePeak: {fileID: 7664965246486663250}
+  _cue: {fileID: 7664965244775629785}
+  _cueRenderer: {fileID: 7664965244775629784}

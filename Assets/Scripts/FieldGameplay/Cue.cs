@@ -20,12 +20,12 @@ namespace FieldGameplay
     
         [Header("Data")]
         
-        [SerializeField] private SpriteRenderer _cue = default;
-
-        private GameObject _cuePeak = default;
+        [SerializeField] private Transform _cuePeak = default;
+        [SerializeField] private Transform _cue = default;
+        
+        [SerializeField] private SpriteRenderer _cueRenderer = default;
 
         private WhiteBall _whiteBall = default;
-        
         private Field _field = default;
 
         private bool CanMove = true;
@@ -36,7 +36,6 @@ namespace FieldGameplay
         private Vector3 _touchUpPosition;
     
         private Vector3 _newCuePosition;
-        private Vector3 _newCueRotation;
 
         private Coroutine _cueFadeAnimation;
 
@@ -46,15 +45,12 @@ namespace FieldGameplay
 
         #endregion
     
-        public void Init(WhiteBall whiteBall, Field field, GameObject cuePeak)
+        public void Init(WhiteBall whiteBall, Field field)
         {
             _whiteBall = whiteBall;
             _field = field;
-            _cuePeak = cuePeak;
             
-            _newCuePosition = transform.localPosition;
-            _newCueRotation = _cuePeak.transform.eulerAngles;
-            transform.position = _whiteBall.gameObject.transform.position;
+            _cuePeak.position = _whiteBall.gameObject.transform.position;
 
             InputManager.OnTouchDown += SetTouchDownData;
             InputManager.OnTouchDrag += SetTouchDragData;
@@ -101,13 +97,7 @@ namespace FieldGameplay
         private void Rotate(Vector3 touchDragPosition)
         {
             if (CanMove)
-            {
-                var tempTransform = _cuePeak.transform;
-                tempTransform.LookAt(touchDragPosition, Vector3.back);
-        
-                _newCueRotation.z = tempTransform.eulerAngles.z;
-                _cuePeak.transform.eulerAngles = -_newCueRotation;
-            }
+                _cuePeak.LookAt(touchDragPosition, Vector3.back);
         }
 
         /// <summary>
@@ -123,7 +113,7 @@ namespace FieldGameplay
                 var offset = (touchDownRadius - touchDragRadius) * _sensitivity;
         
                 _newCuePosition.y = Mathf.Clamp(offset, -_maxCueOffset, 0);
-                transform.localPosition = _newCuePosition;
+                _cue.localPosition = _newCuePosition;
             }
         }
     
@@ -132,11 +122,11 @@ namespace FieldGameplay
         /// </summary>
         private void AlignWithWhiteBall()
         {
-            _cuePeak.transform.position = _whiteBall.gameObject.transform.position;
-            _cuePeak.transform.rotation = Quaternion.identity;
+            _cuePeak.position = _whiteBall.gameObject.transform.position;
+            _cuePeak.rotation = Quaternion.identity;
         
             Animations.Stop(_cueFadeAnimation);
-            Animations.Fade(_cue, 1f, 0.5f);
+            Animations.Fade(_cueRenderer, 1f, 0.5f);
         }
     
         /// <summary>
@@ -145,12 +135,11 @@ namespace FieldGameplay
         private void Pull()
         {
             Vector2 direction = (-(_touchUpPosition - _whiteBall.gameObject.transform.position)).normalized;
-            var force = Vector2.Distance(_cuePeak.transform.position,
-                _cue.transform.TransformPoint(_cue.transform.localPosition));
+            var force = Vector2.Distance(_cuePeak.position, _cue.TransformPoint(_cue.localPosition));
             _whiteBall.Hit(_forceCoefficient * force * direction, ForceMode2D.Impulse);
             
-            Animations.Move(transform, Vector3.zero, 0.025f, true);
-            _cueFadeAnimation = Animations.Fade(_cue, 0f, 0.5f);
+            Animations.Move(_cue, Vector3.zero, 0.025f, true);
+            _cueFadeAnimation = Animations.Fade(_cueRenderer, 0f, 0.5f);
             
             InputManager.StopTracking();
         }

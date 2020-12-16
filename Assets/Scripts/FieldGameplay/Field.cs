@@ -10,12 +10,18 @@ namespace FieldGameplay
     {
         public Action<List<Ball>> OnBallsStopped;
 
-        private readonly List<Ball> _allBalls = new List<Ball>();
+        private Ball[] _allBalls;
+        
         private readonly List<Ball> _rolledBalls = new List<Ball>();
         
         private bool _isCheckingBallsMovement;
         private bool _areAllBallsStopped;
 
+        public void Init(Ball[] allBalls)
+        {
+            _allBalls = allBalls;
+        }
+        
         /// <summary>
         /// Checks if the balls move
         /// </summary>
@@ -61,15 +67,6 @@ namespace FieldGameplay
         public void AddRolledBall(Ball rolledBall)
         {
             _rolledBalls.Add(rolledBall);
-        }
-
-        /// <summary>
-        /// Adds a new ball to ALL balls list
-        /// </summary>
-        /// <param name="ball"> New ball </param>
-        public void AddBall(Ball ball)
-        {
-            _allBalls.Add(ball);
         }
     }
 }

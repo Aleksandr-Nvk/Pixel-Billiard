@@ -13,13 +13,13 @@ namespace Views
         
         private MoveManager _moveManager;
 
-        public void Init(MoveManager moveManager, Player firstPlayer, Player secondPlayer)
+        public void Init(MoveManager moveManager)
         {
             _moveManager = moveManager;
             _moveManager.OnPlayerSwitched += SwitchPointer;
             
-            _firstPlayerView.Init(firstPlayer);
-            _secondPlayerView.Init(secondPlayer);
+            _firstPlayerView.Init(moveManager._firstPlayer);
+            _secondPlayerView.Init(moveManager._secondPlayer);
         }
 
         private void OnDestroy()
@@ -27,15 +27,6 @@ namespace Views
             _moveManager.OnPlayerSwitched -= SwitchPointer;
         }
 
-        public void ResetView()
-        {
-            _secondPlayerPointer.SetActive(false);
-            _firstPlayerPointer.SetActive(true);
-            
-            _firstPlayerView.ResetView();
-            _secondPlayerView.ResetView();
-        }
-        
         /// <summary>
         /// Switches the pointer
         /// </summary>

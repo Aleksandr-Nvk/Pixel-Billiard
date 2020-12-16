@@ -9,23 +9,19 @@ namespace FieldGameplay
     {
         public Action OnPlayerSwitched;
 
-        private readonly Player _firstPlayer;
-        private readonly Player _secondPlayer;
+        public readonly Player _firstPlayer;
+        public readonly Player _secondPlayer;
     
         private Player _currentPlayer;
-
-        private readonly GameSession _gameSession;
-
+        
         private bool _hasToSwitch;
 
-        public MoveManager(GameSession gameSession, Field field, Player firstPlayer, Player secondPlayer)
+        public MoveManager(Field field, Player firstPlayer, Player secondPlayer)
         {
             _firstPlayer = firstPlayer;
             _secondPlayer = secondPlayer;
             _currentPlayer = _firstPlayer;
-
-            _gameSession = gameSession;
-        
+            
             field.OnBallsStopped += Handle;
         }
 
@@ -46,14 +42,14 @@ namespace FieldGameplay
                     switch (rolledBall)
                     {
                         case BlackBall _ when _currentPlayer.RolledColorBallsCount == 7: // black ball rolled (win)
-                            _gameSession.EndSession(_currentPlayer);
+                            // End session
                             break;
                     
                         case BlackBall _: // black ball rolled (lose)
                             var winner = _currentPlayer == _firstPlayer 
                                 ? _firstPlayer 
                                 : _secondPlayer;
-                            _gameSession.EndSession(winner);
+                            // End session
                             break;
                     
                         case ColorBall ball: // some color ball rolled
