@@ -12,27 +12,35 @@ namespace FieldGameplay
 
         [SerializeField] private MoveView _moveView = default;
 
+        private AudioManager _audioManager;
+        
         private GameObject _triangle;
         private Field _field;
         private Cue _cue;
+
+        public void Init(AudioManager audioManager)
+        {
+            _audioManager = audioManager;
+        }
 
         public void Create(bool deletePrevious = false)
         {
             if (deletePrevious)
                 Delete();
             
-            _field =  Instantiate(_fieldPrefab.gameObject, transform).GetComponent<Field>();
+            _field = Instantiate(_fieldPrefab.gameObject, transform).GetComponent<Field>();
             _triangle = Instantiate(_trianglePrefab, transform);
             
             var balls = _triangle.GetComponentsInChildren<Ball>();
             
             foreach (var ballComponent in balls)
             {
+                ballComponent.Init(_audioManager);
                 if (ballComponent is WhiteBall whiteBall)
                 {
                     _cue = Instantiate(_cuePrefab.gameObject, transform).GetComponent<Cue>();
                     _cue.Init(whiteBall, _field);
-                    whiteBall.Init(_fieldPrefab);
+                    whiteBall.Init(_audioManager);
                 }
             }
             
@@ -46,7 +54,7 @@ namespace FieldGameplay
         {
             Destroy(_triangle);
             Destroy(_field.gameObject);
-            Destroy(_cue);
+            Destroy(_cue.gameObject);
         }
     }
 }

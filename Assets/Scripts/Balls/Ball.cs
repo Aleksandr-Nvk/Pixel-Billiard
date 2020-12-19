@@ -1,4 +1,3 @@
-using FieldGameplay;
 using UnityEngine;
 
 namespace Balls
@@ -8,12 +7,16 @@ namespace Balls
         [SerializeField] protected Rigidbody2D _rigidbody = default;
 
         public bool IsStopped => _rigidbody.velocity.sqrMagnitude < 0.0001f;
+        
+        protected AudioManager _audioManager;
 
         private Vector2 _startPosition;
         private Quaternion _startRotation;
         
-        public virtual void Init(Field field)
+        public void Init(AudioManager audioManager)
         {
+            _audioManager = audioManager;
+            
             _startPosition = transform.position;
             _startRotation = transform.rotation;
         }
@@ -21,13 +24,10 @@ namespace Balls
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Field"))
-            {
-                //AudioManager.PlayBallWoodSound();
-            }
+                _audioManager.PlayBallWoodHitSound();
+            
             else if (collision.gameObject.CompareTag("Ball"))
-            {
-                //AudioManager.PlayBallSound();
-            }
+                _audioManager.PlayBallHitSound();
         }
 
         /// <summary>

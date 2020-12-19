@@ -1,6 +1,6 @@
+using System.Collections;
 using UnityEngine;
 using System;
-using System.Collections;
 
 public class InputManager : MonoBehaviour
 {
@@ -24,6 +24,8 @@ public class InputManager : MonoBehaviour
     {
         _instance = this;
         _camera = _mainCamera;
+        
+        StartTracking();
     }
 
     /// <summary>

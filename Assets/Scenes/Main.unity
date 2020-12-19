@@ -564,7 +564,7 @@ GameObject:
   - component: {fileID: 326833618}
   - component: {fileID: 326833619}
   m_Layer: 0
-  m_Name: UI
+  m_Name: UISource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -582,7 +582,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 842866262}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &326833619
 AudioSource:
@@ -597,7 +597,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: f83ca09bbf50547a09ecd57594411b59, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -6949,9 +6949,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2071875786}
-  - {fileID: 2130808768}
   - {fileID: 326833618}
+  - {fileID: 2130808768}
+  - {fileID: 2071875786}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6967,6 +6967,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09cf96d2f1704bb0ae77ef1fae098640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _uiSource: {fileID: 326833619}
+  _ballSource: {fileID: 2130808769}
+  _musicSource: {fileID: 2071875785}
+  _uiTap: {fileID: 8300000, guid: f83ca09bbf50547a09ecd57594411b59, type: 3}
+  _ballHit: {fileID: 8300000, guid: 7135f625ba9e4495db44fd28a8088aa5, type: 3}
+  _ballWoodHit: {fileID: 8300000, guid: b01fe1369b02d4946803f60c2930c4c0, type: 3}
 --- !u!1 &852309687
 GameObject:
   m_ObjectHideFlags: 0
@@ -13541,6 +13547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fieldItemsFactory: {fileID: 2109781042}
+  _audioManager: {fileID: 842866263}
   _uiController: {fileID: 928462442}
 --- !u!4 &1665807531
 Transform:
@@ -14004,7 +14011,7 @@ GameObject:
   - component: {fileID: 2071875786}
   - component: {fileID: 2071875785}
   m_Layer: 0
-  m_Name: Music
+  m_Name: MusicSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14023,7 +14030,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 2f571e619f54a4c17acf84b1fbe0fbdc, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -14119,7 +14126,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 842866262}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2092343055
 GameObject:
@@ -14259,7 +14266,7 @@ GameObject:
   - component: {fileID: 2130808768}
   - component: {fileID: 2130808769}
   m_Layer: 0
-  m_Name: FX
+  m_Name: BallSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14290,9 +14297,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 101739024208888455, guid: 8ed92eebebc6d432c84131d9f1e63061,
     type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 7135f625ba9e4495db44fd28a8088aa5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

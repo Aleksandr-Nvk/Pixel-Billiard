@@ -8,15 +8,15 @@ namespace FieldGameplay
     public class Cue : MonoBehaviour
     {
         [Header("Settings")]
-    
-        [Range(0f, 30f)]
-        [SerializeField] private float _forceCoefficient = default;
 
-        [Range(0f, 30f)]
-        [SerializeField] private float _sensitivity = default;
+        [Range(0f, 20f)]
+        [SerializeField] private float _force = 10f;
+
+        [Range(0f, 20f)]
+        [SerializeField] private float _sensitivity = 10f;
 
         [Range(-5f, 5f)]
-        [SerializeField] private float _maxCueOffset = default;
+        [SerializeField] private float _maxCueOffset = 1.5f;
     
         [Header("Data")]
         
@@ -35,7 +35,10 @@ namespace FieldGameplay
         private Vector3 _touchDragPosition;
         private Vector3 _touchUpPosition;
     
-        private Vector3 _newCuePosition;
+        private Vector3 _currentCuePosition;
+        private Vector3 _currentCuePeakRotation;
+        
+        private float _currentForce;
 
         private Coroutine _cueFadeAnimation;
 
@@ -51,20 +54,21 @@ namespace FieldGameplay
             _field = field;
             
             _cuePeak.position = _whiteBall.gameObject.transform.position;
+            _currentCuePosition = _cue.position;
+            _currentCuePeakRotation = _cuePeak.eulerAngles;
 
             InputManager.OnTouchDown += SetTouchDownData;
-            InputManager.OnTouchDrag += SetTouchDragData;
             InputManager.OnTouchDrag += Move;
             InputManager.OnTouchDrag += Rotate;
             InputManager.OnTouchUp += SetTouchUpData;
+
+            _whiteBall.OnReset += AlignWithWhiteBall;
 
             _onBallsStopped = _field.OnBallsStopped += _ =>
             {
                 AlignWithWhiteBall();
                 CanMove = true;
             };
-
-            _whiteBall.OnReset += AlignWithWhiteBall;
         }
 
         private void FixedUpdate()
@@ -81,14 +85,13 @@ namespace FieldGameplay
         private void OnDestroy()
         {
             InputManager.OnTouchDown -= SetTouchDownData;
-            InputManager.OnTouchDrag -= SetTouchDragData;
             InputManager.OnTouchDrag -= Move;
             InputManager.OnTouchDrag -= Rotate;
             InputManager.OnTouchUp -= SetTouchUpData;
 
-            _field.OnBallsStopped -= _onBallsStopped;
-        
             _whiteBall.OnReset -= AlignWithWhiteBall;
+
+            _field.OnBallsStopped -= _onBallsStopped;
         }
 
         /// <summary>
@@ -97,7 +100,13 @@ namespace FieldGameplay
         private void Rotate(Vector3 touchDragPosition)
         {
             if (CanMove)
-                _cuePeak.LookAt(touchDragPosition, Vector3.back);
+            {
+                var tempTransform = _cuePeak.transform;
+                tempTransform.LookAt(touchDragPosition, Vector3.back);
+        
+                _currentCuePeakRotation.z = tempTransform.eulerAngles.z;
+                _cuePeak.transform.eulerAngles = -_currentCuePeakRotation;
+            }
         }
 
         /// <summary>
@@ -111,9 +120,11 @@ namespace FieldGameplay
                 var touchDragRadius = Vector2.Distance(_whiteBall.gameObject.transform.position, touchDragPosition);
         
                 var offset = (touchDownRadius - touchDragRadius) * _sensitivity;
-        
-                _newCuePosition.y = Mathf.Clamp(offset, -_maxCueOffset, 0);
-                _cue.localPosition = _newCuePosition;
+                var clampedOffset = Mathf.Clamp(offset, -_maxCueOffset, 0);
+                _currentCuePosition.y = clampedOffset;
+                _cue.localPosition = _currentCuePosition;
+
+                _currentForce = Mathf.Abs(clampedOffset) * _force;
             }
         }
     
@@ -134,14 +145,15 @@ namespace FieldGameplay
         /// </summary>
         private void Pull()
         {
-            Vector2 direction = (-(_touchUpPosition - _whiteBall.gameObject.transform.position)).normalized;
-            var force = Vector2.Distance(_cuePeak.position, _cue.TransformPoint(_cue.localPosition));
-            _whiteBall.Hit(_forceCoefficient * force * direction, ForceMode2D.Impulse);
+            Vector2 direction = (-(_touchUpPosition - _cuePeak.position)).normalized;
+            _whiteBall.Hit(_currentForce * direction, ForceMode2D.Impulse);
             
             Animations.Move(_cue, Vector3.zero, 0.025f, true);
             _cueFadeAnimation = Animations.Fade(_cueRenderer, 0f, 0.5f);
             
             InputManager.StopTracking();
+            
+            _field.CheckBallsMovement();
         }
 
         #region Input
@@ -149,10 +161,6 @@ namespace FieldGameplay
         private void SetTouchDownData(Vector3 touchPosition)
         {
             _touchDownPosition = touchPosition;
-        }
-        private void SetTouchDragData(Vector3 touchPosition)
-        {
-            _touchDragPosition = touchPosition;
         }
         private void SetTouchUpData(Vector3 touchPosition)
         {

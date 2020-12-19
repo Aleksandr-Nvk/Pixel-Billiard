@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf50f4e3c7c4ef69f12dec9523731ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _forceCoefficient: 7
+  _force: 10
   _sensitivity: 10
   _maxCueOffset: 1.5
   _cuePeak: {fileID: 7664965246486663250}

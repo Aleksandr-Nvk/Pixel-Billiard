@@ -13,6 +13,8 @@ namespace FieldGameplay
         private Ball[] _allBalls;
         
         private readonly List<Ball> _rolledBalls = new List<Ball>();
+
+        private WhiteBall _whiteBall;
         
         private bool _isCheckingBallsMovement;
         private bool _areAllBallsStopped;
@@ -20,6 +22,18 @@ namespace FieldGameplay
         public void Init(Ball[] allBalls)
         {
             _allBalls = allBalls;
+
+            foreach (var ball in _allBalls)
+            {
+                if (ball is WhiteBall whiteBall)
+                    _whiteBall = whiteBall;
+            }
+        }
+        
+        private void ResetWhiteBall()
+        {
+            if (_whiteBall.IsRolled)
+                _whiteBall.ResetBall();
         }
         
         /// <summary>
@@ -54,16 +68,17 @@ namespace FieldGameplay
                 } while (!_areAllBallsStopped);
 
                 OnBallsStopped?.Invoke(_rolledBalls);
+                ResetWhiteBall();
                 _rolledBalls.Clear();
             
                 _isCheckingBallsMovement = false;
             }
         }
-
+        
         /// <summary>
-        /// Adds a new ball to ROLLED balls list
+        /// Adds a new ball to rolled balls list
         /// </summary>
-        /// <param name="rolledBall"> ROLLED ball </param>
+        /// <param name="rolledBall"> Rolled ball </param>
         public void AddRolledBall(Ball rolledBall)
         {
             _rolledBalls.Add(rolledBall);
