@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using Balls;
 
-namespace FieldGameplay
+namespace FieldData
 {
     public class Field : MonoBehaviour
     {
@@ -19,15 +19,10 @@ namespace FieldGameplay
         private bool _isCheckingBallsMovement;
         private bool _areAllBallsStopped;
 
-        public void Init(Ball[] allBalls)
+        public void Init(Ball[] allBalls, WhiteBall whiteBall)
         {
             _allBalls = allBalls;
-
-            foreach (var ball in _allBalls)
-            {
-                if (ball is WhiteBall whiteBall)
-                    _whiteBall = whiteBall;
-            }
+            _whiteBall = whiteBall;
         }
         
         private void ResetWhiteBall()

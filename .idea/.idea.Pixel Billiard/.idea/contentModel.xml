@@ -9,15 +9,20 @@
           <e p="AudioManager.cs" t="Include" />
           <e p="Balls" t="Include">
             <e p="Ball.cs" t="Include" />
+            <e p="BallsFactory.cs" t="Include" />
             <e p="BlackBall.cs" t="Include" />
             <e p="ColorBall.cs" t="Include" />
+            <e p="Triangle.cs" t="Include" />
             <e p="WhiteBall.cs" t="Include" />
           </e>
-          <e p="Entry.cs" t="Include" />
-          <e p="FieldGameplay" t="Include">
+          <e p="CueData" t="Include">
             <e p="Cue.cs" t="Include" />
+            <e p="CueFactory.cs" t="Include" />
+          </e>
+          <e p="Entry.cs" t="Include" />
+          <e p="FieldData" t="Include">
             <e p="Field.cs" t="Include" />
-            <e p="FieldItemsFactory.cs" t="Include" />
+            <e p="FieldFactory.cs" t="Include" />
             <e p="Hole.cs" t="Include" />
             <e p="MoveManager.cs" t="Include" />
             <e p="Player.cs" t="Include" />

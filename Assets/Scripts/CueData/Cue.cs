@@ -1,9 +1,10 @@
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using System.Collections.Generic;
 using Balls;
+using FieldData;
+using UnityEngine;
 
-namespace FieldGameplay
+namespace CueData
 {
     public class Cue : MonoBehaviour
     {

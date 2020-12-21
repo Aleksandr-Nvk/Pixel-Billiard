@@ -641,7 +641,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 814455711771272263}
-  _field: {fileID: 0}
 --- !u!50 &814455711771272263
 Rigidbody2D:
   serializedVersion: 4
@@ -1910,6 +1909,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 814455712881768829}
+  - component: {fileID: 2270047278594404404}
   m_Layer: 0
   m_Name: Triangle
   m_TagString: Untagged
@@ -1947,6 +1947,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2270047278594404404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814455712881768830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c68840c9f1af4644b490d8f2d73ff1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _balls:
+  - {fileID: 814455713392182289}
+  - {fileID: 814455711657502023}
+  - {fileID: 814455711691741531}
+  - {fileID: 814455711758728636}
+  - {fileID: 814455712619701235}
+  - {fileID: 814455712495197296}
+  - {fileID: 814455712138738535}
+  - {fileID: 814455712396518594}
+  - {fileID: 814455712645111401}
+  - {fileID: 814455711441885722}
+  - {fileID: 814455712356569503}
+  - {fileID: 814455711962948307}
+  - {fileID: 814455712190613063}
+  - {fileID: 814455712950005648}
+  - {fileID: 814455711880327970}
+  - {fileID: 814455711771272262}
+  _whiteBall: {fileID: 814455711771272262}
 --- !u!1 &814455712950005653
 GameObject:
   m_ObjectHideFlags: 0

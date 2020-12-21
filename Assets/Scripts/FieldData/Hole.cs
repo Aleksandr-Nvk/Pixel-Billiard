@@ -1,7 +1,7 @@
 using UnityEngine;
 using Balls;
 
-namespace FieldGameplay
+namespace FieldData
 {
     public class Hole : MonoBehaviour
     {

@@ -13546,7 +13546,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d861c4c243214555afbc77de2b268d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fieldItemsFactory: {fileID: 2109781042}
+  _trianglePrefab: {fileID: 2270047278594404404, guid: f3e5779b9ced447de9e7687b5c86027d,
+    type: 3}
+  _cuePrefab: {fileID: 1000287852742435373, guid: 6f1fa7f0786f144959518d90a6410cbf,
+    type: 3}
+  _fieldPrefab: {fileID: 5060125787679002137, guid: 23fc49ef726e444c6ba74d25d781d36e,
+    type: 3}
   _audioManager: {fileID: 842866263}
   _uiController: {fileID: 928462442}
 --- !u!4 &1665807531
@@ -14214,7 +14219,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2109781043}
-  - component: {fileID: 2109781042}
   m_Layer: 0
   m_Name: Field Items
   m_TagString: Untagged
@@ -14222,25 +14226,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2109781042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2109781041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3afb3cee7e047d09a53409f15ad6fd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _trianglePrefab: {fileID: 814455712881768830, guid: f3e5779b9ced447de9e7687b5c86027d,
-    type: 3}
-  _fieldPrefab: {fileID: 5060125787679002137, guid: 23fc49ef726e444c6ba74d25d781d36e,
-    type: 3}
-  _cuePrefab: {fileID: 1000287852742435373, guid: 6f1fa7f0786f144959518d90a6410cbf,
-    type: 3}
-  _moveView: {fileID: 323715681}
 --- !u!4 &2109781043
 Transform:
   m_ObjectHideFlags: 0

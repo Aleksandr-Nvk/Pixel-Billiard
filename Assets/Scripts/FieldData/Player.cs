@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using Balls;
 
-namespace FieldGameplay
+namespace FieldData
 {
     public class Player
     {
