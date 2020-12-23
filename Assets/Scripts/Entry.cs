@@ -26,10 +26,12 @@ public class Entry : MonoBehaviour
     private void Awake()
     {
         var ballsFactory = new BallsFactory(_trianglePrefab, _audioManager);
-        var cueFactory = new CueFactory(_cuePrefab);
         var fieldFactory = new FieldFactory(_fieldPrefab);
+        var cueFactory = new CueFactory(_cuePrefab);
+        
+        var gameSession = new GameSession(ballsFactory, fieldFactory, cueFactory);
 
-        var settings = new Settings();
-        _uiController.Init(settings);
+        var settings = new Settings(_audioManager);
+        _uiController.Init(gameSession, settings);
     }
 }

@@ -7,7 +7,7 @@ namespace FieldData
 {
     public class MoveManager
     {
-        public Action OnPlayerSwitched;
+        public Action<Player> OnPlayerSwitched;
 
         public readonly Player _firstPlayer;
         public readonly Player _secondPlayer;
@@ -82,8 +82,6 @@ namespace FieldData
         
             if (_hasToSwitch)
                 SwitchPlayer();
-
-            InputManager.StartTracking();
         }
     
         /// <summary>
@@ -96,11 +94,12 @@ namespace FieldData
                 _currentPlayer = _currentPlayer == _firstPlayer
                     ? _secondPlayer
                     : _firstPlayer;
-
-                _hasToSwitch = false;
-                OnPlayerSwitched?.Invoke();
+                
+                OnPlayerSwitched?.Invoke(_currentPlayer);
             
                 Debug.Log($"Switched to {_currentPlayer.Name}");
+                
+                _hasToSwitch = false;
             }
         }
 

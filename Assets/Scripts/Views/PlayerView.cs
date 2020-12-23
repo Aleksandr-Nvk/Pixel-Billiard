@@ -8,15 +8,30 @@ namespace Views
     public class PlayerView : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI PlayerName = default;
+        
+        [SerializeField] private GameObject _pointer = default;
 
         [SerializeField] private Image[] PlayerBallIcons = default;
+        
+        public Player Player;
 
         private int _playerBallIndex;
 
-        public void Init(Player playerModel)
+        public void Init(Player playerModel, MoveManager moveManager)
         {
+            Player = playerModel;
+            
+            moveManager.OnPlayerSwitched += SwitchToPlayer;
             playerModel.OnBallRolled += AddBallToView;
+            
             PlayerName.text = playerModel.Name;
+
+            SwitchToPlayer(moveManager._firstPlayer);
+        }
+
+        private void SwitchToPlayer(Player playerToSwitchTo)
+        {
+            _pointer.SetActive(Player == playerToSwitchTo);
         }
 
         public void ResetView()

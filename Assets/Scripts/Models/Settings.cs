@@ -8,15 +8,22 @@ namespace Models
         public Action OnMusicStateChanged;
         public Action OnSoundStateChanged;
         
+        private readonly AudioManager _audioManager;
+
         private bool _isMusicMuted;
         private bool _isBallSoundMuted;
 
         private const string _infoUrl = "https://t.me/oduvaanchikk";
 
+        public Settings(AudioManager audioManager)
+        {
+            _audioManager = audioManager;
+        }
+        
         public void SwitchMusic()
         {
             _isMusicMuted = !_isMusicMuted;
-            //AudioManager.IsMusicMuted = _isMusicMuted;
+            _audioManager.IsMusicSourceMuted = _isMusicMuted;
             
             OnMusicStateChanged?.Invoke();
         }
@@ -24,7 +31,7 @@ namespace Models
         public void SwitchSound()
         {
             _isBallSoundMuted = !_isBallSoundMuted;
-            //AudioManager.IsSoundMuted = _isBallSoundMuted;
+            _audioManager.IsEffectsSourceMuted = _isBallSoundMuted;
             
             OnSoundStateChanged?.Invoke();
         }

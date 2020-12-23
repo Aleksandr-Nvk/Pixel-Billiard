@@ -24,8 +24,6 @@ public class InputManager : MonoBehaviour
     {
         _instance = this;
         _camera = _mainCamera;
-        
-        StartTracking();
     }
 
     /// <summary>

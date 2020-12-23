@@ -36,6 +36,8 @@ namespace FieldData
         /// </summary>
         public void CheckBallsMovement()
         {
+            InputManager.StopTracking();
+            
             if (!_isCheckingBallsMovement)
                 StartCoroutine(Check());
 
@@ -63,10 +65,12 @@ namespace FieldData
                 } while (!_areAllBallsStopped);
 
                 OnBallsStopped?.Invoke(_rolledBalls);
+                _isCheckingBallsMovement = false;
+
                 ResetWhiteBall();
                 _rolledBalls.Clear();
-            
-                _isCheckingBallsMovement = false;
+                
+                InputManager.StartTracking();
             }
         }
         

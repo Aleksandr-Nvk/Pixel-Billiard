@@ -8,12 +8,10 @@ namespace Views
         [Header("Views")]
         
         [SerializeField] private HomeView _homeView = default;
-        [SerializeField] private SettingsView _settingsView = default;
         
-        public void Init(Settings settings)
+        public void Init(GameSession gameSession, Settings settings)
         {
-            _homeView.Init();
-            _settingsView.Init(settings);
+            _homeView.Init(gameSession, settings);
         }
     }
 }

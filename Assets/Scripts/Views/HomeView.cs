@@ -1,3 +1,4 @@
+using Models;
 using UnityEngine;
 using TMPro;
 
@@ -17,12 +18,24 @@ namespace Views
 
         [SerializeField] private SettingsView _settingsView = default;
 
-        public void Init()
+        [SerializeField] private GameSessionView _gameSessionView = default;
+
+        public void Init(GameSession gameSession, Settings settings)
         {
+            _settingsView.Init(settings);
+            
+            gameSession.OnSessionStarted += moveManager => _gameSessionView.Init(gameSession, moveManager);
+
             _settingsButton.onClick.AddListener(() =>
             {
                 Hide();
                 _settingsView.Show(Show);
+            });
+            
+            _playButton.onClick.AddListener(() =>
+            {
+                Hide();
+                gameSession.StartSession();
             });
         }
         
