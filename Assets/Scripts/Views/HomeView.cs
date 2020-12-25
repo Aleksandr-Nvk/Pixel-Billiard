@@ -17,15 +17,9 @@ namespace Views
         [Header("Other views")]
 
         [SerializeField] private SettingsView _settingsView = default;
-
-        [SerializeField] private GameSessionView _gameSessionView = default;
-
-        public void Init(GameSession gameSession, Settings settings)
+        
+        public void Init(GameSession gameSession)
         {
-            _settingsView.Init(settings);
-            
-            gameSession.OnSessionStarted += moveManager => _gameSessionView.Init(gameSession, moveManager);
-
             _settingsButton.onClick.AddListener(() =>
             {
                 Hide();

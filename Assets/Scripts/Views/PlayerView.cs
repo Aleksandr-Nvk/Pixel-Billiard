@@ -17,14 +17,14 @@ namespace Views
 
         private int _playerBallIndex;
 
-        public void Init(Player playerModel, MoveManager moveManager)
+        public void Init(Player player, MoveManager moveManager)
         {
-            Player = playerModel;
+            Player = player;
             
             moveManager.OnPlayerSwitched += SwitchToPlayer;
-            playerModel.OnBallRolled += AddBallToView;
+            player.OnBallRolled += AddBallToView;
             
-            PlayerName.text = playerModel.Name;
+            PlayerName.text = player.Name;
 
             SwitchToPlayer(moveManager._firstPlayer);
         }

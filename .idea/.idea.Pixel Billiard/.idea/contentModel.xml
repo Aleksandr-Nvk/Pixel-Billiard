@@ -35,10 +35,11 @@
           <e p="Views" t="Include">
             <e p="AnimatedButton.cs" t="Include" />
             <e p="GameSessionView.cs" t="Include" />
+            <e p="GameSessionViewFactory.cs" t="Include" />
             <e p="HomeView.cs" t="Include" />
             <e p="PlayerView.cs" t="Include" />
+            <e p="PlayerViewFactory.cs" t="Include" />
             <e p="SettingsView.cs" t="Include" />
-            <e p="UIController.cs" t="Include" />
           </e>
         </e>
         <e p="TextMesh Pro" t="Include">

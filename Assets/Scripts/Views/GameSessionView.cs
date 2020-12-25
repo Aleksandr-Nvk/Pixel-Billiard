@@ -1,4 +1,3 @@
-using FieldData;
 using Models;
 using UnityEngine;
 
@@ -7,23 +6,18 @@ namespace Views
     public class GameSessionView : MonoBehaviour
     {
         [SerializeField] private AnimatedButton _pauseButton = default;
-
-        [SerializeField] private PlayerView _firstPlayerView = default;
-        [SerializeField] private PlayerView _secondPlayerView = default;
         
         private GameSession _gameSession;
         
-        public void Init(GameSession gameSession, MoveManager moveManager)
+        public void Init(GameSession gameSession)
         {
             Show();
             
             _gameSession = gameSession;
             
-            gameSession.OnSessionStarted += _ => Show();
+            gameSession.OnSessionStarted += Show;
             gameSession.OnSessionEnded += Hide;
-            
-            _firstPlayerView.Init(moveManager._firstPlayer, moveManager);
-            _secondPlayerView.Init(moveManager._secondPlayer, moveManager);
+            gameSession.OnSessionEnded += ResetView;
         }
         
         public void Show()
@@ -33,5 +27,12 @@ namespace Views
 
         public void Hide()
         { }
+
+        public void ResetView()
+        {
+            _gameSession.OnSessionStarted -= Show;
+            _gameSession.OnSessionEnded -= Hide;
+            _gameSession.OnSessionEnded -= ResetView;
+        }
     }
 }
