@@ -12,9 +12,6 @@ namespace Views
         
         public Image ButtonImage = default;
 
-        public Sprite ButtonImageVariant1 = default;
-        public Sprite ButtonImageVariant2 = default;
-
         public Button.ButtonClickedEvent onClick => Button.onClick;
 
         public void SetActivity(bool isShown)
@@ -23,18 +20,9 @@ namespace Views
             Animations.Fade(ButtonImage, isShown ? 1f : 0f, 1f);
         }
 
-        public void SwitchIcon()
+        public void SwitchIcon(Sprite sprite1, Sprite sprite2)
         {
-            if (ButtonImageVariant1 != null && ButtonImageVariant2 != null)
-            {
-                ButtonImage.sprite = ButtonImage.sprite == ButtonImageVariant1
-                    ? ButtonImageVariant2
-                    : ButtonImageVariant1;
-            }
-            else
-            {
-                throw new WarningException($"{Button.gameObject.name} has no button image variants!");
-            }
+            ButtonImage.sprite = ButtonImage.sprite == sprite1 ? sprite2 : sprite1;
         }
     }
 }

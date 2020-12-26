@@ -7,13 +7,6 @@ using Views;
 
 public class Entry : MonoBehaviour
 {
-    [Header("View factories' data")]
-    
-    [SerializeField] private GameSessionView _gameSessionViewPrefab = default;
-    
-    [SerializeField] private PlayerView _firstPlayerViewPrefab = default;
-    [SerializeField] private PlayerView _secondPlayerViewPrefab = default;
-    
     [Header("Field object factories' data")]
     
     [SerializeField] private Triangle _trianglePrefab = default;
@@ -28,22 +21,21 @@ public class Entry : MonoBehaviour
     
     [SerializeField] private HomeView _homeView = default;
     [SerializeField] private SettingsView _settingsView = default;
+    [SerializeField] private GameSessionView _gameSessionView = default;
     
-
     private void Awake()
     {
         var ballsFactory = new BallsFactory(_trianglePrefab, _audioManager);
         var fieldFactory = new FieldFactory(_fieldPrefab);
         var cueFactory = new CueFactory(_cuePrefab);
         
-        var gameSessionViewFactory = new GameSessionViewFactory(_gameSessionViewPrefab, _homeView);
-        var playerViewFactory = new PlayerViewFactory();
-        
-        var gameSession = new GameSession(ballsFactory, fieldFactory, cueFactory, gameSessionViewFactory,
-            playerViewFactory, _firstPlayerViewPrefab, _secondPlayerViewPrefab);
+        var gameSession = new GameSession(ballsFactory, fieldFactory, cueFactory);
 
-        var settings = new Settings(_audioManager);
         _homeView.Init(gameSession);
+        
+        var settings = new Settings(_audioManager);
         _settingsView.Init(settings);
+        
+        _gameSessionView.Init(gameSession);
     }
 }

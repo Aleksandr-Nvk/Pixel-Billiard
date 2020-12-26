@@ -9,11 +9,11 @@ namespace Views
     {
         [SerializeField] private TextMeshProUGUI PlayerName = default;
         
-        [SerializeField] private GameObject _pointer = default;
+        [SerializeField] private Image _pointer = default;
 
         [SerializeField] private Image[] PlayerBallIcons = default;
-        
-        public Player Player;
+
+        private Player Player;
 
         private int _playerBallIndex;
 
@@ -26,12 +26,24 @@ namespace Views
             
             PlayerName.text = player.Name;
 
-            SwitchToPlayer(moveManager._firstPlayer);
+            SwitchToPlayer(moveManager.FirstPlayer);
+        }
+
+        public void Show()
+        {
+            Animations.Fade(PlayerName, 1f, 1f);
+            Animations.Fade(_pointer, 1f, 1f);
+        }
+
+        public void Hide()
+        {
+            Animations.Fade(PlayerName, 0f, 1f);
+            Animations.Fade(_pointer, 0f, 1f);
         }
 
         private void SwitchToPlayer(Player playerToSwitchTo)
         {
-            _pointer.SetActive(Player == playerToSwitchTo);
+            _pointer.gameObject.SetActive(Player == playerToSwitchTo);
         }
 
         public void ResetView()

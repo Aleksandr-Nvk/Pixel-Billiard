@@ -12,8 +12,15 @@ namespace Views
         [SerializeField] private Image _settingsView = default;
         
         [SerializeField] private AnimatedButton _closeButton = default;
+        
         [SerializeField] private AnimatedButton _musicButton = default;
+        [SerializeField] private Sprite _musicOnIcon = default;
+        [SerializeField] private Sprite _musicOffIcon = default;
+        
         [SerializeField] private AnimatedButton _soundButton = default;
+        [SerializeField] private Sprite _soundOnIcon = default;
+        [SerializeField] private Sprite _soundOffIcon = default;
+        
         [SerializeField] private AnimatedButton _infoButton = default;
 
         private Action _onShown;
@@ -24,10 +31,10 @@ namespace Views
             _closeButton.onClick.AddListener(Hide);
             
             _musicButton.onClick.AddListener(settings.SwitchMusic);
-            settings.OnMusicStateChanged += (_musicButton.SwitchIcon);
+            settings.OnMusicStateChanged += () => { _musicButton.SwitchIcon(_musicOnIcon, _musicOffIcon); };
             
             _soundButton.onClick.AddListener(settings.SwitchSound);
-            settings.OnSoundStateChanged += _soundButton.SwitchIcon;
+            settings.OnSoundStateChanged += () => { _soundButton.SwitchIcon(_soundOnIcon, _soundOffIcon); };
             
             _infoButton.onClick.AddListener(settings.GetInfo);
         }

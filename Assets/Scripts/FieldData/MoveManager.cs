@@ -9,18 +9,16 @@ namespace FieldData
     {
         public Action<Player> OnPlayerSwitched;
 
-        public readonly Player _firstPlayer;
-        public readonly Player _secondPlayer;
+        public Player FirstPlayer;
+        public Player SecondPlayer;
     
         private Player _currentPlayer;
         
         private bool _hasToSwitch;
 
-        public MoveManager(Field field, Player firstPlayer, Player secondPlayer)
+        public MoveManager(Field field)
         {
-            _firstPlayer = firstPlayer;
-            _secondPlayer = secondPlayer;
-            _currentPlayer = _firstPlayer;
+            _currentPlayer = FirstPlayer;
             
             field.OnBallsStopped += Handle;
         }
@@ -46,16 +44,16 @@ namespace FieldData
                             break;
                     
                         case BlackBall _: // black ball rolled (lose)
-                            var winner = _currentPlayer == _firstPlayer 
-                                ? _firstPlayer 
-                                : _secondPlayer;
+                            var winner = _currentPlayer == FirstPlayer 
+                                ? FirstPlayer 
+                                : SecondPlayer;
                             // End session
                             break;
                     
                         case ColorBall ball: // some color ball rolled
                         
                             // first color ball rolled
-                            if (_firstPlayer.RolledColorBallsCount == 0 && _secondPlayer.RolledColorBallsCount == 0)
+                            if (FirstPlayer.RolledColorBallsCount == 0 && SecondPlayer.RolledColorBallsCount == 0)
                                 SetPlayersBallType(rolledBall);
 
                             if (ball.IsStriped == _currentPlayer.HasStripedBalls) // right color ball type
@@ -64,10 +62,10 @@ namespace FieldData
                             }
                             else // false color type (switch)
                             {
-                                if (_currentPlayer == _firstPlayer)
-                                    _secondPlayer.AddRolledBall(ball);
+                                if (_currentPlayer == FirstPlayer)
+                                    SecondPlayer.AddRolledBall(ball);
                                 else
-                                    _firstPlayer.AddRolledBall(ball);
+                                    FirstPlayer.AddRolledBall(ball);
 
                                 _hasToSwitch = true;
                             }
@@ -91,9 +89,9 @@ namespace FieldData
         {
             if (_hasToSwitch)
             {
-                _currentPlayer = _currentPlayer == _firstPlayer
-                    ? _secondPlayer
-                    : _firstPlayer;
+                _currentPlayer = _currentPlayer == FirstPlayer
+                    ? SecondPlayer
+                    : FirstPlayer;
                 
                 OnPlayerSwitched?.Invoke(_currentPlayer);
             
@@ -111,13 +109,13 @@ namespace FieldData
         {
             _currentPlayer.HasStripedBalls = ((ColorBall)ball).IsStriped;
 
-            var opponent = _currentPlayer == _firstPlayer
-                ? _secondPlayer
-                : _firstPlayer;
+            var opponent = _currentPlayer == FirstPlayer
+                ? SecondPlayer
+                : FirstPlayer;
             opponent.HasStripedBalls = !((ColorBall)ball).IsStriped;
 
-            Debug.Log($"{_firstPlayer.Name}: is striped: {_firstPlayer.HasStripedBalls}, " +
-                      $"{_secondPlayer.Name}: is striped: {_secondPlayer.HasStripedBalls}");
+            Debug.Log($"{FirstPlayer.Name}: is striped: {FirstPlayer.HasStripedBalls}, " +
+                      $"{SecondPlayer.Name}: is striped: {SecondPlayer.HasStripedBalls}");
         }
     }
 }
