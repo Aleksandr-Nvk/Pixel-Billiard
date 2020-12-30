@@ -17,6 +17,7 @@ namespace Views
         public void SetActivity(bool isShown)
         {
             Button.interactable = isShown;
+            ButtonImage.raycastTarget = isShown;
             Animations.Fade(ButtonImage, isShown ? 1f : 0f, 1f);
         }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AnimationsData;
 using Balls;
 using FieldData;
 using UnityEngine;
@@ -26,8 +27,10 @@ namespace CueData
         
         [SerializeField] private SpriteRenderer _cueRenderer = default;
 
-        private WhiteBall _whiteBall = default;
-        private Field _field = default;
+        private AnimationsManager _animationsManager;
+        
+        private WhiteBall _whiteBall;
+        private Field _field;
 
         private bool CanMove = true;
         private bool _isTouchUp;
@@ -41,7 +44,7 @@ namespace CueData
         
         private float _currentForce;
 
-        private Coroutine _cueFadeAnimation;
+        private Fade _fadeAnimation;
 
         #region Lambdas
 
@@ -49,10 +52,11 @@ namespace CueData
 
         #endregion
     
-        public void Init(WhiteBall whiteBall, Field field)
+        public void Init(WhiteBall whiteBall, Field field, AnimationsManager audioManager)
         {
             _whiteBall = whiteBall;
             _field = field;
+            _animationsManager = audioManager;
             
             _cuePeak.position = _whiteBall.gameObject.transform.position;
             _currentCuePosition = _cue.position;
@@ -76,7 +80,7 @@ namespace CueData
         {
             if (_isTouchUp && CanMove)
             {
-                Pull();
+                Hit();
             
                 _isTouchUp = false;
                 CanMove = false;
@@ -137,24 +141,34 @@ namespace CueData
             _cuePeak.position = _whiteBall.gameObject.transform.position;
             _cuePeak.rotation = Quaternion.identity;
         
-            Animations.Stop(_cueFadeAnimation);
-            Animations.Fade(_cueRenderer, 1f, 0.5f);
+            _fadeAnimation.Stop();
+            gameObject.SetActive(true);
+            
+            _animationsManager.Fade.Play(_cueRenderer, 1f, 0.5f);
         }
     
         /// <summary>
         /// Pulls the white ball with specific force to the specific direction
         /// </summary>
-        private void Pull()
+        private void Hit()
         {
-            Vector2 direction = (-(_touchUpPosition - _cuePeak.position)).normalized;
-            _whiteBall.Hit(_currentForce * direction, ForceMode2D.Impulse);
+            _fadeAnimation = _animationsManager.Fade;
+            _fadeAnimation.OnAnimationEnded += () => gameObject.SetActive(false);
             
-            Animations.Move(_cue, Vector3.zero, 0.025f, true);
-            _cueFadeAnimation = Animations.Fade(_cueRenderer, 0f, 0.5f);
+            var moveAnimation = _animationsManager.Move;
+            moveAnimation.OnAnimationEnded += () =>
+            {
+                _fadeAnimation.Play(_cueRenderer, 0f, 0.5f);
+                
+                Vector2 direction = (-(_touchUpPosition - _cuePeak.position)).normalized;
+                _whiteBall.Hit(_currentForce * direction, ForceMode2D.Impulse);
+                
+                _field.CheckBallsMovement();
+            };
             
+            moveAnimation.Play(_cue, Vector3.zero, 0.025f, true);
+
             InputManager.StopTracking();
-            
-            _field.CheckBallsMovement();
         }
 
         #region Input

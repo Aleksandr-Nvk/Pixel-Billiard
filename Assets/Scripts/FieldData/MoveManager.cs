@@ -9,16 +9,19 @@ namespace FieldData
     {
         public Action<Player> OnPlayerSwitched;
 
-        public Player FirstPlayer;
-        public Player SecondPlayer;
-    
-        private Player _currentPlayer;
-        
+        private readonly Player _firstPlayer;
+        private readonly Player _secondPlayer;
+
+        public Player CurrentPlayer { get; private set; }
+
         private bool _hasToSwitch;
 
-        public MoveManager(Field field)
+        public MoveManager(Field field, Player firstPlayer, Player secondPlayer)
         {
-            _currentPlayer = FirstPlayer;
+            _firstPlayer = firstPlayer;
+            _secondPlayer = secondPlayer;
+            
+            CurrentPlayer = firstPlayer;
             
             field.OnBallsStopped += Handle;
         }
@@ -39,33 +42,33 @@ namespace FieldData
                 {
                     switch (rolledBall)
                     {
-                        case BlackBall _ when _currentPlayer.RolledColorBallsCount == 7: // black ball rolled (win)
+                        case BlackBall _ when CurrentPlayer.RolledColorBallsCount == 7: // black ball rolled (win)
                             // End session
                             break;
                     
                         case BlackBall _: // black ball rolled (lose)
-                            var winner = _currentPlayer == FirstPlayer 
-                                ? FirstPlayer 
-                                : SecondPlayer;
+                            var winner = CurrentPlayer == _firstPlayer 
+                                ? _firstPlayer 
+                                : _secondPlayer;
                             // End session
                             break;
                     
                         case ColorBall ball: // some color ball rolled
                         
                             // first color ball rolled
-                            if (FirstPlayer.RolledColorBallsCount == 0 && SecondPlayer.RolledColorBallsCount == 0)
+                            if (_firstPlayer.RolledColorBallsCount == 0 && _secondPlayer.RolledColorBallsCount == 0)
                                 SetPlayersBallType(rolledBall);
 
-                            if (ball.IsStriped == _currentPlayer.HasStripedBalls) // right color ball type
+                            if (ball.IsStriped == CurrentPlayer.HasStripedBalls) // right color ball type
                             {
-                                _currentPlayer.AddRolledBall(ball);
+                                CurrentPlayer.AddRolledBall(ball);
                             }
                             else // false color type (switch)
                             {
-                                if (_currentPlayer == FirstPlayer)
-                                    SecondPlayer.AddRolledBall(ball);
+                                if (CurrentPlayer == _firstPlayer)
+                                    _secondPlayer.AddRolledBall(ball);
                                 else
-                                    FirstPlayer.AddRolledBall(ball);
+                                    _firstPlayer.AddRolledBall(ball);
 
                                 _hasToSwitch = true;
                             }
@@ -89,13 +92,13 @@ namespace FieldData
         {
             if (_hasToSwitch)
             {
-                _currentPlayer = _currentPlayer == FirstPlayer
-                    ? SecondPlayer
-                    : FirstPlayer;
+                CurrentPlayer = CurrentPlayer == _firstPlayer
+                    ? _secondPlayer
+                    : _firstPlayer;
                 
-                OnPlayerSwitched?.Invoke(_currentPlayer);
+                OnPlayerSwitched?.Invoke(CurrentPlayer);
             
-                Debug.Log($"Switched to {_currentPlayer.Name}");
+                Debug.Log($"Switched to {CurrentPlayer.Name}");
                 
                 _hasToSwitch = false;
             }
@@ -107,15 +110,15 @@ namespace FieldData
         /// <param name="ball"> First rolled color ball </param>
         private void SetPlayersBallType(Ball ball)
         {
-            _currentPlayer.HasStripedBalls = ((ColorBall)ball).IsStriped;
+            CurrentPlayer.HasStripedBalls = ((ColorBall)ball).IsStriped;
 
-            var opponent = _currentPlayer == FirstPlayer
-                ? SecondPlayer
-                : FirstPlayer;
+            var opponent = CurrentPlayer == _firstPlayer
+                ? _secondPlayer
+                : _firstPlayer;
             opponent.HasStripedBalls = !((ColorBall)ball).IsStriped;
 
-            Debug.Log($"{FirstPlayer.Name}: is striped: {FirstPlayer.HasStripedBalls}, " +
-                      $"{SecondPlayer.Name}: is striped: {SecondPlayer.HasStripedBalls}");
+            Debug.Log($"{_firstPlayer.Name}: is striped: {_firstPlayer.HasStripedBalls}, " +
+                      $"{_secondPlayer.Name}: is striped: {_secondPlayer.HasStripedBalls}");
         }
     }
 }

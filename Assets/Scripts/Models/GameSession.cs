@@ -8,8 +8,12 @@ namespace Models
 {
     public class GameSession
     {
-        public Action<MoveManager> OnSessionStarted;
+        public Action OnSessionStarted;
         public Action OnSessionEnded;
+
+        public MoveManager MoveManager { get; private set; }
+        public Player FirstPlayer { get; private set; }
+        public Player SecondPlayer { get; private set; }
     
         private readonly BallsFactory _ballsFactory;
         private readonly FieldFactory _fieldFactory;
@@ -26,17 +30,19 @@ namespace Models
             _fieldFactory = fieldFactory;
         }
     
-        public void StartSession()
+        public void StartSession(string firstPlayerName, string secondPlayerName)
         {
             _triangle = _ballsFactory.Create();
             _field = _fieldFactory.Create(_triangle);
             _cue = _cueFactory.Create(_triangle, _field);
             
-            var moveManager = new MoveManager(_field);
-            
+            FirstPlayer = new Player(firstPlayerName);
+            SecondPlayer = new Player(secondPlayerName);
+            MoveManager = new MoveManager(_field, FirstPlayer, SecondPlayer);
+
             InputManager.StartTracking();
         
-            OnSessionStarted?.Invoke(moveManager);
+            OnSessionStarted?.Invoke();
         }
 
         public void EndSession()

@@ -26,7 +26,7 @@ namespace Views
             
             PlayerName.text = player.Name;
 
-            SwitchToPlayer(moveManager.FirstPlayer);
+            SwitchToPlayer(moveManager.CurrentPlayer);
         }
 
         public void Show()
@@ -41,11 +41,6 @@ namespace Views
             Animations.Fade(_pointer, 0f, 1f);
         }
 
-        private void SwitchToPlayer(Player playerToSwitchTo)
-        {
-            _pointer.gameObject.SetActive(Player == playerToSwitchTo);
-        }
-
         public void ResetView()
         {
             PlayerName = null;
@@ -57,11 +52,12 @@ namespace Views
             
             PlayerName = null;
         }
-
-        /// <summary>
-        /// Adds an icon to rolled balls view
-        /// </summary>
-        /// <param name="icon"> Rolled ball icon </param>
+        
+        private void SwitchToPlayer(Player playerToSwitchTo)
+        {
+            _pointer.gameObject.SetActive(Player == playerToSwitchTo);
+        }
+        
         private void AddBallToView(Sprite icon)
         {
             var image = PlayerBallIcons[_playerBallIndex];

@@ -1,3 +1,4 @@
+using AnimationsData;
 using UnityEngine;
 using FieldData;
 using CueData;
@@ -7,7 +8,7 @@ using Views;
 
 public class Entry : MonoBehaviour
 {
-    [Header("Field object factories' data")]
+    [Header("Prefabs for factories")]
     
     [SerializeField] private Triangle _trianglePrefab = default;
     [SerializeField] private Cue _cuePrefab = default;
@@ -16,6 +17,8 @@ public class Entry : MonoBehaviour
     [Header("Models")]
     
     [SerializeField] private AudioManager _audioManager = default;
+    [SerializeField] private AnimationsManager _animationsManager = default;
+    
 
     [Header("Views")]
     
@@ -27,15 +30,16 @@ public class Entry : MonoBehaviour
     {
         var ballsFactory = new BallsFactory(_trianglePrefab, _audioManager);
         var fieldFactory = new FieldFactory(_fieldPrefab);
-        var cueFactory = new CueFactory(_cuePrefab);
+        var cueFactory = new CueFactory(_cuePrefab, _animationsManager);
+        
+        // Model-View initializations
         
         var gameSession = new GameSession(ballsFactory, fieldFactory, cueFactory);
+        _gameSessionView.Init(gameSession);
 
         _homeView.Init(gameSession);
         
         var settings = new Settings(_audioManager);
         _settingsView.Init(settings);
-        
-        _gameSessionView.Init(gameSession);
     }
 }

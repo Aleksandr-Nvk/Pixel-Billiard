@@ -1,4 +1,3 @@
-using FieldData;
 using Models;
 using UnityEngine;
 using TMPro;
@@ -14,14 +13,12 @@ namespace Views
         [SerializeField] private AnimatedButton _settingsButton = default;
         [SerializeField] private AnimatedButton _playButton = default;
 
+        [SerializeField] private AnimatedInputField _firstPlayerNameField = default;
+        [SerializeField] private AnimatedInputField _secondPlayerNameField = default;
+        
         [Header("Other views")]
 
         [SerializeField] private SettingsView _settingsView = default;
-
-        [SerializeField] private GameSessionView _gameSessionView = default;
-
-        [SerializeField] private PlayerView _firstPlayerView = default;
-        [SerializeField] private PlayerView _secondPlayerView = default;
 
         public void Init(GameSession gameSession)
         {
@@ -34,12 +31,10 @@ namespace Views
             _playButton.onClick.AddListener(() =>
             {
                 Hide();
-                gameSession.OnSessionStarted += moveManager =>
-                {
-                    _gameSessionView.Init(gameSession);
-                    InitPlayers(moveManager);
-                };
-                gameSession.StartSession();
+                
+                var firstPlayerName = StringValidator.ValidateInput(_firstPlayerNameField.InputField.text, "Player1");
+                var secondPlayerName = StringValidator.ValidateInput(_secondPlayerNameField.InputField.text, "Player2");
+                gameSession.StartSession(firstPlayerName, secondPlayerName);
             });
         }
         
@@ -49,6 +44,9 @@ namespace Views
 
             _settingsButton.SetActivity(true);
             _playButton.SetActivity(true);
+            
+            _firstPlayerNameField.SetActivity(true);
+            _secondPlayerNameField.SetActivity(true);
         }
 
         public void Hide()
@@ -57,19 +55,9 @@ namespace Views
             
             _settingsButton.SetActivity(false);
             _playButton.SetActivity(false);
-        }
-
-        private void InitPlayers(MoveManager moveManager)
-        {
-            var firstPlayer = new Player("Alicia");
-            var secondPlayer = new Player("Nic");
-            moveManager.FirstPlayer = firstPlayer;
-            moveManager.SecondPlayer = secondPlayer;
-                    
-            _firstPlayerView.Init(firstPlayer, moveManager);
-            _firstPlayerView.Show();
-            _secondPlayerView.Init(secondPlayer, moveManager);
-            _secondPlayerView.Show();
+            
+            _firstPlayerNameField.SetActivity(false);
+            _secondPlayerNameField.SetActivity(false);
         }
     }
 }
