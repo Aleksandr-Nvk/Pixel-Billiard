@@ -1,4 +1,3 @@
-using UnityEngine.UI;
 using UnityEngine;
 using System;
 using Models;
@@ -9,7 +8,7 @@ namespace Views
     {
         [Header("View data")]
         
-        [SerializeField] private Image _settingsView = default;
+        [SerializeField] private AnimatedImage _settingsView = default;
         
         [SerializeField] private AnimatedButton _closeButton = default;
         
@@ -47,7 +46,7 @@ namespace Views
         {
             _onHidden = onHidden;
             
-            Animations.Fade(_settingsView, 1f, 0.5f);
+            _settingsView.SetActivity(true);
             
             _closeButton.SetActivity(true);
             _soundButton.SetActivity(true);
@@ -57,7 +56,7 @@ namespace Views
 
         public void Hide()
         {
-            Animations.Fade(_settingsView, 0f, 0.5f);
+            _settingsView.SetActivity(false);
             
             _closeButton.SetActivity(false);
             _soundButton.SetActivity(false);

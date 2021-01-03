@@ -1,6 +1,5 @@
 using Models;
 using UnityEngine;
-using TMPro;
 
 namespace Views
 {
@@ -8,7 +7,7 @@ namespace Views
     {
         [Header("View data")]
 
-        [SerializeField] private TextMeshProUGUI _title = default;
+        [SerializeField] private AnimatedText _title = default;
         
         [SerializeField] private AnimatedButton _settingsButton = default;
         [SerializeField] private AnimatedButton _playButton = default;
@@ -40,7 +39,7 @@ namespace Views
         
         public void Show()
         {
-            Animations.Fade(_title, 1f, 0.5f);
+            _title.SetActivity(true);
 
             _settingsButton.SetActivity(true);
             _playButton.SetActivity(true);
@@ -51,7 +50,7 @@ namespace Views
 
         public void Hide()
         {
-            Animations.Fade(_title, 0f, 0.5f);
+            _title.SetActivity(false);
             
             _settingsButton.SetActivity(false);
             _playButton.SetActivity(false);

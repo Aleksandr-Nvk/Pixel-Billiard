@@ -388,7 +388,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -582,21 +582,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39af906b5c234cdcb35eb0f4e0e3ade9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _settingsView: {fileID: 423533796}
+  _settingsView:
+    CanvasRenderer: {fileID: 423533797}
   _closeButton:
+    CanvasRenderer: {fileID: 1225661746}
     Button: {fileID: 1225661744}
     ButtonImage: {fileID: 1225661745}
   _musicButton:
+    CanvasRenderer: {fileID: 1367977587}
     Button: {fileID: 1367977585}
     ButtonImage: {fileID: 1367977586}
-  _musicOnIcon: {fileID: 0}
-  _musicOffIcon: {fileID: 0}
+  _musicOnIcon: {fileID: 21300000, guid: 71603ccbc215742f5b3bc9baea7fa0b8, type: 3}
+  _musicOffIcon: {fileID: 21300000, guid: 2a5b96fc019f249219dad8f02aa5f1bc, type: 3}
   _soundButton:
+    CanvasRenderer: {fileID: 640796675}
     Button: {fileID: 640796673}
     ButtonImage: {fileID: 640796674}
-  _soundOnIcon: {fileID: 0}
-  _soundOffIcon: {fileID: 0}
+  _soundOnIcon: {fileID: 21300000, guid: 59eda7cf3e62e4323bcf682368f2b6af, type: 3}
+  _soundOffIcon: {fileID: 21300000, guid: e2b83ba0252c247f3838549982510972, type: 3}
   _infoButton:
+    CanvasRenderer: {fileID: 1133274223}
     Button: {fileID: 1133274221}
     ButtonImage: {fileID: 1133274222}
 --- !u!1 &519420028
@@ -753,7 +758,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -5690,7 +5695,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -5846,7 +5851,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -6339,7 +6344,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -11389,7 +11394,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -11564,7 +11569,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -11750,7 +11755,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -11990,7 +11995,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1600854500}
-  - component: {fileID: 1600854499}
   - component: {fileID: 1600854501}
   m_Layer: 0
   m_Name: Animations
@@ -11999,18 +12003,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!114 &1600854499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1600854498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fead54c0e9e4b92bd3fff720be80a5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1600854500
 Transform:
   m_ObjectHideFlags: 0
@@ -12037,8 +12029,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59628217d8d2457096038c2988b35878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveAnimationsPoolCapacity: 2
-  _fadeAnimationsPoolCapacity: 5
+  _moveAnimationsPoolCapacity: 4
+  _fadeSpriteAnimationsPoolCapacity: 4
+  _fadeUiAnimationsPoolCapacity: 64
 --- !u!1 &1662820412
 GameObject:
   m_ObjectHideFlags: 0
@@ -12402,21 +12395,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6862b49fe4214cb5b12d5932bf55e1d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _title: {fileID: 1960384180}
+  _title:
+    CanvasRenderer: {fileID: 1960384181}
+    TextMeshPro: {fileID: 1960384180}
   _settingsButton:
+    CanvasRenderer: {fileID: 374178052}
     Button: {fileID: 374178050}
     ButtonImage: {fileID: 374178051}
   _playButton:
+    CanvasRenderer: {fileID: 852309691}
     Button: {fileID: 852309689}
     ButtonImage: {fileID: 852309690}
   _firstPlayerNameField:
+    CanvasRenderer: {fileID: 856206753}
     InputField: {fileID: 856206751}
-    InputText: {fileID: 1762510570}
-    InputFieldImage: {fileID: 856206752}
   _secondPlayerNameField:
+    CanvasRenderer: {fileID: 1364231699}
     InputField: {fileID: 1364231697}
-    InputText: {fileID: 1370499415}
-    InputFieldImage: {fileID: 1364231698}
   _settingsView: {fileID: 423533799}
 --- !u!1 &1960384178
 GameObject:
@@ -13016,7 +13011,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -13105,7 +13100,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -13233,6 +13228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pauseButton:
+    CanvasRenderer: {fileID: 60588397705875409}
     Button: {fileID: 60588397705875411}
     ButtonImage: {fileID: 60588397705875408}
   _firstPlayerView: {fileID: 2600127494757250780}
@@ -13323,7 +13319,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -13479,7 +13475,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -14399,8 +14395,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1632c6ea818b44fd84c4e179a642ed87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerName: {fileID: 1249708661795875091}
-  _pointer: {fileID: 1249708661876114940}
+  PlayerName:
+    CanvasRenderer: {fileID: 1249708661795875090}
+    TextMeshPro: {fileID: 1249708661795875091}
+  _pointer:
+    CanvasRenderer: {fileID: 1249708661876114943}
   PlayerBallIcons:
   - {fileID: 1249708662634667117}
   - {fileID: 1249708662007842121}
@@ -14554,8 +14553,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1632c6ea818b44fd84c4e179a642ed87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerName: {fileID: 2600127495049009063}
-  _pointer: {fileID: 2600127495971480537}
+  PlayerName:
+    CanvasRenderer: {fileID: 2600127495049009062}
+    TextMeshPro: {fileID: 2600127495049009063}
+  _pointer:
+    CanvasRenderer: {fileID: 2600127495971480536}
   PlayerBallIcons:
   - {fileID: 8255779091077438410}
   - {fileID: 2600127494911611563}

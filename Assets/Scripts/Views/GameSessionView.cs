@@ -25,6 +25,8 @@ namespace Views
         
         public void Show()
         {
+            gameObject.SetActive(true);
+            
             _pauseButton.SetActivity(true);
             _firstPlayerView.Show();
             _secondPlayerView.Show();

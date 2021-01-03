@@ -1,27 +1,33 @@
 using System;
+using AnimationsData;
 using TMPro;
-using UnityEngine.UI;
+using UnityEngine;
 
 namespace Views
 {
     [Serializable]
     public class AnimatedInputField
     {
-        public TMP_InputField InputField;
-
-        public TextMeshProUGUI InputText;
+        public CanvasRenderer CanvasRenderer;
         
-        public Image InputFieldImage;
-
+        public TMP_InputField InputField;
+        
         private TMP_InputField.OnChangeEvent _onValueChanged => InputField.onValueChanged;
         private TMP_InputField.SubmitEvent _onEndEdit => InputField.onEndEdit;
 
         public void SetActivity(bool isShown)
         {
             InputField.interactable = isShown;
-            InputFieldImage.raycastTarget = isShown;
-            Animations.Fade(InputFieldImage, isShown ? 1f : 0f, 1f);
-            Animations.Fade(InputText, isShown ? 1f : 0f, 1f);
+            
+            var animation = AnimationsManager.FadeUi;
+            
+            if (isShown)
+                CanvasRenderer.gameObject.SetActive(true);
+            else
+                animation.OnAnimationEnded += () => CanvasRenderer.gameObject.SetActive(false);
+            
+            animation.OnAnimationEnded += () => CanvasRenderer.gameObject.SetActive(isShown);
+            animation.Play(CanvasRenderer, isShown ? 1f : 0f, 0.5f);
         }
     }
 }

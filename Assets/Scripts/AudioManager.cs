@@ -38,7 +38,7 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource GetPhysicalSound(AudioSource source)
     {
-        source.pitch = Random.Range(0.5f, 1f);
+        source.pitch = Random.Range(0.7f, 1f);
         return source;
     }
 }

@@ -44,7 +44,7 @@ namespace CueData
         
         private float _currentForce;
 
-        private Fade _fadeAnimation;
+        private FadeSprite _fadeSpriteAnimation;
 
         #region Lambdas
 
@@ -141,10 +141,10 @@ namespace CueData
             _cuePeak.position = _whiteBall.gameObject.transform.position;
             _cuePeak.rotation = Quaternion.identity;
         
-            _fadeAnimation.Stop();
+            _fadeSpriteAnimation.Stop();
             gameObject.SetActive(true);
             
-            _animationsManager.Fade.Play(_cueRenderer, 1f, 0.5f);
+            AnimationsManager.FadeSprite.Play(_cueRenderer, 1f, 0.5f);
         }
     
         /// <summary>
@@ -152,13 +152,13 @@ namespace CueData
         /// </summary>
         private void Hit()
         {
-            _fadeAnimation = _animationsManager.Fade;
-            _fadeAnimation.OnAnimationEnded += () => gameObject.SetActive(false);
+            _fadeSpriteAnimation = AnimationsManager.FadeSprite;
+            _fadeSpriteAnimation.OnAnimationEnded += () => gameObject.SetActive(false);
             
-            var moveAnimation = _animationsManager.Move;
+            var moveAnimation = AnimationsManager.Move;
             moveAnimation.OnAnimationEnded += () =>
             {
-                _fadeAnimation.Play(_cueRenderer, 0f, 0.5f);
+                _fadeSpriteAnimation.Play(_cueRenderer, 0f, 0.5f);
                 
                 Vector2 direction = (-(_touchUpPosition - _cuePeak.position)).normalized;
                 _whiteBall.Hit(_currentForce * direction, ForceMode2D.Impulse);

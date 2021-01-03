@@ -1,18 +1,19 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 namespace AnimationsData
 {
-    public class Fade
+    public class FadeUi
     {
         public Action OnAnimationEnded;
 
-        private SpriteRenderer _spriteRenderer;
+        private CanvasRenderer _canvasRenderer;
 
+        private float _startAlpha;
         private float _targetAlpha;
         
         private float _duration;
-        private float _startTime;
+        private float _lerpTime;
 
         private bool _isLocal;
         private bool _isActive;
@@ -25,12 +26,12 @@ namespace AnimationsData
             if (!_isActive)
                 return;
 
-            if (Math.Abs(_spriteRenderer.color.a - _targetAlpha) > 0.0001f)
+            if (Math.Abs(_canvasRenderer.GetAlpha() - _targetAlpha) > 0.0001f)
             {
-                var normalizedTime = (Time.realtimeSinceStartup - _startTime) / _duration;
-                var newColor = SmoothColorAlpha(_spriteRenderer.color, _targetAlpha, normalizedTime);
-
-                _spriteRenderer.color = newColor;
+                var newAlpha = Mathf.Lerp(_startAlpha, _targetAlpha, _lerpTime / _duration);
+                _lerpTime += Time.unscaledDeltaTime;
+                
+                _canvasRenderer.SetAlpha(newAlpha);
             }
             else
             {
@@ -38,13 +39,12 @@ namespace AnimationsData
             }
         }
         
-        public void Play(SpriteRenderer spriteRendererToFade, float targetAlpha, float duration)
+        public void Play(CanvasRenderer canvasRendererToFade, float targetAlpha, float duration)
         {
-            _spriteRenderer = spriteRendererToFade;
+            _canvasRenderer = canvasRendererToFade;
+            _startAlpha = canvasRendererToFade.GetAlpha();
             _targetAlpha = targetAlpha;
             _duration = duration;
-            
-            _startTime = Time.realtimeSinceStartup;
             
             _isActive = true;
         }
@@ -56,13 +56,10 @@ namespace AnimationsData
         public void Stop()
         {
             _isActive = false;
+            _lerpTime = 0f;
+
             OnAnimationEnded?.Invoke();
             OnAnimationEnded = null;
-        }
-        
-        private static Color SmoothColorAlpha(Color start, float end, float duration)
-        {
-            return new Color(start.r, start.g, start.b, Mathf.SmoothStep(start.a, end, duration));
         }
     }
 }

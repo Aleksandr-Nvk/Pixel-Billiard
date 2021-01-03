@@ -6,7 +6,7 @@ namespace AnimationsData
     public class Move
     {
         public Action OnAnimationEnded;
-        
+
         private Transform _transform;
     
         private Vector3 _startPosition;
@@ -14,12 +14,12 @@ namespace AnimationsData
         private Vector3 _tempStartPosition;
     
         private float _duration;
-        private float _startTime;
+        private float _lerpTime;
 
         private bool _isLocal;
         private bool _condition;
         private bool _isActive;
-        
+
         /// <summary>
         /// Executes the animation for ONE frame. Use in Update or Update-like functions only.
         /// </summary>
@@ -28,8 +28,8 @@ namespace AnimationsData
             if (!_isActive)
                 return;
                 
-            var normalizedTime = (Time.realtimeSinceStartup - _startTime) / _duration;
-            var newPosition = SmoothVectors(_tempStartPosition, _targetPosition, normalizedTime);
+            var newPosition = Vector3.Lerp(_tempStartPosition, _targetPosition, _lerpTime / _duration);
+            _lerpTime += Time.unscaledDeltaTime;
 
             if (_condition)
             {
@@ -64,7 +64,6 @@ namespace AnimationsData
             _duration = duration;
             _isLocal = isLocal;
             
-            _startTime = Time.realtimeSinceStartup;
             _condition = (_isLocal? _transform.localPosition : _transform.position) != _targetPosition;
                 
             _tempStartPosition = _isLocal ? _transform.localPosition : _transform.position;
@@ -79,16 +78,10 @@ namespace AnimationsData
         public void Stop()
         {
             _isActive = false;
+            _lerpTime = 0f;
+
             OnAnimationEnded?.Invoke();
             OnAnimationEnded = null;
-        }
-        
-        private static Vector3 SmoothVectors(Vector3 start, Vector3 end, float duration)
-        {
-            return new Vector3(
-                Mathf.SmoothStep(start.x, end.x, duration),
-                Mathf.SmoothStep(start.y, end.y, duration),
-                Mathf.SmoothStep(start.z, end.z, duration));
         }
     }
 }

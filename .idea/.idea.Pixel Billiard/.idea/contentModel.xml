@@ -5,10 +5,10 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
-          <e p="Animations.cs" t="Include" />
           <e p="AnimationsData" t="Include">
             <e p="AnimationsManager.cs" t="Include" />
-            <e p="Fade.cs" t="Include" />
+            <e p="FadeSprite.cs" t="Include" />
+            <e p="FadeUi.cs" t="Include" />
             <e p="Move.cs" t="Include" />
           </e>
           <e p="AudioManager.cs" t="Include" />
@@ -39,7 +39,9 @@
           </e>
           <e p="Views" t="Include">
             <e p="AnimatedButton.cs" t="Include" />
+            <e p="AnimatedImage.cs" t="Include" />
             <e p="AnimatedInputField.cs" t="Include" />
+            <e p="AnimatedText.cs" t="Include" />
             <e p="GameSessionView.cs" t="Include" />
             <e p="HomeView.cs" t="Include" />
             <e p="PlayerView.cs" t="Include" />
