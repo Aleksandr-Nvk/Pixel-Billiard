@@ -1,11 +1,17 @@
+using System.Collections;
 using Models;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Views
 {
     public class GameSessionView : MonoBehaviour
     {
-        [SerializeField] private AnimatedButton _pauseButton = default;
+        [SerializeField] private Animations _animations = default;
+        
+        [SerializeField] private CanvasGroup _canvasGroup = default;
+        
+        [SerializeField] private Button _pauseButton = default;
         
         [SerializeField] private PlayerView _firstPlayerView = default;
         [SerializeField] private PlayerView _secondPlayerView = default;
@@ -20,29 +26,34 @@ namespace Views
             gameSession.OnSessionStarted += InitPlayers;
             
             gameSession.OnSessionEnded += Hide;
-            gameSession.OnSessionEnded += ResetView;
         }
         
         public void Show()
         {
-            gameObject.SetActive(true);
+            _canvasGroup.gameObject.SetActive(true);
             
-            _pauseButton.SetActivity(true);
+            _animations.Fade(_canvasGroup, 1f, 0.5f);
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
+
             _firstPlayerView.Show();
             _secondPlayerView.Show();
         }
 
         public void Hide()
         {
-            _pauseButton.SetActivity(false);
+            _canvasGroup.interactable = false;
+            StartCoroutine(Hide());
+            
+            IEnumerator Hide()
+            {
+                yield return _animations.Fade(_canvasGroup, 0f, 0.5f);
+                gameObject.SetActive(false);
+                _canvasGroup.blocksRaycasts = false;
+            }
+
             _firstPlayerView.Hide();
             _secondPlayerView.Hide();
-        }
-
-        public void ResetView()
-        {
-            _gameSession.OnSessionEnded -= Hide;
-            _gameSession.OnSessionEnded -= ResetView;
         }
         
         private void InitPlayers()

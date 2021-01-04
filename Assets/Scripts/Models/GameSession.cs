@@ -15,15 +15,16 @@ namespace Models
         public Player FirstPlayer { get; private set; }
         public Player SecondPlayer { get; private set; }
     
-        private readonly BallsFactory _ballsFactory;
-        private readonly FieldFactory _fieldFactory;
-        private readonly CueFactory _cueFactory;
+        private readonly Func<Triangle> _ballsFactory;
+        private readonly Func<Triangle, Field> _fieldFactory;
+        private readonly Func<Triangle, Field, Cue> _cueFactory;
 
         private Triangle _triangle;
         private Field _field;
         private Cue _cue;
 
-        public GameSession(BallsFactory ballsFactory, FieldFactory fieldFactory, CueFactory cueFactory)
+        public GameSession(Func<Triangle> ballsFactory, Func<Triangle, Field> fieldFactory,
+            Func<Triangle, Field, Cue> cueFactory)
         {
             _ballsFactory = ballsFactory;
             _cueFactory = cueFactory;
@@ -32,9 +33,9 @@ namespace Models
     
         public void StartSession(string firstPlayerName, string secondPlayerName)
         {
-            _triangle = _ballsFactory.Create();
-            _field = _fieldFactory.Create(_triangle);
-            _cue = _cueFactory.Create(_triangle, _field);
+            _triangle = _ballsFactory();
+            _field = _fieldFactory(_triangle);
+            _cue = _cueFactory(_triangle, _field);
             
             FirstPlayer = new Player(firstPlayerName);
             SecondPlayer = new Player(secondPlayerName);

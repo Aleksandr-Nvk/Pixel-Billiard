@@ -5,16 +5,10 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
-          <e p="AnimationsData" t="Include">
-            <e p="AnimationsManager.cs" t="Include" />
-            <e p="FadeSprite.cs" t="Include" />
-            <e p="FadeUi.cs" t="Include" />
-            <e p="Move.cs" t="Include" />
-          </e>
+          <e p="Animations.cs" t="Include" />
           <e p="AudioManager.cs" t="Include" />
           <e p="Balls" t="Include">
             <e p="Ball.cs" t="Include" />
-            <e p="BallsFactory.cs" t="Include" />
             <e p="BlackBall.cs" t="Include" />
             <e p="ColorBall.cs" t="Include" />
             <e p="Triangle.cs" t="Include" />
@@ -22,12 +16,10 @@
           </e>
           <e p="CueData" t="Include">
             <e p="Cue.cs" t="Include" />
-            <e p="CueFactory.cs" t="Include" />
           </e>
           <e p="Entry.cs" t="Include" />
           <e p="FieldData" t="Include">
             <e p="Field.cs" t="Include" />
-            <e p="FieldFactory.cs" t="Include" />
             <e p="Hole.cs" t="Include" />
             <e p="MoveManager.cs" t="Include" />
             <e p="Player.cs" t="Include" />
@@ -38,15 +30,10 @@
             <e p="Settings.cs" t="Include" />
           </e>
           <e p="Views" t="Include">
-            <e p="AnimatedButton.cs" t="Include" />
-            <e p="AnimatedImage.cs" t="Include" />
-            <e p="AnimatedInputField.cs" t="Include" />
-            <e p="AnimatedText.cs" t="Include" />
             <e p="GameSessionView.cs" t="Include" />
             <e p="HomeView.cs" t="Include" />
             <e p="PlayerView.cs" t="Include" />
             <e p="SettingsView.cs" t="Include" />
-            <e p="StringValidator.cs" t="Include" />
           </e>
         </e>
         <e p="TextMesh Pro" t="Include">

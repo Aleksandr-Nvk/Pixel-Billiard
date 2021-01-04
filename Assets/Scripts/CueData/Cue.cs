@@ -1,6 +1,6 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using AnimationsData;
 using Balls;
 using FieldData;
 using UnityEngine;
@@ -27,7 +27,7 @@ namespace CueData
         
         [SerializeField] private SpriteRenderer _cueRenderer = default;
 
-        private AnimationsManager _animationsManager;
+        private Animations _animations;
         
         private WhiteBall _whiteBall;
         private Field _field;
@@ -44,20 +44,21 @@ namespace CueData
         
         private float _currentForce;
 
-        private FadeSprite _fadeSpriteAnimation;
-
+        private Coroutine _currentFadeAnimation;
+        
         #region Lambdas
 
         private Action<List<Ball>> _onBallsStopped;
 
         #endregion
     
-        public void Init(WhiteBall whiteBall, Field field, AnimationsManager audioManager)
+        public void Init(WhiteBall whiteBall, Field field, Animations animations)
         {
             _whiteBall = whiteBall;
             _field = field;
-            _animationsManager = audioManager;
-            
+
+            _animations = animations;
+
             _cuePeak.position = _whiteBall.gameObject.transform.position;
             _currentCuePosition = _cue.position;
             _currentCuePeakRotation = _cuePeak.eulerAngles;
@@ -140,11 +141,10 @@ namespace CueData
         {
             _cuePeak.position = _whiteBall.gameObject.transform.position;
             _cuePeak.rotation = Quaternion.identity;
-        
-            _fadeSpriteAnimation.Stop();
+
             gameObject.SetActive(true);
-            
-            AnimationsManager.FadeSprite.Play(_cueRenderer, 1f, 0.5f);
+            _animations.Stop(_currentFadeAnimation);
+            _animations.Fade(_cueRenderer, 1f, 0.25f);
         }
     
         /// <summary>
@@ -152,21 +152,21 @@ namespace CueData
         /// </summary>
         private void Hit()
         {
-            _fadeSpriteAnimation = AnimationsManager.FadeSprite;
-            _fadeSpriteAnimation.OnAnimationEnded += () => gameObject.SetActive(false);
+            gameObject.SetActive(true);
+            StartCoroutine(Hit());
             
-            var moveAnimation = AnimationsManager.Move;
-            moveAnimation.OnAnimationEnded += () =>
+            IEnumerator Hit()
             {
-                _fadeSpriteAnimation.Play(_cueRenderer, 0f, 0.5f);
+                yield return _animations.Move(_cue, Vector3.zero, 0.025f, true);
                 
                 Vector2 direction = (-(_touchUpPosition - _cuePeak.position)).normalized;
                 _whiteBall.Hit(_currentForce * direction, ForceMode2D.Impulse);
                 
                 _field.CheckBallsMovement();
-            };
-            
-            moveAnimation.Play(_cue, Vector3.zero, 0.025f, true);
+                
+                yield return _currentFadeAnimation = _animations.Fade(_cueRenderer, 0f, 0.25f);
+                gameObject.SetActive(false);
+            }
 
             InputManager.StopTracking();
         }

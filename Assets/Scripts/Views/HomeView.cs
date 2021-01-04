@@ -1,22 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
 using Models;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Views
 {
     public class HomeView : MonoBehaviour
     {
-        [Header("View data")]
+        [SerializeField] private Animations _animations = default;
 
-        [SerializeField] private AnimatedText _title = default;
+        [SerializeField] private CanvasGroup _canvasGroup = default;
         
-        [SerializeField] private AnimatedButton _settingsButton = default;
-        [SerializeField] private AnimatedButton _playButton = default;
+        [SerializeField] private Button _settingsButton = default;
+        [SerializeField] private Button _playButton = default;
 
-        [SerializeField] private AnimatedInputField _firstPlayerNameField = default;
-        [SerializeField] private AnimatedInputField _secondPlayerNameField = default;
+        [SerializeField] private TMP_InputField _firstPlayerNameField = default;
+        [SerializeField] private TMP_InputField _secondPlayerNameField = default;
         
-        [Header("Other views")]
-
         [SerializeField] private SettingsView _settingsView = default;
 
         public void Init(GameSession gameSession)
@@ -30,33 +32,38 @@ namespace Views
             _playButton.onClick.AddListener(() =>
             {
                 Hide();
+
+                var firstPlayerName = string.IsNullOrWhiteSpace(_firstPlayerNameField.text)
+                    ? "Player1"
+                    : _firstPlayerNameField.text;
                 
-                var firstPlayerName = StringValidator.ValidateInput(_firstPlayerNameField.InputField.text, "Player1");
-                var secondPlayerName = StringValidator.ValidateInput(_secondPlayerNameField.InputField.text, "Player2");
+                var secondPlayerName = string.IsNullOrWhiteSpace(_secondPlayerNameField.text)
+                    ? "Player2"
+                    : _secondPlayerNameField.text;
+                
                 gameSession.StartSession(firstPlayerName, secondPlayerName);
             });
         }
         
         public void Show()
         {
-            _title.SetActivity(true);
-
-            _settingsButton.SetActivity(true);
-            _playButton.SetActivity(true);
-            
-            _firstPlayerNameField.SetActivity(true);
-            _secondPlayerNameField.SetActivity(true);
+            _canvasGroup.gameObject.SetActive(true);
+            _animations.Fade(_canvasGroup, 1f, 0.5f);
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
         }
 
         public void Hide()
         {
-            _title.SetActivity(false);
+            _canvasGroup.interactable = false;
+            StartCoroutine(Hide());
             
-            _settingsButton.SetActivity(false);
-            _playButton.SetActivity(false);
-            
-            _firstPlayerNameField.SetActivity(false);
-            _secondPlayerNameField.SetActivity(false);
+            IEnumerator Hide()
+            {
+                yield return _animations.Fade(_canvasGroup, 0f, 0.5f);
+                gameObject.SetActive(false);
+                _canvasGroup.blocksRaycasts = false;
+            }
         }
     }
 }

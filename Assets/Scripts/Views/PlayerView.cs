@@ -1,15 +1,20 @@
+using System.Collections;
 using UnityEngine.UI;
 using FieldData;
+using TMPro;
 using UnityEngine;
 
 namespace Views
 {
     public class PlayerView : MonoBehaviour
     {
-        [SerializeField] private AnimatedText PlayerName = default;
-        
-        [SerializeField] private AnimatedImage _pointer = default;
+        [SerializeField] private Animations _animations = default;
 
+        [SerializeField] private CanvasGroup _canvasGroup = default;
+        
+        [SerializeField] private TMP_Text PlayerName = default;
+        
+        [SerializeField] private Image _pointer = default;
         [SerializeField] private Image[] PlayerBallIcons = default;
 
         private Player Player;
@@ -23,38 +28,35 @@ namespace Views
             moveManager.OnPlayerSwitched += SwitchToPlayer;
             player.OnBallRolled += AddBallToView;
             
-            PlayerName.TextMeshPro.text = player.Name;
+            PlayerName.text = player.Name;
 
             SwitchToPlayer(moveManager.CurrentPlayer);
         }
 
         public void Show()
         {
-            PlayerName.SetActivity(true);
-            _pointer.SetActivity(true);
+            _canvasGroup.gameObject.SetActive(true);
+            _animations.Fade(_canvasGroup, 1f, 0.5f);
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
         }
 
         public void Hide()
         {
-            PlayerName.SetActivity(false);
-            _pointer.SetActivity(false);
-        }
-
-        public void ResetView()
-        {
-            PlayerName = null;
+            _canvasGroup.interactable = false;
+            StartCoroutine(Hide());
             
-            foreach (var playerBallIcon in PlayerBallIcons)
+            IEnumerator Hide()
             {
-                playerBallIcon.enabled = false;
+                yield return _animations.Fade(_canvasGroup, 0f, 0.5f);
+                gameObject.SetActive(false);
+                _canvasGroup.blocksRaycasts = false;
             }
-            
-            PlayerName = null;
         }
         
         private void SwitchToPlayer(Player playerToSwitchTo)
         {
-            _pointer.SetActivity(Player == playerToSwitchTo);
+            _pointer.enabled = Player == playerToSwitchTo;
         }
         
         private void AddBallToView(Sprite icon)
