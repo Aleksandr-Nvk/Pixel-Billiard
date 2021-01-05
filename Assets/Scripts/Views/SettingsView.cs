@@ -1,8 +1,8 @@
+using System.Collections;
+using UnityEngine.UI;
 using UnityEngine;
 using System;
-using System.Collections;
 using Models;
-using UnityEngine.UI;
 
 namespace Views
 {
@@ -29,6 +29,8 @@ namespace Views
         private Action _onShown;
         private Action _onHidden;
         
+        private Coroutine _currentAnimation;
+
         public void Init(Settings settings)
         {
             _closeButton.onClick.AddListener(Hide);
@@ -49,20 +51,24 @@ namespace Views
         public void Show(Action onHidden)
         {
             _onHidden = onHidden;
-
+            
             _canvasGroup.gameObject.SetActive(true);
-            _animations.Fade(_canvasGroup, 1f, 0.5f);
+
+            if (_currentAnimation != null) StopCoroutine(_currentAnimation);
+            _currentAnimation = StartCoroutine(_animations.Fade(_canvasGroup, 1f, 0.5f));
+            
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
         }
 
         public void Hide()
         {
-            _canvasGroup.interactable = false;
-            StartCoroutine(Hide());
+            if (_currentAnimation != null) StopCoroutine(_currentAnimation);
+            _currentAnimation = StartCoroutine(Hide());
             
             IEnumerator Hide()
             {
+                _canvasGroup.interactable = false;
                 yield return _animations.Fade(_canvasGroup, 0f, 0.5f);
                 gameObject.SetActive(false);
                 _canvasGroup.blocksRaycasts = false;

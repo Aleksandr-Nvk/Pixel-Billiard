@@ -143,8 +143,8 @@ namespace CueData
             _cuePeak.rotation = Quaternion.identity;
 
             gameObject.SetActive(true);
-            _animations.Stop(_currentFadeAnimation);
-            _animations.Fade(_cueRenderer, 1f, 0.25f);
+            StopCoroutine(_currentFadeAnimation);
+            _currentFadeAnimation = StartCoroutine(_animations.Fade(_cueRenderer, 1f, 0.25f));
         }
     
         /// <summary>
@@ -164,7 +164,7 @@ namespace CueData
                 
                 _field.CheckBallsMovement();
                 
-                yield return _currentFadeAnimation = _animations.Fade(_cueRenderer, 0f, 0.25f);
+                yield return _currentFadeAnimation = StartCoroutine(_animations.Fade(_cueRenderer, 0f, 0.25f));
                 gameObject.SetActive(false);
             }
 
@@ -180,7 +180,7 @@ namespace CueData
         private void SetTouchUpData(Vector3 touchPosition)
         {
             _touchUpPosition = touchPosition;
-            
+
             if (CanMove && _touchUpPosition != _touchDownPosition) _isTouchUp = true;
         }
         

@@ -603,7 +603,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 423533794}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -12108,6 +12108,7 @@ MonoBehaviour:
   _homeView: {fileID: 1795267464}
   _settingsView: {fileID: 423533799}
   _gameSessionView: {fileID: 60588398652385770}
+  _pauseView: {fileID: 60588397637166811}
 --- !u!4 &1665807531
 Transform:
   m_ObjectHideFlags: 0
@@ -12934,8 +12935,9 @@ GameObject:
   m_Component:
   - component: {fileID: 60588397637166790}
   - component: {fileID: 60588397637166789}
-  - component: {fileID: 60588397637166788}
   - component: {fileID: 60588397637166810}
+  - component: {fileID: 60588397637166788}
+  - component: {fileID: 60588397637166811}
   m_Layer: 5
   m_Name: PauseView
   m_TagString: Untagged
@@ -12951,10 +12953,28 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60588397637166809}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &60588397637166811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60588397637166809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d49cd7834df4a3b889850f6819c263e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animations: {fileID: 1600854501}
+  _canvasGroup: {fileID: 60588397637166810}
+  _homeButton: {fileID: 60588398783095660}
+  _resumeButton: {fileID: 60588399268104179}
+  _settingsButton: {fileID: 60588398153278472}
+  _settingsView: {fileID: 423533799}
 --- !u!114 &60588397705875408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12968,7 +12988,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -13085,7 +13105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &60588397705875422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13250,6 +13270,7 @@ MonoBehaviour:
   _pauseButton: {fileID: 60588397705875411}
   _firstPlayerView: {fileID: 2600127494757250780}
   _secondPlayerView: {fileID: 1249708663150880050}
+  _pauseView: {fileID: 60588397637166811}
 --- !u!1 &60588398652385772
 GameObject:
   m_ObjectHideFlags: 0
@@ -13296,7 +13317,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60588398652385772}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -14460,7 +14481,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1249708663150880062}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -14579,7 +14600,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2600127494757250776}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0

@@ -39,7 +39,8 @@ public class InputManager : MonoBehaviour
     /// </summary>
     public static void StopTracking()
     {
-        _instance.StopCoroutine(_inputChecker);
+        if (_inputChecker != null)
+            _instance.StopCoroutine(_inputChecker);
     }
 
     private static IEnumerator CheckInput()

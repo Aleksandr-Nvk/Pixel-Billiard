@@ -2,6 +2,7 @@ using System;
 using Balls;
 using CueData;
 using FieldData;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Models
@@ -9,6 +10,9 @@ namespace Models
     public class GameSession
     {
         public Action OnSessionStarted;
+        public Action OnSessionPaused;
+        public Action OnSessionResumed;
+        public Action OnSessionExited;
         public Action OnSessionEnded;
 
         public MoveManager MoveManager { get; private set; }
@@ -31,7 +35,7 @@ namespace Models
             _fieldFactory = fieldFactory;
         }
     
-        public void StartSession(string firstPlayerName, string secondPlayerName)
+        public void Start(string firstPlayerName, string secondPlayerName)
         {
             _triangle = _ballsFactory();
             _field = _fieldFactory(_triangle);
@@ -46,12 +50,36 @@ namespace Models
             OnSessionStarted?.Invoke();
         }
 
-        public void EndSession()
+        public void Pause()
         {
-            Object.Destroy(_triangle);
-            Object.Destroy(_field);
-            Object.Destroy(_cue);
+            Time.timeScale = 0f;
+            InputManager.StopTracking();
+            
+            OnSessionPaused?.Invoke();
+        }
+        
+        public void Resume()
+        {
+            Time.timeScale = 1f;
+            InputManager.StartTracking();
+            
+            OnSessionResumed?.Invoke();
+        }
 
+        public void Exit()
+        {
+            Time.timeScale = 1f;
+            InputManager.StopTracking();
+            
+            Object.Destroy(_triangle.gameObject);
+            Object.Destroy(_field.gameObject);
+            Object.Destroy(_cue.gameObject);
+
+            OnSessionExited?.Invoke();
+        }
+
+        public void End()
+        {
             OnSessionEnded?.Invoke();
         }
     }

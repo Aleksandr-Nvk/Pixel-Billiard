@@ -24,6 +24,7 @@ public class Entry : MonoBehaviour
     [SerializeField] private HomeView _homeView = default;
     [SerializeField] private SettingsView _settingsView = default;
     [SerializeField] private GameSessionView _gameSessionView = default;
+    [SerializeField] private PauseView _pauseView = default;
     
     private void Awake()
     {
@@ -60,5 +61,7 @@ public class Entry : MonoBehaviour
         
         var settings = new Settings(_audioManager);
         _settingsView.Init(settings);
+        
+        _pauseView.Init(gameSession);
     }
 }

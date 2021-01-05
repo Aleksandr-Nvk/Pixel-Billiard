@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Animations : MonoBehaviour
 {
-    public void Stop(Coroutine animation) => StopCoroutine(animation);
-
-    public Coroutine Move(Transform transform, Vector3 targetPosition, float duration, bool isLocal = false)
+    public IEnumerator Move(Transform transform, Vector3 targetPosition, float duration, bool isLocal = false)
     {
         IEnumerator Animation()
         {
@@ -34,10 +32,10 @@ public class Animations : MonoBehaviour
             }
         }
 
-        return StartCoroutine(Animation());
+        return Animation();
     }
 
-    public Coroutine Fade(SpriteRenderer spriteRenderer, float targetAlpha, float duration)
+    public IEnumerator Fade(SpriteRenderer spriteRenderer, float targetAlpha, float duration)
     {
         IEnumerator Animation()
         {
@@ -55,10 +53,10 @@ public class Animations : MonoBehaviour
             }
         }
 
-        return StartCoroutine(Animation());
+        return Animation();
     }
         
-    public Coroutine Fade(CanvasGroup canvasGroup, float targetAlpha, float duration)
+    public IEnumerator Fade(CanvasGroup canvasGroup, float targetAlpha, float duration)
     {
         IEnumerator Animation()
         {
@@ -74,6 +72,6 @@ public class Animations : MonoBehaviour
             }
         }
 
-        return StartCoroutine(Animation());
+        return Animation();
     }
 }

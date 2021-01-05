@@ -1,7 +1,7 @@
 using System.Collections;
-using Models;
-using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine;
+using Models;
 
 namespace Views
 {
@@ -18,21 +18,27 @@ namespace Views
         
         private GameSession _gameSession;
         
+        private Coroutine _currentAnimation;
+
         public void Init(GameSession gameSession)
         {
             _gameSession = gameSession;
             
             gameSession.OnSessionStarted += Show;
             gameSession.OnSessionStarted += InitPlayers;
+            gameSession.OnSessionResumed += Show;
             
-            gameSession.OnSessionEnded += Hide;
+            _pauseButton.onClick.AddListener(gameSession.Pause);
+            _pauseButton.onClick.AddListener(Hide);
         }
         
         public void Show()
         {
             _canvasGroup.gameObject.SetActive(true);
+
+            if (_currentAnimation != null) StopCoroutine(_currentAnimation);
+            _currentAnimation = StartCoroutine(_animations.Fade(_canvasGroup, 1f, 0.5f));
             
-            _animations.Fade(_canvasGroup, 1f, 0.5f);
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
 
@@ -42,16 +48,17 @@ namespace Views
 
         public void Hide()
         {
-            _canvasGroup.interactable = false;
-            StartCoroutine(Hide());
+            if (_currentAnimation != null) StopCoroutine(_currentAnimation);
+            _currentAnimation = StartCoroutine(Hide());
             
             IEnumerator Hide()
             {
+                _canvasGroup.interactable = false;
                 yield return _animations.Fade(_canvasGroup, 0f, 0.5f);
                 gameObject.SetActive(false);
                 _canvasGroup.blocksRaycasts = false;
             }
-
+            
             _firstPlayerView.Hide();
             _secondPlayerView.Hide();
         }

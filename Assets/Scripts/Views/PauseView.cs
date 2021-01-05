@@ -1,38 +1,34 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
-using FieldData;
-using TMPro;
+using Models;
 
 namespace Views
 {
-    public class PlayerView : MonoBehaviour
+    public class PauseView : MonoBehaviour
     {
         [SerializeField] private Animations _animations = default;
 
         [SerializeField] private CanvasGroup _canvasGroup = default;
-        
-        [SerializeField] private TMP_Text PlayerName = default;
-        
-        [SerializeField] private Image _pointer = default;
-        [SerializeField] private Image[] PlayerBallIcons = default;
 
-        private Player Player;
+        [SerializeField] private Button _homeButton = default;
+        [SerializeField] private Button _resumeButton = default;
+        [SerializeField] private Button _settingsButton = default;
 
-        private int _playerBallIndex;
+        [SerializeField] private SettingsView _settingsView = default;
 
         private Coroutine _currentAnimation;
-
-        public void Init(Player player, MoveManager moveManager)
+        
+        public void Init(GameSession gameSession)
         {
-            Player = player;
-            
-            moveManager.OnPlayerSwitched += SwitchToPlayer;
-            player.OnBallRolled += AddBallToView;
-            
-            PlayerName.text = player.Name;
+            gameSession.OnSessionPaused += Show;
+            gameSession.OnSessionResumed += Hide;
+            gameSession.OnSessionExited += Hide;
 
-            SwitchToPlayer(moveManager.CurrentPlayer);
+            _homeButton.onClick.AddListener(gameSession.Exit);
+            _resumeButton.onClick.AddListener(gameSession.Resume);
+            _settingsButton.onClick.AddListener(Hide);
+            _settingsButton.onClick.AddListener(() => _settingsView.Show(Show));
         }
 
         public void Show()
@@ -58,20 +54,6 @@ namespace Views
                 gameObject.SetActive(false);
                 _canvasGroup.blocksRaycasts = false;
             }
-        }
-        
-        private void SwitchToPlayer(Player playerToSwitchTo)
-        {
-            _pointer.enabled = Player == playerToSwitchTo;
-        }
-        
-        private void AddBallToView(Sprite icon)
-        {
-            var image = PlayerBallIcons[_playerBallIndex];
-            image.sprite = icon;
-            image.enabled = true;
-        
-            _playerBallIndex++;
         }
     }
 }

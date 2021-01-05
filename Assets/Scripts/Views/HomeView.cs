@@ -1,9 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine;
 using Models;
 using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace Views
 {
@@ -21,8 +20,12 @@ namespace Views
         
         [SerializeField] private SettingsView _settingsView = default;
 
+        private Coroutine _currentAnimation;
+
         public void Init(GameSession gameSession)
         {
+            gameSession.OnSessionExited += Show;
+            
             _settingsButton.onClick.AddListener(() =>
             {
                 Hide();
@@ -41,25 +44,29 @@ namespace Views
                     ? "Player2"
                     : _secondPlayerNameField.text;
                 
-                gameSession.StartSession(firstPlayerName, secondPlayerName);
+                gameSession.Start(firstPlayerName, secondPlayerName);
             });
         }
         
         public void Show()
         {
             _canvasGroup.gameObject.SetActive(true);
-            _animations.Fade(_canvasGroup, 1f, 0.5f);
+            
+            if (_currentAnimation != null) StopCoroutine(_currentAnimation);
+            _currentAnimation = StartCoroutine(_animations.Fade(_canvasGroup, 1f, 0.5f));
+            
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
         }
 
         public void Hide()
         {
-            _canvasGroup.interactable = false;
-            StartCoroutine(Hide());
+            if (_currentAnimation != null) StopCoroutine(_currentAnimation);
+            _currentAnimation = StartCoroutine(Hide());
             
             IEnumerator Hide()
             {
+                _canvasGroup.interactable = false;
                 yield return _animations.Fade(_canvasGroup, 0f, 0.5f);
                 gameObject.SetActive(false);
                 _canvasGroup.blocksRaycasts = false;
