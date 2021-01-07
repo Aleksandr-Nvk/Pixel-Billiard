@@ -26,6 +26,7 @@ public class Entry : MonoBehaviour
     [SerializeField] private SettingsView _settingsView = default;
     [SerializeField] private GameSessionView _gameSessionView = default;
     [SerializeField] private PauseView _pauseView = default;
+    [SerializeField] private GameOverView _gameOverView = default;
     
     private void Awake()
     {
@@ -64,5 +65,7 @@ public class Entry : MonoBehaviour
         _settingsView.Init(settings);
         
         _pauseView.Init(gameSession);
+        
+        _gameOverView.Init(gameSession);
     }
 }

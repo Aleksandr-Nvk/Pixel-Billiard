@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Balls;
+using Models;
 
 namespace FieldData
 {
@@ -9,19 +10,22 @@ namespace FieldData
     {
         public Action<Player> OnPlayerSwitched;
 
+        public Player CurrentPlayer { get; private set; }
+
         private readonly Player _firstPlayer;
         private readonly Player _secondPlayer;
 
-        public Player CurrentPlayer { get; private set; }
-
+        private GameSession _gameSession;
+        
         private bool _hasToSwitch;
 
-        public MoveManager(Field field, Player firstPlayer, Player secondPlayer)
+        public MoveManager(Field field, Player firstPlayer, Player secondPlayer, GameSession gameSession)
         {
+            CurrentPlayer = firstPlayer;
             _firstPlayer = firstPlayer;
             _secondPlayer = secondPlayer;
-            
-            CurrentPlayer = firstPlayer;
+
+            _gameSession = gameSession;
             
             field.OnBallsStopped += Handle;
         }
@@ -43,14 +47,14 @@ namespace FieldData
                     switch (rolledBall)
                     {
                         case BlackBall _ when CurrentPlayer.RolledColorBallsCount == 7: // black ball rolled (win)
-                            // End session
+                            _gameSession.End(CurrentPlayer);
                             break;
                     
                         case BlackBall _: // black ball rolled (lose)
                             var winner = CurrentPlayer == _firstPlayer 
-                                ? _firstPlayer 
-                                : _secondPlayer;
-                            // End session
+                                ? _secondPlayer 
+                                : _firstPlayer;
+                            _gameSession.End(winner);
                             break;
                     
                         case ColorBall ball: // some color ball rolled

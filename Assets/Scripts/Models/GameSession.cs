@@ -12,8 +12,9 @@ namespace Models
         public Action OnSessionStarted;
         public Action OnSessionPaused;
         public Action OnSessionResumed;
+        public Action OnSessionRestarted;
         public Action OnSessionExited;
-        public Action OnSessionEnded;
+        public Action<Player> OnSessionEnded;
 
         public MoveManager MoveManager { get; private set; }
         public Player FirstPlayer { get; private set; }
@@ -39,7 +40,7 @@ namespace Models
             _inputManager = inputManager;
         }
     
-        public void Start(string firstPlayerName, string secondPlayerName)
+        public void Start(string firstPlayerName, string secondPlayerName, bool callSilently = false)
         {
             _triangle = _ballsFactory();
             _field = _fieldFactory(_triangle);
@@ -47,30 +48,45 @@ namespace Models
             
             FirstPlayer = new Player(firstPlayerName);
             SecondPlayer = new Player(secondPlayerName);
-            MoveManager = new MoveManager(_field, FirstPlayer, SecondPlayer);
+            MoveManager = new MoveManager(_field, FirstPlayer, SecondPlayer, this);
 
-            _inputManager.StartChecking();
-        
-            OnSessionStarted?.Invoke();
+            Resume(true);
+
+            if (!callSilently)
+                OnSessionStarted?.Invoke();
         }
 
-        public void Pause()
+        public void Pause(bool callSilently = false)
         {
             Time.timeScale = 0f;
             _inputManager.StopChecking();
             
-            OnSessionPaused?.Invoke();
+            if (!callSilently)
+                OnSessionPaused?.Invoke();
         }
         
-        public void Resume()
+        public void Resume(bool callSilently = false)
         {
             Time.timeScale = 1f;
             _inputManager.StartChecking();
             
-            OnSessionResumed?.Invoke();
+            if (!callSilently)
+                OnSessionResumed?.Invoke();
         }
 
-        public void Exit()
+        public void Restart(bool callSilently = false)
+        {
+            Object.Destroy(_triangle.gameObject);
+            Object.Destroy(_field.gameObject);
+            Object.Destroy(_cue.gameObject);
+            
+            Start(FirstPlayer.Name, SecondPlayer.Name);
+            
+            if (!callSilently)
+                OnSessionRestarted?.Invoke();
+        }
+
+        public void Exit(bool callSilently = false)
         {
             Time.timeScale = 1f;
             _inputManager.StopChecking();
@@ -78,13 +94,17 @@ namespace Models
             Object.Destroy(_triangle.gameObject);
             Object.Destroy(_field.gameObject);
             Object.Destroy(_cue.gameObject);
-
-            OnSessionExited?.Invoke();
+            
+            if (!callSilently)
+                OnSessionExited?.Invoke();
         }
 
-        public void End()
+        public void End(Player winner, bool callSilently = false)
         {
-            OnSessionEnded?.Invoke();
+            Pause(callSilently: true);
+
+            if (!callSilently)
+                OnSessionEnded?.Invoke(winner);
         }
     }
 }

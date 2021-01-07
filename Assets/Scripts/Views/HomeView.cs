@@ -9,14 +9,17 @@ namespace Views
     public class HomeView : MonoBehaviour
     {
         [SerializeField] private Animations _animations = default;
-
         [SerializeField] private CanvasGroup _canvasGroup = default;
         
+        [Header("Elements")]
+
         [SerializeField] private Button _settingsButton = default;
         [SerializeField] private Button _playButton = default;
 
         [SerializeField] private TMP_InputField _firstPlayerNameField = default;
         [SerializeField] private TMP_InputField _secondPlayerNameField = default;
+        
+        [Header("Views")]
         
         [SerializeField] private SettingsView _settingsView = default;
 
@@ -61,6 +64,8 @@ namespace Views
 
         public void Hide()
         {
+            _canvasGroup.gameObject.SetActive(true);
+            
             if (_currentAnimation != null) StopCoroutine(_currentAnimation);
             _currentAnimation = StartCoroutine(Hide());
             
@@ -68,7 +73,7 @@ namespace Views
             {
                 _canvasGroup.interactable = false;
                 yield return _animations.Fade(_canvasGroup, targetAlpha: 0f, duration: 0.5f);
-                gameObject.SetActive(false);
+                _canvasGroup.gameObject.SetActive(false);
                 _canvasGroup.blocksRaycasts = false;
             }
         }

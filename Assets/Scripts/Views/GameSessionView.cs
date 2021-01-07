@@ -8,11 +8,14 @@ namespace Views
     public class GameSessionView : MonoBehaviour
     {
         [SerializeField] private Animations _animations = default;
-        
         [SerializeField] private CanvasGroup _canvasGroup = default;
+        
+        [Header("Elements")]
         
         [SerializeField] private Button _pauseButton = default;
         
+        [Header("Views")]
+
         [SerializeField] private PlayerView _firstPlayerView = default;
         [SerializeField] private PlayerView _secondPlayerView = default;
         
@@ -27,8 +30,9 @@ namespace Views
             gameSession.OnSessionStarted += Show;
             gameSession.OnSessionStarted += InitPlayers;
             gameSession.OnSessionResumed += Show;
+            gameSession.OnSessionEnded += _ => Hide();
             
-            _pauseButton.onClick.AddListener(gameSession.Pause);
+            _pauseButton.onClick.AddListener(() => gameSession.Pause());
             _pauseButton.onClick.AddListener(Hide);
         }
         
@@ -48,6 +52,8 @@ namespace Views
 
         public void Hide()
         {
+            _canvasGroup.gameObject.SetActive(true);
+            
             if (_currentAnimation != null) StopCoroutine(_currentAnimation);
             _currentAnimation = StartCoroutine(Hide());
             
@@ -55,7 +61,7 @@ namespace Views
             {
                 _canvasGroup.interactable = false;
                 yield return _animations.Fade(_canvasGroup, targetAlpha: 0f, duration: 0.5f);
-                gameObject.SetActive(false);
+                _canvasGroup.gameObject.SetActive(false);
                 _canvasGroup.blocksRaycasts = false;
             }
             

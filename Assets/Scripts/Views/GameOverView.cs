@@ -1,50 +1,42 @@
 using System.Collections;
-using UnityEngine.UI;
-using UnityEngine;
 using FieldData;
+using Models;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Views
 {
-    public class PlayerView : MonoBehaviour
+    public class GameOverView : MonoBehaviour
     {
         [SerializeField] private Animations _animations = default;
         [SerializeField] private CanvasGroup _canvasGroup = default;
         
         [Header("Elements")]
-
-        [SerializeField] private TMP_Text PlayerName = default;
         
-        [SerializeField] private Image _pointer = default;
-        [SerializeField] private Image[] PlayerBallIcons = default;
+        [SerializeField] private Button _restartButton = default;
+        [SerializeField] private Button _homeButton = default;
 
-        private Player Player;
-
-        private int _playerBallIndex;
-
+        [SerializeField] private TMP_Text _winnerText = default;
+        
         private Coroutine _currentAnimation;
 
-        public void Init(Player player, MoveManager moveManager)
+        public void Init(GameSession gameSession)
         {
-            Player = player;
-            
-            moveManager.OnPlayerSwitched += SwitchToPlayer;
-            player.OnBallRolled += AddBallToView;
-            
-            PlayerName.text = player.Name;
+            gameSession.OnSessionEnded += Show;
+            _restartButton.onClick.AddListener(() => gameSession.Restart());
+            _homeButton.onClick.AddListener(() => gameSession.Exit());
 
-            _playerBallIndex = 0;
-
-            foreach (var ballIcon in PlayerBallIcons)
-                ballIcon.enabled = false;
-
-            SwitchToPlayer(moveManager.CurrentPlayer);
+            gameSession.OnSessionEnded += Show;
+            gameSession.OnSessionExited += Hide;
+            gameSession.OnSessionRestarted += Hide;
         }
 
-        public void Show()
+        private void Show(Player winner)
         {
+            _winnerText.text = winner.Name + " wins!";
             _canvasGroup.gameObject.SetActive(true);
-
+            
             if (_currentAnimation != null) StopCoroutine(_currentAnimation);
             _currentAnimation = StartCoroutine(_animations.Fade(_canvasGroup, targetAlpha: 1f, duration: 0.5f));
             
@@ -52,7 +44,7 @@ namespace Views
             _canvasGroup.blocksRaycasts = true;
         }
 
-        public void Hide()
+        private void Hide()
         {
             _canvasGroup.gameObject.SetActive(true);
             
@@ -66,20 +58,6 @@ namespace Views
                 _canvasGroup.gameObject.SetActive(false);
                 _canvasGroup.blocksRaycasts = false;
             }
-        }
-
-        private void SwitchToPlayer(Player playerToSwitchTo)
-        {
-            _pointer.enabled = Player == playerToSwitchTo;
-        }
-        
-        private void AddBallToView(Sprite icon)
-        {
-            var image = PlayerBallIcons[_playerBallIndex];
-            image.sprite = icon;
-            image.enabled = true;
-        
-            _playerBallIndex++;
         }
     }
 }
