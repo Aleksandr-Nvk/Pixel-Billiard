@@ -22,17 +22,21 @@ namespace Models
         private readonly Func<Triangle> _ballsFactory;
         private readonly Func<Triangle, Field> _fieldFactory;
         private readonly Func<Triangle, Field, Cue> _cueFactory;
+        
+        private readonly InputManager _inputManager;
 
         private Triangle _triangle;
         private Field _field;
         private Cue _cue;
 
         public GameSession(Func<Triangle> ballsFactory, Func<Triangle, Field> fieldFactory,
-            Func<Triangle, Field, Cue> cueFactory)
+            Func<Triangle, Field, Cue> cueFactory, InputManager inputManager)
         {
             _ballsFactory = ballsFactory;
             _cueFactory = cueFactory;
             _fieldFactory = fieldFactory;
+            
+            _inputManager = inputManager;
         }
     
         public void Start(string firstPlayerName, string secondPlayerName)
@@ -45,7 +49,7 @@ namespace Models
             SecondPlayer = new Player(secondPlayerName);
             MoveManager = new MoveManager(_field, FirstPlayer, SecondPlayer);
 
-            InputManager.StartTracking();
+            _inputManager.StartChecking();
         
             OnSessionStarted?.Invoke();
         }
@@ -53,7 +57,7 @@ namespace Models
         public void Pause()
         {
             Time.timeScale = 0f;
-            InputManager.StopTracking();
+            _inputManager.StopChecking();
             
             OnSessionPaused?.Invoke();
         }
@@ -61,7 +65,7 @@ namespace Models
         public void Resume()
         {
             Time.timeScale = 1f;
-            InputManager.StartTracking();
+            _inputManager.StartChecking();
             
             OnSessionResumed?.Invoke();
         }
@@ -69,7 +73,7 @@ namespace Models
         public void Exit()
         {
             Time.timeScale = 1f;
-            InputManager.StopTracking();
+            _inputManager.StopChecking();
             
             Object.Destroy(_triangle.gameObject);
             Object.Destroy(_field.gameObject);

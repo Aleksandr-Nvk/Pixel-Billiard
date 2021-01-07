@@ -11486,7 +11486,7 @@ GameObject:
   - component: {fileID: 1263209614}
   - component: {fileID: 1263209613}
   m_Layer: 0
-  m_Name: Controls
+  m_Name: InputManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12105,6 +12105,7 @@ MonoBehaviour:
     type: 3}
   _audioManager: {fileID: 842866263}
   _animations: {fileID: 1600854501}
+  _inputManager: {fileID: 1263209613}
   _homeView: {fileID: 1795267464}
   _settingsView: {fileID: 423533799}
   _gameSessionView: {fileID: 60588398652385770}
@@ -13270,7 +13271,6 @@ MonoBehaviour:
   _pauseButton: {fileID: 60588397705875411}
   _firstPlayerView: {fileID: 2600127494757250780}
   _secondPlayerView: {fileID: 1249708663150880050}
-  _pauseView: {fileID: 60588397637166811}
 --- !u!1 &60588398652385772
 GameObject:
   m_ObjectHideFlags: 0

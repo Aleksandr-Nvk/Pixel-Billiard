@@ -18,6 +18,7 @@ public class Entry : MonoBehaviour
     
     [SerializeField] private AudioManager _audioManager = default;
     [SerializeField] private Animations _animations = default;
+    [SerializeField] private InputManager _inputManager = default;
 
     [Header("Views")]
     
@@ -39,7 +40,7 @@ public class Entry : MonoBehaviour
         var fieldFactory = new Func<Triangle, Field>(triangle =>
         {
             var field = Instantiate(_fieldPrefab);
-            field.Init(triangle.AllBalls, triangle.WhiteBall);
+            field.Init(triangle.AllBalls, triangle.WhiteBall, _inputManager);
 
             return field;
         });
@@ -47,14 +48,14 @@ public class Entry : MonoBehaviour
         var cueFactory = new Func<Triangle, Field, Cue>((triangle, field) =>
         {
             var cue = Instantiate(_cuePrefab);
-            cue.Init(triangle.WhiteBall, field, _animations);
+            cue.Init(triangle.WhiteBall, field, _inputManager, _animations);
             
             return cue;
         });
         
         // Model-View initializations
         
-        var gameSession = new GameSession(ballsFactory, fieldFactory, cueFactory);
+        var gameSession = new GameSession(ballsFactory, fieldFactory, cueFactory, _inputManager);
         _gameSessionView.Init(gameSession);
 
         _homeView.Init(gameSession);

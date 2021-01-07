@@ -6,50 +6,45 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField] private Camera _mainCamera = default;
     
-    public static Action<Vector3> OnTouchDown;
-    public static Action<Vector3> OnTouchDrag;
-    public static Action<Vector3> OnTouchUp;
+    public Action<Vector3> OnTouchDown;
+    public Action<Vector3> OnTouchDrag;
+    public Action<Vector3> OnTouchUp;
 
-    private static Vector3 _touchDownPosition;
-    private static Vector3 _touchDragPosition;
-    private static Vector3 _touchUpPosition;
+    private Vector3 _touchDownPosition;
+    private Vector3 _touchDragPosition;
+    private Vector3 _touchUpPosition;
+    
+    private Coroutine _inputChecker;
 
-    private static Camera _camera;
-
-    private static InputManager _instance;
-
-    private static Coroutine _inputChecker;
-
-    private void Start()
-    {
-        _instance = this;
-        _camera = _mainCamera;
-    }
+    private bool _isChecking;
 
     /// <summary>
     /// Starts checking input
     /// </summary>
-    public static void StartTracking()
+    public void StartChecking()
     {
-        _inputChecker = _instance.StartCoroutine(CheckInput());
+        if (!_isChecking)
+            _inputChecker = StartCoroutine(CheckInput());
+        _isChecking = true;
     }
 
     /// <summary>
     /// Stops checking input
     /// </summary>
-    public static void StopTracking()
+    public void StopChecking()
     {
-        if (_inputChecker != null)
-            _instance.StopCoroutine(_inputChecker);
+        if (_isChecking)
+            StopCoroutine(_inputChecker);
+        _isChecking = false;
     }
 
-    private static IEnumerator CheckInput()
+    private IEnumerator CheckInput()
     {
         yield return new WaitForEndOfFrame();
         
         while (true)
         {
-            
+
     #if  UNITY_EDITOR
         
             if (Input.GetMouseButtonDown(0))
@@ -60,13 +55,12 @@ public class InputManager : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 _touchDragPosition = GetClickPosition();
-                if (_touchDragPosition != _touchDownPosition)
-                    OnTouchDrag?.Invoke(_touchDragPosition);
+                if (_touchDragPosition != _touchDownPosition) OnTouchDrag?.Invoke(_touchDragPosition);
             }
             if (Input.GetMouseButtonUp(0))
             {
                 _touchUpPosition = GetClickPosition();
-                OnTouchUp?.Invoke(_touchUpPosition);
+                if (_touchUpPosition != _touchDownPosition) OnTouchUp?.Invoke(_touchUpPosition);
             }
         
     #endif
@@ -76,17 +70,15 @@ public class InputManager : MonoBehaviour
                 _touchDownPosition = GetTouchPosition();
                 OnTouchDown?.Invoke(_touchDownPosition);
             }
-
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
             {
                 _touchDragPosition = GetTouchPosition();
                 OnTouchDrag?.Invoke(_touchDragPosition);
             }
-
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
             {
                 _touchUpPosition = GetTouchPosition();
-                OnTouchUp?.Invoke(_touchUpPosition);
+                if (_touchUpPosition != _touchDownPosition) OnTouchUp?.Invoke(_touchUpPosition);
             }
 
             yield return null;
@@ -97,17 +89,11 @@ public class InputManager : MonoBehaviour
     /// Converts Vector2 mouse position into Vector3 world position
     /// </summary>
     /// <returns> Mouse click world position </returns>
-    private static Vector3 GetClickPosition()
-    {
-        return _camera.ScreenToWorldPoint(Input.mousePosition);
-    }
+    private Vector3 GetClickPosition() => _mainCamera.ScreenToWorldPoint(Input.mousePosition);
     
     /// <summary>
     /// Converts Vector2 touch position into Vector3 world position
     /// </summary>
     /// <returns> Touch world position </returns>
-    private static Vector3 GetTouchPosition()
-    {
-        return _camera.ScreenToWorldPoint(Input.GetTouch(0).position);
-    }
+    private Vector3 GetTouchPosition() => _mainCamera.ScreenToWorldPoint(Input.GetTouch(0).position);
 }

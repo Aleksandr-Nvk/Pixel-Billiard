@@ -11,18 +11,22 @@ namespace FieldData
         public Action<List<Ball>> OnBallsStopped;
 
         private Ball[] _allBalls;
-        
+
         private readonly List<Ball> _rolledBalls = new List<Ball>();
+
+        private InputManager _inputManager;
 
         private WhiteBall _whiteBall;
         
         private bool _isCheckingBallsMovement;
         private bool _areAllBallsStopped;
 
-        public void Init(Ball[] allBalls, WhiteBall whiteBall)
+        public void Init(Ball[] allBalls, WhiteBall whiteBall, InputManager inputManager)
         {
             _allBalls = allBalls;
             _whiteBall = whiteBall;
+
+            _inputManager = inputManager;
         }
         
         private void ResetWhiteBall()
@@ -36,7 +40,7 @@ namespace FieldData
         /// </summary>
         public void CheckBallsMovement()
         {
-            InputManager.StopTracking();
+            _inputManager.StopChecking();
             
             if (!_isCheckingBallsMovement)
                 StartCoroutine(Check());
@@ -70,7 +74,7 @@ namespace FieldData
                 ResetWhiteBall();
                 _rolledBalls.Clear();
                 
-                InputManager.StartTracking();
+                _inputManager.StartChecking();
             }
         }
         

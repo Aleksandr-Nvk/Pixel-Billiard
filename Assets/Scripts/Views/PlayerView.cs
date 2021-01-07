@@ -25,6 +25,11 @@ namespace Views
 
         public void Init(Player player, MoveManager moveManager)
         {
+            _playerBallIndex = 0;
+
+            foreach (var ballIcon in PlayerBallIcons)
+                ballIcon.enabled = false;
+            
             Player = player;
             
             moveManager.OnPlayerSwitched += SwitchToPlayer;
@@ -40,7 +45,7 @@ namespace Views
             _canvasGroup.gameObject.SetActive(true);
 
             if (_currentAnimation != null) StopCoroutine(_currentAnimation);
-            _currentAnimation = StartCoroutine(_animations.Fade(_canvasGroup, 1f, 0.5f));
+            _currentAnimation = StartCoroutine(_animations.Fade(_canvasGroup, targetAlpha: 1f, duration: 0.5f));
             
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
@@ -54,12 +59,12 @@ namespace Views
             IEnumerator Hide()
             {
                 _canvasGroup.interactable = false;
-                yield return _animations.Fade(_canvasGroup, 0f, 0.5f);
+                yield return _animations.Fade(_canvasGroup, targetAlpha: 0f, duration: 0.5f);
                 gameObject.SetActive(false);
                 _canvasGroup.blocksRaycasts = false;
             }
         }
-        
+
         private void SwitchToPlayer(Player playerToSwitchTo)
         {
             _pointer.enabled = Player == playerToSwitchTo;
