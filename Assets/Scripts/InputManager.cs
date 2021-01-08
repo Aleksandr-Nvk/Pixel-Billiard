@@ -10,6 +10,8 @@ public class InputManager : MonoBehaviour
     public Action<Vector3> OnTouchDrag;
     public Action<Vector3> OnTouchUp;
 
+    public Action OnEscapeButtonDown;
+    
     private Vector3 _touchDownPosition;
     private Vector3 _touchDragPosition;
     private Vector3 _touchUpPosition;
@@ -44,9 +46,6 @@ public class InputManager : MonoBehaviour
         
         while (true)
         {
-
-    #if  UNITY_EDITOR
-        
             if (Input.GetMouseButtonDown(0))
             {
                 _touchDownPosition = GetClickPosition();
@@ -62,24 +61,9 @@ public class InputManager : MonoBehaviour
                 _touchUpPosition = GetClickPosition();
                 if (_touchUpPosition != _touchDownPosition) OnTouchUp?.Invoke(_touchUpPosition);
             }
-        
-    #endif
 
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                _touchDownPosition = GetTouchPosition();
-                OnTouchDown?.Invoke(_touchDownPosition);
-            }
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
-            {
-                _touchDragPosition = GetTouchPosition();
-                OnTouchDrag?.Invoke(_touchDragPosition);
-            }
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
-            {
-                _touchUpPosition = GetTouchPosition();
-                if (_touchUpPosition != _touchDownPosition) OnTouchUp?.Invoke(_touchUpPosition);
-            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+                OnEscapeButtonDown?.Invoke();
 
             yield return null;
         }

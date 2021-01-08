@@ -1,7 +1,8 @@
-using System;
+using UnityEngine.Advertisements;
 using UnityEngine;
 using FieldData;
 using CueData;
+using System;
 using Models;
 using Balls;
 using Views;
@@ -30,6 +31,8 @@ public class Entry : MonoBehaviour
     
     private void Awake()
     {
+        Advertisement.Initialize("3966907", true);
+        
         var ballsFactory = new Func<Triangle>(() =>
         {
             var triangle = Instantiate(_trianglePrefab);

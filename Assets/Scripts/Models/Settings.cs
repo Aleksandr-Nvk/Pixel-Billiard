@@ -13,7 +13,7 @@ namespace Models
         private bool _isMusicMuted;
         private bool _isBallSoundMuted;
 
-        private const string _infoUrl = "https://t.me/oduvaanchikk";
+        private const string _infoUrl = "https://www.eulatemplate.com/live.php?token=iBicDRcFQYwWv6j16iMEzOKEtxwDys87";
 
         public Settings(AudioManager audioManager)
         {

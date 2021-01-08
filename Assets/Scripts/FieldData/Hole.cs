@@ -13,8 +13,6 @@ namespace FieldData
         
             _field.AddRolledBall(ball);
             ball.Roll();
-        
-            Debug.Log($"{ballCollider.gameObject.name} rolled!");
         }
     }
 }

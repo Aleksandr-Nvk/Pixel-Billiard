@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 using System;
 using Balls;
 using Models;
@@ -15,7 +14,7 @@ namespace FieldData
         private readonly Player _firstPlayer;
         private readonly Player _secondPlayer;
 
-        private GameSession _gameSession;
+        private readonly GameSession _gameSession;
         
         private bool _hasToSwitch;
 
@@ -101,8 +100,6 @@ namespace FieldData
                     : _firstPlayer;
                 
                 OnPlayerSwitched?.Invoke(CurrentPlayer);
-            
-                Debug.Log($"Switched to {CurrentPlayer.Name}");
                 
                 _hasToSwitch = false;
             }
@@ -114,15 +111,12 @@ namespace FieldData
         /// <param name="ball"> First rolled color ball </param>
         private void SetPlayersBallType(Ball ball)
         {
-            CurrentPlayer.HasStripedBalls = ((ColorBall)ball).IsStriped;
+            CurrentPlayer.HasStripedBalls = ((ColorBall) ball).IsStriped;
 
             var opponent = CurrentPlayer == _firstPlayer
                 ? _secondPlayer
                 : _firstPlayer;
-            opponent.HasStripedBalls = !((ColorBall)ball).IsStriped;
-
-            Debug.Log($"{_firstPlayer.Name}: is striped: {_firstPlayer.HasStripedBalls}, " +
-                      $"{_secondPlayer.Name}: is striped: {_secondPlayer.HasStripedBalls}");
+            opponent.HasStripedBalls = !((ColorBall) ball).IsStriped;
         }
     }
 }

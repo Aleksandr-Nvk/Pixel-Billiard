@@ -1,9 +1,10 @@
+using Object = UnityEngine.Object;
+using UnityEngine;
+using FieldData;
+using CueData;
 using System;
 using Balls;
-using CueData;
-using FieldData;
-using UnityEngine;
-using Object = UnityEngine.Object;
+using UnityEngine.Advertisements;
 
 namespace Models
 {
@@ -33,6 +34,8 @@ namespace Models
         public GameSession(Func<Triangle> ballsFactory, Func<Triangle, Field> fieldFactory,
             Func<Triangle, Field, Cue> cueFactory, InputManager inputManager)
         {
+            inputManager.OnEscapeButtonDown += Pause;
+            
             _ballsFactory = ballsFactory;
             _cueFactory = cueFactory;
             _fieldFactory = fieldFactory;
@@ -40,7 +43,7 @@ namespace Models
             _inputManager = inputManager;
         }
     
-        public void Start(string firstPlayerName, string secondPlayerName, bool callSilently = false)
+        public void Start(string firstPlayerName, string secondPlayerName)
         {
             _triangle = _ballsFactory();
             _field = _fieldFactory(_triangle);
@@ -50,31 +53,38 @@ namespace Models
             SecondPlayer = new Player(secondPlayerName);
             MoveManager = new MoveManager(_field, FirstPlayer, SecondPlayer, this);
 
-            Resume(true);
-
-            if (!callSilently)
-                OnSessionStarted?.Invoke();
+            ResumeInternal();
+            
+            OnSessionStarted?.Invoke();
         }
 
-        public void Pause(bool callSilently = false)
+        public void Pause()
         {
             Time.timeScale = 0f;
             _inputManager.StopChecking();
             
-            if (!callSilently)
-                OnSessionPaused?.Invoke();
+            OnSessionPaused?.Invoke();
+        }
+        private void PauseInternal()
+        {
+            Time.timeScale = 0f;
+            _inputManager.StopChecking();
         }
         
-        public void Resume(bool callSilently = false)
+        public void Resume()
         {
             Time.timeScale = 1f;
             _inputManager.StartChecking();
             
-            if (!callSilently)
-                OnSessionResumed?.Invoke();
+            OnSessionResumed?.Invoke();
+        }
+        private void ResumeInternal()
+        {
+            Time.timeScale = 1f;
+            _inputManager.StartChecking();
         }
 
-        public void Restart(bool callSilently = false)
+        public void Restart()
         {
             Object.Destroy(_triangle.gameObject);
             Object.Destroy(_field.gameObject);
@@ -82,11 +92,10 @@ namespace Models
             
             Start(FirstPlayer.Name, SecondPlayer.Name);
             
-            if (!callSilently)
-                OnSessionRestarted?.Invoke();
+            OnSessionRestarted?.Invoke();
         }
 
-        public void Exit(bool callSilently = false)
+        public void Exit()
         {
             Time.timeScale = 1f;
             _inputManager.StopChecking();
@@ -95,16 +104,15 @@ namespace Models
             Object.Destroy(_field.gameObject);
             Object.Destroy(_cue.gameObject);
             
-            if (!callSilently)
-                OnSessionExited?.Invoke();
+            OnSessionExited?.Invoke();
         }
 
-        public void End(Player winner, bool callSilently = false)
+        public void End(Player winner)
         {
-            Pause(callSilently: true);
-
-            if (!callSilently)
-                OnSessionEnded?.Invoke(winner);
+            PauseInternal();
+            Advertisement.Show("video");
+            
+            OnSessionEnded?.Invoke(winner);
         }
     }
 }

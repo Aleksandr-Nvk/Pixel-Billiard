@@ -56,7 +56,7 @@ namespace Views
             _canvasGroup.gameObject.SetActive(true);
             
             if (_currentAnimation != null) StopCoroutine(_currentAnimation);
-            _currentAnimation = StartCoroutine(_animations.Fade(_canvasGroup, targetAlpha: 1f, duration: 0.5f));
+            _currentAnimation = StartCoroutine(_animations.Fade(_canvasGroup, targetAlpha: 1f, duration: 0.25f));
             
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
@@ -72,7 +72,7 @@ namespace Views
             IEnumerator Hide()
             {
                 _canvasGroup.interactable = false;
-                yield return _animations.Fade(_canvasGroup, targetAlpha: 0f, duration: 0.5f);
+                yield return _animations.Fade(_canvasGroup, targetAlpha: 0f, duration: 0.25f);
                 _canvasGroup.gameObject.SetActive(false);
                 _canvasGroup.blocksRaycasts = false;
             }
