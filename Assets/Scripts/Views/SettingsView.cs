@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using Zenject;
 using System;
 using Models;
 
@@ -32,16 +33,15 @@ namespace Views
         
         private Coroutine _currentAnimation;
 
+        [Inject]
         public void Init(Settings settings)
         {
-            _closeButton.onClick.AddListener(Hide);
-            
-            _musicButton.onClick.AddListener(settings.SwitchMusic);
             settings.OnMusicStateChanged += () => { SwitchIcon(_musicButtonImage, _musicOnIcon, _musicOffIcon); };
-            
-            _soundButton.onClick.AddListener(settings.SwitchSound);
             settings.OnSoundStateChanged += () => { SwitchIcon(_soundButtonImage, _soundOnIcon, _soundOffIcon); };
             
+            _closeButton.onClick.AddListener(Hide);
+            _musicButton.onClick.AddListener(settings.SwitchMusic);
+            _soundButton.onClick.AddListener(settings.SwitchSound);
             _infoButton.onClick.AddListener(settings.GetInfo);
         }
         

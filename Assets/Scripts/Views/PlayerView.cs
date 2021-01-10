@@ -23,7 +23,7 @@ namespace Views
         private int _playerBallIndex;
 
         private Coroutine _currentAnimation;
-
+        
         public void Init(Player player, MoveManager moveManager)
         {
             Player = player;

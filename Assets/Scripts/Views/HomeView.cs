@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using Zenject;
 using Models;
 using TMPro;
 
@@ -25,6 +26,7 @@ namespace Views
 
         private Coroutine _currentAnimation;
 
+        [Inject]
         public void Init(GameSession gameSession)
         {
             gameSession.OnSessionExited += Show;

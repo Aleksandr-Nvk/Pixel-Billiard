@@ -7,12 +7,12 @@ namespace FieldData
     {
         [SerializeField] private Field _field = default;
 
-        private void OnTriggerEnter2D(Collider2D ballCollider)
+        private void OnTriggerEnter2D(Collider2D ballCollision)
         {
-            var ball = ballCollider.gameObject.GetComponent<Ball>();
+            var ball = ballCollision.gameObject.GetComponent<Ball>();
         
-            _field.AddRolledBall(ball);
             ball.Roll();
+            _field.AddRolledBall(ball);
         }
     }
 }

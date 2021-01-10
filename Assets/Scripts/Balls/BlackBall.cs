@@ -1,4 +1,4 @@
 namespace Balls
 {
-    public class BlackBall : Ball { }
+    public class BlackBall : Ball {}
 }

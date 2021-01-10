@@ -1,6 +1,6 @@
-using System;
 using System.Collections;
 using UnityEngine;
+using System;
 
 public class Animations : MonoBehaviour
 {

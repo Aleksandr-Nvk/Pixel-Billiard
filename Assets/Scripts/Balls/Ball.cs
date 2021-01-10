@@ -30,23 +30,17 @@ namespace Balls
                 _audioManager.PlayBallHitSound();
         }
 
-        /// <summary>
-        /// Rolls a ball
-        /// </summary>
         public virtual void Roll()
         {
             gameObject.SetActive(false);
         }
-
-        /// <summary>
-        /// Resets ball's data
-        /// </summary>
+        
         public virtual void ResetBall()
         {
             _rigidbody.velocity = Vector2.zero;
-            
             transform.position = _startPosition;
             transform.rotation = _startRotation;
+            
             gameObject.SetActive(true);
         }
     }

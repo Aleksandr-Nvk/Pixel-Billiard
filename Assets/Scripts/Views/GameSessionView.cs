@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using Zenject;
 using Models;
 
 namespace Views
@@ -23,6 +24,7 @@ namespace Views
         
         private Coroutine _currentAnimation;
 
+        [Inject]
         public void Init(GameSession gameSession)
         {
             _gameSession = gameSession;
@@ -32,7 +34,7 @@ namespace Views
             gameSession.OnSessionResumed += Show;
             gameSession.OnSessionEnded += _ => Hide();
             
-            _pauseButton.onClick.AddListener(() => gameSession.Pause());
+            _pauseButton.onClick.AddListener(gameSession.Pause);
             _pauseButton.onClick.AddListener(Hide);
         }
         
@@ -69,10 +71,14 @@ namespace Views
             _secondPlayerView.Hide();
         }
         
+        /// <summary>
+        /// Initializes information for the first and second player views
+        /// </summary>
         private void InitPlayers()
         {
             _firstPlayerView.Init(_gameSession.FirstPlayer, _gameSession.MoveManager);
             _firstPlayerView.Show();
+            
             _secondPlayerView.Init(_gameSession.SecondPlayer, _gameSession.MoveManager);
             _secondPlayerView.Show();
         }

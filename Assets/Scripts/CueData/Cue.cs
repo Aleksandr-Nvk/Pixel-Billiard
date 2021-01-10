@@ -1,9 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Balls;
-using FieldData;
+using System.Collections;
 using UnityEngine;
+using FieldData;
+using System;
+using Balls;
 
 namespace CueData
 {
@@ -88,50 +88,41 @@ namespace CueData
             _whiteBall.OnReset -= AlignWithWhiteBall;
             _field.OnBallsStopped -= _onBallsStopped;
         }
-
-        /// <summary>
-        /// Rotates the cue depending on touch position
-        /// </summary>
+        
         private void Rotate(Vector3 touchDragPosition)
         {
-            var tempTransform = _cuePeak.transform;
-            tempTransform.LookAt(touchDragPosition, Vector3.back);
+            var cachedTransform = _cuePeak.transform;
+            cachedTransform.LookAt(touchDragPosition, Vector3.back);
         
-            _currentCuePeakRotation.z = tempTransform.eulerAngles.z;
+            _currentCuePeakRotation.z = cachedTransform.eulerAngles.z;
             _cuePeak.transform.eulerAngles = -_currentCuePeakRotation;
         }
-
-        /// <summary>
-        /// Moves the cue depending on touch position
-        /// </summary>
+        
         private void Move(Vector3 touchDragPosition)
         {
             var touchDownRadius = Vector2.Distance(_whiteBall.gameObject.transform.position, _touchDownPosition);
             var touchDragRadius = Vector2.Distance(_whiteBall.gameObject.transform.position, touchDragPosition);
-
             var offset = (touchDownRadius - touchDragRadius) * _sensitivity;
             var clampedOffset = Mathf.Clamp(offset, -_maxCueOffset, 0f);
             _currentCuePosition.y = clampedOffset;
+            
             _cue.localPosition = _currentCuePosition;
-
             _currentForce = Mathf.Abs(clampedOffset) * _force;
         }
-    
-        /// <summary>
-        /// Sets cue position to the white ball position
-        /// </summary>
+        
         private void AlignWithWhiteBall()
         {
             _cuePeak.position = _whiteBall.gameObject.transform.position;
             _cuePeak.rotation = Quaternion.identity;
 
             gameObject.SetActive(true);
+            
             StopCoroutine(_currentFadeAnimation);
             _currentFadeAnimation = StartCoroutine(_animations.Fade(_cueRenderer, targetAlpha: 1f, duration: 0.25f));
         }
-    
+        
         /// <summary>
-        /// Pulls the white ball with specific force to the specific direction
+        /// Runs hit animation and adds force to a white ball
         /// </summary>
         private void Hit()
         {
@@ -143,7 +134,7 @@ namespace CueData
                 yield return _animations.Move(_cue, Vector3.zero, duration: 0.025f, isLocal: true);
                 
                 Vector2 direction = (-(_touchUpPosition - _cuePeak.position)).normalized;
-                _whiteBall.Hit(_currentForce * direction, ForceMode2D.Impulse);
+                _whiteBall.Hit(force: _currentForce * direction, ForceMode2D.Impulse);
                 
                 _field.CheckBallsMovement();
                 

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using Zenject;
 using Models;
 
 namespace Views
@@ -22,14 +23,15 @@ namespace Views
 
         private Coroutine _currentAnimation;
         
+        [Inject()]
         public void Init(GameSession gameSession)
         {
             gameSession.OnSessionPaused += Show;
             gameSession.OnSessionResumed += Hide;
             gameSession.OnSessionExited += Hide;
 
-            _homeButton.onClick.AddListener(() => gameSession.Exit());
-            _resumeButton.onClick.AddListener(() => gameSession.Resume());
+            _homeButton.onClick.AddListener(gameSession.Exit);
+            _resumeButton.onClick.AddListener(gameSession.Resume);
             _settingsButton.onClick.AddListener(Hide);
             _settingsButton.onClick.AddListener(() => _settingsView.Show(Show));
         }

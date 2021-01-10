@@ -27,6 +27,7 @@ public class InputManager : MonoBehaviour
     {
         if (!_isChecking)
             _inputChecker = StartCoroutine(CheckInput());
+        
         _isChecking = true;
     }
 
@@ -37,6 +38,7 @@ public class InputManager : MonoBehaviour
     {
         if (_isChecking)
             StopCoroutine(_inputChecker);
+        
         _isChecking = false;
     }
 
@@ -74,10 +76,4 @@ public class InputManager : MonoBehaviour
     /// </summary>
     /// <returns> Mouse click world position </returns>
     private Vector3 GetClickPosition() => _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-    
-    /// <summary>
-    /// Converts Vector2 touch position into Vector3 world position
-    /// </summary>
-    /// <returns> Touch world position </returns>
-    private Vector3 GetTouchPosition() => _mainCamera.ScreenToWorldPoint(Input.GetTouch(0).position);
 }

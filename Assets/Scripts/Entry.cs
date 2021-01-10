@@ -2,12 +2,13 @@ using UnityEngine.Advertisements;
 using UnityEngine;
 using FieldData;
 using CueData;
+using Zenject;
 using System;
 using Models;
 using Balls;
 using Views;
 
-public class Entry : MonoBehaviour
+public class Entry : MonoInstaller
 {
     [Header("Prefabs for factories")]
     
@@ -29,7 +30,7 @@ public class Entry : MonoBehaviour
     [SerializeField] private PauseView _pauseView = default;
     [SerializeField] private GameOverView _gameOverView = default;
     
-    private void Awake()
+    public override void InstallBindings()
     {
         Advertisement.Initialize("3966907", true);
         
@@ -57,18 +58,20 @@ public class Entry : MonoBehaviour
             return cue;
         });
         
-        // Model-View initializations
-        
-        var gameSession = new GameSession(ballsFactory, fieldFactory, cueFactory, _inputManager);
-        _gameSessionView.Init(gameSession);
+        // Injections
 
-        _homeView.Init(gameSession);
+        Container.Bind<InputManager>().FromInstance(_inputManager).AsSingle();
         
-        var settings = new Settings(_audioManager);
-        _settingsView.Init(settings);
+        Container.Bind<GameSession>().FromNew().AsSingle().WithArguments(ballsFactory, cueFactory, fieldFactory);
+        Container.Bind<GameSessionView>().FromInstance(_gameSessionView).AsSingle();
         
-        _pauseView.Init(gameSession);
+        Container.Bind<HomeView>().FromInstance(_homeView).AsSingle();
+
+        Container.Bind<Settings>().FromNew().AsSingle().WithArguments(_audioManager);
+        Container.Bind<SettingsView>().FromInstance(_settingsView).AsSingle();
         
-        _gameOverView.Init(gameSession);
+        Container.Bind<PauseView>().FromInstance(_pauseView).AsSingle();
+        
+        Container.Bind<GameOverView>().FromInstance(_gameOverView).AsSingle();
     }
 }

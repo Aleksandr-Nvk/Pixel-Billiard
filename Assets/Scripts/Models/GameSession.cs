@@ -1,10 +1,10 @@
 using Object = UnityEngine.Object;
+using UnityEngine.Advertisements;
 using UnityEngine;
 using FieldData;
 using CueData;
 using System;
 using Balls;
-using UnityEngine.Advertisements;
 
 namespace Models
 {
@@ -34,13 +34,12 @@ namespace Models
         public GameSession(Func<Triangle> ballsFactory, Func<Triangle, Field> fieldFactory,
             Func<Triangle, Field, Cue> cueFactory, InputManager inputManager)
         {
-            inputManager.OnEscapeButtonDown += Pause;
-            
             _ballsFactory = ballsFactory;
             _cueFactory = cueFactory;
             _fieldFactory = fieldFactory;
             
             _inputManager = inputManager;
+            inputManager.OnEscapeButtonDown += Pause;
         }
     
         public void Start(string firstPlayerName, string secondPlayerName)
@@ -60,9 +59,7 @@ namespace Models
 
         public void Pause()
         {
-            Time.timeScale = 0f;
-            _inputManager.StopChecking();
-            
+            PauseInternal();
             OnSessionPaused?.Invoke();
         }
         private void PauseInternal()
@@ -73,9 +70,7 @@ namespace Models
         
         public void Resume()
         {
-            Time.timeScale = 1f;
-            _inputManager.StartChecking();
-            
+            ResumeInternal();
             OnSessionResumed?.Invoke();
         }
         private void ResumeInternal()

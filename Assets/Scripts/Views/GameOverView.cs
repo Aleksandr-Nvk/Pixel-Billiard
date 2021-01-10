@@ -1,9 +1,10 @@
 using System.Collections;
+using UnityEngine.UI;
+using UnityEngine;
 using FieldData;
+using Zenject;
 using Models;
 using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace Views
 {
@@ -21,15 +22,15 @@ namespace Views
         
         private Coroutine _currentAnimation;
 
+        [Inject]
         public void Init(GameSession gameSession)
         {
             gameSession.OnSessionEnded += Show;
-            _restartButton.onClick.AddListener(() => gameSession.Restart());
-            _homeButton.onClick.AddListener(() => gameSession.Exit());
-
-            gameSession.OnSessionEnded += Show;
             gameSession.OnSessionExited += Hide;
             gameSession.OnSessionRestarted += Hide;
+            
+            _restartButton.onClick.AddListener(gameSession.Restart);
+            _homeButton.onClick.AddListener(gameSession.Exit);
         }
 
         private void Show(Player winner)

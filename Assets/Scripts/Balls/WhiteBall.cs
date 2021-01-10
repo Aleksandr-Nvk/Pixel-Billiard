@@ -24,15 +24,10 @@ namespace Balls
             OnReset?.Invoke();
         }
 
-        /// <summary>
-        /// Hits the white ball within physics
-        /// </summary>
-        /// <param name="force"> Hit force </param>
-        /// <param name="forceMode"> Force mode </param>
         public void Hit(Vector3 force, ForceMode2D forceMode)
         {
-            _audioManager.PlayBallHitSound();
             _rigidbody.AddForce(force, forceMode);
+            _audioManager.PlayBallHitSound();
         }
     }
 }

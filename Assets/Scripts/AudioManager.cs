@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    [Header("Sources")]
+    
     [SerializeField] private AudioSource _uiSource = default;
     [SerializeField] private AudioSource _ballSource = default;
     [SerializeField] private AudioSource _musicSource = default;
+
+    [Header("Clips")]
 
     [SerializeField] private AudioClip _uiTap = default;
     [SerializeField] private AudioClip _ballHit = default;

@@ -9,13 +9,11 @@ namespace FieldData
     public class Field : MonoBehaviour
     {
         public Action<List<Ball>> OnBallsStopped;
-
+        
+        private readonly List<Ball> _rolledBalls = new List<Ball>();
         private Ball[] _allBalls;
 
-        private readonly List<Ball> _rolledBalls = new List<Ball>();
-
         private InputManager _inputManager;
-
         private WhiteBall _whiteBall;
         
         private bool _isCheckingBallsMovement;
@@ -25,18 +23,11 @@ namespace FieldData
         {
             _allBalls = allBalls;
             _whiteBall = whiteBall;
-
             _inputManager = inputManager;
         }
-        
-        private void ResetWhiteBall()
-        {
-            if (_whiteBall.IsRolled)
-                _whiteBall.ResetBall();
-        }
-        
+
         /// <summary>
-        /// Checks if the balls move
+        /// Check whether all active balls are moving
         /// </summary>
         public void CheckBallsMovement()
         {
@@ -69,8 +60,8 @@ namespace FieldData
                 } while (!_areAllBallsStopped);
 
                 OnBallsStopped?.Invoke(_rolledBalls);
+                
                 _isCheckingBallsMovement = false;
-
                 ResetWhiteBall();
                 _rolledBalls.Clear();
                 
@@ -78,13 +69,15 @@ namespace FieldData
             }
         }
         
-        /// <summary>
-        /// Adds a new ball to rolled balls list
-        /// </summary>
-        /// <param name="rolledBall"> Rolled ball </param>
         public void AddRolledBall(Ball rolledBall)
         {
             _rolledBalls.Add(rolledBall);
+        }
+        
+        private void ResetWhiteBall()
+        {
+            if (_whiteBall.IsRolled)
+                _whiteBall.ResetBall();
         }
     }
 }
