@@ -10,11 +10,11 @@ public class Animations : MonoBehaviour
         {
             var lerpTime = 0f;
             var condition = (isLocal ? transform.localPosition : transform.position) != targetPosition;
-            var cachedStartPosition = isLocal ? transform.localPosition : transform.position;
+            var startPosition = isLocal ? transform.localPosition : transform.position;
                 
             while (condition)
             {
-                var newPosition = Vector3.Lerp(cachedStartPosition, targetPosition, lerpTime / duration);
+                var newPosition = Vector3.Lerp(startPosition, targetPosition, lerpTime / duration);
                     
                 if (isLocal)
                 {
@@ -40,13 +40,13 @@ public class Animations : MonoBehaviour
         IEnumerator Animation()
         {
             var lerpTime = 0f;
-            var cachedStartColor = spriteRenderer.color;
-            var targetColor = spriteRenderer.color;
+            var startColor = spriteRenderer.color;
+            var targetColor = startColor;
             targetColor.a = targetAlpha;
 
             while(Math.Abs(spriteRenderer.color.a - targetAlpha) > 0.0001f)
             {
-                spriteRenderer.color = Color.Lerp(cachedStartColor, targetColor, lerpTime / duration);
+                spriteRenderer.color = Color.Lerp(startColor, targetColor, lerpTime / duration);
 
                 lerpTime += Time.unscaledDeltaTime;
                 yield return null;
@@ -61,11 +61,11 @@ public class Animations : MonoBehaviour
         IEnumerator Animation()
         {
             var lerpTime = 0f;
-            var cachedStartAlpha = canvasGroup.alpha;
+            var startAlpha = canvasGroup.alpha;
 
             while(Math.Abs(canvasGroup.alpha - targetAlpha) > 0.0001f)
             {
-                canvasGroup.alpha = Mathf.Lerp(cachedStartAlpha, targetAlpha, lerpTime / duration);
+                canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, lerpTime / duration);
 
                 lerpTime += Time.unscaledDeltaTime;
                 yield return null;

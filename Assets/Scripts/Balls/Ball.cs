@@ -6,7 +6,7 @@ namespace Balls
     {
         [SerializeField] protected Rigidbody2D _rigidbody = default;
 
-        public bool IsStopped => _rigidbody.velocity.sqrMagnitude < 0.0001f;
+        public bool IsRolling => _rigidbody.velocity.sqrMagnitude >= 0.0001f;
         
         protected AudioManager _audioManager;
 

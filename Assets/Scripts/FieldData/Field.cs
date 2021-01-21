@@ -39,32 +39,32 @@ namespace FieldData
             IEnumerator Check()
             {
                 _isCheckingBallsMovement = true;
+                bool hasRollingBalls;
 
                 do
                 {
+                    hasRollingBalls = false;
+                    
                     foreach (var ball in _allBalls)
                     {
-                        if (ball.IsStopped)
+                        if (ball.IsRolling)
                         {
-                            _areAllBallsStopped = true;
-                        }
-                        else
-                        {
-                            _areAllBallsStopped = false;
+                            hasRollingBalls = true;
                             break;
                         }
                     }
-                
+
                     yield return new WaitForFixedUpdate();
-                
-                } while (!_areAllBallsStopped);
+
+                } while (hasRollingBalls);
 
                 OnBallsStopped?.Invoke(_rolledBalls);
-                
                 _isCheckingBallsMovement = false;
-                ResetWhiteBall();
-                _rolledBalls.Clear();
                 
+                if (_whiteBall.IsRolled)
+                    _whiteBall.ResetBall();
+                
+                _rolledBalls.Clear();
                 _inputManager.StartChecking();
             }
         }
@@ -72,12 +72,6 @@ namespace FieldData
         public void AddRolledBall(Ball rolledBall)
         {
             _rolledBalls.Add(rolledBall);
-        }
-        
-        private void ResetWhiteBall()
-        {
-            if (_whiteBall.IsRolled)
-                _whiteBall.ResetBall();
         }
     }
 }

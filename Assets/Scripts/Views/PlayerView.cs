@@ -29,7 +29,7 @@ namespace Views
             Player = player;
             
             moveManager.OnPlayerSwitched += SwitchToPlayer;
-            player.OnBallRolled += AddBallToView;
+            player.OnBallAdded += AddBallToView;
             
             PlayerName.text = player.Name;
 

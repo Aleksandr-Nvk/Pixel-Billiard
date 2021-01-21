@@ -6,13 +6,13 @@ namespace FieldData
 {
     public class Player
     {
-        public string Name { get; private set; }
-
+        public readonly string Name;
+        
         public bool HasStripedBalls;
         
         public int RolledColorBallsCount { get; private set; }
 
-        public Action<Sprite> OnBallRolled;
+        public Action<Sprite> OnBallAdded;
 
         public Player(string name)
         {
@@ -22,7 +22,7 @@ namespace FieldData
         public void AddRolledBall(ColorBall rolledBall)
         {
             RolledColorBallsCount++;
-            OnBallRolled?.Invoke(rolledBall.Icon);
+            OnBallAdded?.Invoke(rolledBall.Icon);
         }
     }
 }

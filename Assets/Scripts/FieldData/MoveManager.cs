@@ -15,8 +15,6 @@ namespace FieldData
 
         private readonly GameSession _gameSession;
         
-        private bool _hasToSwitch;
-
         public MoveManager(Field field, Player firstPlayer, Player secondPlayer, GameSession gameSession)
         {
             CurrentPlayer = firstPlayer;
@@ -34,9 +32,11 @@ namespace FieldData
         /// <param name="rolledBalls"> Balls rolled during the last move </param>
         private void Handle(List<Ball> rolledBalls)
         {
+            var hasToSwitch = false;
+            
             if (rolledBalls.Count == 0) // none of the balls rolled
             {
-                _hasToSwitch = true;
+                hasToSwitch = true;
             }
             else // some ball rolled
             {
@@ -50,9 +50,7 @@ namespace FieldData
                             break;
                     
                         case BlackBall _: // black ball rolled (lose)
-                            var winner = CurrentPlayer == _firstPlayer 
-                                ? _secondPlayer 
-                                : _firstPlayer;
+                            var winner = GetOppositePlayer();
                             _gameSession.End(winner);
                             
                             break;
@@ -69,39 +67,34 @@ namespace FieldData
                             }
                             else // false color type (switch)
                             {
-                                if (CurrentPlayer == _firstPlayer)
-                                    _secondPlayer.AddRolledBall(ball);
-                                else
-                                    _firstPlayer.AddRolledBall(ball);
-
-                                _hasToSwitch = true;
+                                GetOppositePlayer().AddRolledBall(ball);
+                                hasToSwitch = true;
                             }
                             
                             break;
                     
                         case WhiteBall _: // white ball rolled (switch)
-                            _hasToSwitch = true;
+                            hasToSwitch = true;
                             
                             break;
                     }
                 }
             }
         
-            if (_hasToSwitch)
-                SwitchPlayer();
+            if (hasToSwitch) SwitchPlayer();
         }
         
         private void SwitchPlayer()
         {
-            if (_hasToSwitch)
-            {
-                CurrentPlayer = CurrentPlayer == _firstPlayer ? _secondPlayer : _firstPlayer;
-                
-                OnPlayerSwitched?.Invoke(CurrentPlayer);
-                _hasToSwitch = false;
-            }
+            CurrentPlayer = GetOppositePlayer();
+            OnPlayerSwitched?.Invoke(CurrentPlayer);
         }
-        
+
+        private Player GetOppositePlayer()
+        {
+            return CurrentPlayer == _firstPlayer ? _secondPlayer : _firstPlayer;
+        }
+
         /// <summary>
         /// Sets a ball type for each player
         /// </summary>
@@ -110,7 +103,7 @@ namespace FieldData
         {
             CurrentPlayer.HasStripedBalls = ((ColorBall) ball).IsStriped;
 
-            var opponent = CurrentPlayer == _firstPlayer ? _secondPlayer : _firstPlayer;
+            var opponent = GetOppositePlayer();
             opponent.HasStripedBalls = !((ColorBall) ball).IsStriped;
         }
     }

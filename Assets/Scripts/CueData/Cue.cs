@@ -37,8 +37,6 @@ namespace CueData
         private Vector3 _touchDragPosition;
         private Vector3 _touchUpPosition;
         
-        private bool _isTouchUp;
-
         private Vector3 _currentCuePosition;
         private Vector3 _currentCuePeakRotation;
         
@@ -47,6 +45,7 @@ namespace CueData
         private Coroutine _currentFadeAnimation;
         
         private Action<List<Ball>> _onBallsStopped;
+        private Action<Vector3> _onTouchDrag;
         
         public void Init(WhiteBall whiteBall, Field field, InputManager inputManager, Animations animations)
         {
@@ -61,32 +60,26 @@ namespace CueData
             _currentCuePeakRotation = _cuePeak.eulerAngles;
 
             inputManager.OnTouchDown += SetTouchDownData;
-            inputManager.OnTouchDrag += Move;
-            inputManager.OnTouchDrag += Rotate;
-            inputManager.OnTouchUp += SetTouchUpData;
+            _onTouchDrag = inputManager.OnTouchDrag += position =>
+            {
+                Move(position);
+                Rotate(position);
+            };
+            inputManager.OnTouchUp += Hit;
+
+            _onBallsStopped = _field.OnBallsStopped += _ => AlignWithWhiteBall();
 
             _whiteBall.OnReset += AlignWithWhiteBall;
-            _onBallsStopped = _field.OnBallsStopped += _ => AlignWithWhiteBall();
-        }
-
-        private void FixedUpdate()
-        {
-            if (_isTouchUp)
-            {
-                Hit();
-                _isTouchUp = false;
-            }
         }
 
         private void OnDestroy()
         {
             _inputManager.OnTouchDown -= SetTouchDownData;
-            _inputManager.OnTouchDrag -= Move;
-            _inputManager.OnTouchDrag -= Rotate;
-            _inputManager.OnTouchUp -= SetTouchUpData;
+            _inputManager.OnTouchDrag -= _onTouchDrag;
+            _inputManager.OnTouchUp -= Hit;
 
-            _whiteBall.OnReset -= AlignWithWhiteBall;
             _field.OnBallsStopped -= _onBallsStopped;
+            _whiteBall.OnReset -= AlignWithWhiteBall;
         }
         
         private void Rotate(Vector3 touchDragPosition)
@@ -118,13 +111,14 @@ namespace CueData
             gameObject.SetActive(true);
             
             StopCoroutine(_currentFadeAnimation);
-            _currentFadeAnimation = StartCoroutine(_animations.Fade(_cueRenderer, targetAlpha: 1f, duration: 0.25f));
+            _currentFadeAnimation =
+                StartCoroutine(_animations.Fade(_cueRenderer, targetAlpha: 1f, duration: 0.25f));
         }
         
         /// <summary>
         /// Runs hit animation and adds force to a white ball
         /// </summary>
-        private void Hit()
+        private void Hit(Vector3 touchUpPosition)
         {
             gameObject.SetActive(true);
             StartCoroutine(Hit());
@@ -133,28 +127,18 @@ namespace CueData
             {
                 yield return _animations.Move(_cue, Vector3.zero, duration: 0.025f, isLocal: true);
                 
-                Vector2 direction = (-(_touchUpPosition - _cuePeak.position)).normalized;
+                var direction = -(touchUpPosition - _cuePeak.position).normalized;
+                yield return new WaitForFixedUpdate();
                 _whiteBall.Hit(force: _currentForce * direction, ForceMode2D.Impulse);
                 
                 _field.CheckBallsMovement();
                 
-                yield return _currentFadeAnimation = StartCoroutine(_animations.Fade(_cueRenderer, targetAlpha: 0f, duration: 0.25f));
+                yield return _currentFadeAnimation =
+                    StartCoroutine(_animations.Fade(_cueRenderer, targetAlpha: 0f, duration: 0.25f));
                 gameObject.SetActive(false);
             }
         }
-
-        #region Input
-    
-        private void SetTouchDownData(Vector3 touchPosition)
-        {
-            _touchDownPosition = touchPosition;
-        }
-        private void SetTouchUpData(Vector3 touchPosition)
-        {
-            _touchUpPosition = touchPosition;
-            _isTouchUp = true;
-        }
         
-        #endregion
+        private void SetTouchDownData(Vector3 touchPosition) => _touchDownPosition = touchPosition;
     }
 }

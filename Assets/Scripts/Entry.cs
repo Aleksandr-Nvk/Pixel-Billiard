@@ -59,10 +59,14 @@ public class Entry : MonoInstaller
         });
         
         // Injections
+        
+        Container.Bind<Func<Triangle>>().FromInstance(ballsFactory).AsSingle();
+        Container.Bind<Func<Triangle, Field>>().FromInstance(fieldFactory).AsSingle();
+        Container.Bind<Func<Triangle, Field, Cue>>().FromInstance(cueFactory).AsSingle();
 
         Container.Bind<InputManager>().FromInstance(_inputManager).AsSingle();
-        
-        Container.Bind<GameSession>().FromNew().AsSingle().WithArguments(ballsFactory, cueFactory, fieldFactory);
+
+        Container.Bind<GameSession>().FromNew().AsSingle();
         Container.Bind<GameSessionView>().FromInstance(_gameSessionView).AsSingle();
         
         Container.Bind<HomeView>().FromInstance(_homeView).AsSingle();
